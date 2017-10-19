@@ -1,0 +1,13 @@
+# src/ProjetWeb/TestBundle/Resources/config/routing.yml
+
+TestBundle_home:
+    path:      /platform
+    defaults: { _controller: ProjetWebTestBundle:Advert:index }
+
+TestBundle_view:
+    path:      /platform/advert/{id}
+    defaults: { _controller: ProjetWebTestBundle:Advert:view }
+
+TestBundle_add:
+    path:      /platform/add
+    defaults: { _controller: ProjetWebTestBundle:Advert:add }

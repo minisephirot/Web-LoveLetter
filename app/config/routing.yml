@@ -1,0 +1,4 @@
+projet_web_test:
+    resource: "@ProjetWebTestBundle/Resources/config/routing.yml"
+    prefix:   /
+
