@@ -8,28 +8,23 @@
 
     <div class="container">
         <div id="header"  class="jumbotron">
-            <h1>Love Letter Online</h1>
-            <p>
-                Ce projet utilise Symfony,
-                et construit Jonathan Shmitt (un peu) et Elliot This.
-            </p>
-            <p>
-                <a class="btn btn-primary btn-lg" href="{{ path('LoveBundle_view',{'id': 1 }) }}">
-                    Jouer !
-                </a>
-            </p>
 
-            <div id="content" class="col-md-9">
+            <h2>Partie numéro {{ game.id }}</h2>
+            <pre>
+                    {{ dump(game.cardsInHand) }}
+            </pre>
+            <ul>
+                {% for key,values in game.cardsInHand %}
+                    <li>{{ key }}</li>
+                    {% for key, value in values %}
+                        <img src="{{ game.cards[value].imageCarte }}" alt="{{ game.cards[value].nomCarte }}">
+                        {{ value }}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
 
-            </div>
         </div>
         <hr>
-
-
-
-        <footer style="color: white">
-            <p>Pas de Copyrights © {{ 'now'|date('Y') }} .</p>
-        </footer>
     </div>
 
 

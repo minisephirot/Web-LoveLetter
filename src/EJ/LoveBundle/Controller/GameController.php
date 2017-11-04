@@ -5,6 +5,7 @@ namespace EJ\LoveBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use EJ\LoveBundle\Entity\Card;
+use EJ\LoveBundle\Entity\Game;
 
 class GameController extends Controller
 {
@@ -20,14 +21,10 @@ class GameController extends Controller
 
     public function viewAction($gameid)
     {
-
-        // On récupère le repository
-        $repository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('EJLoveBundle:Card');
-
+        // Pour l'instant on créer a la visualisation, cette étape sera dans la finalisation du lobby quand on aura un lobby
+        $game = $this->createGame();
         // On récupère l'entité correspondante à l'id $gameid
-        $game = $repository->find($gameid);
+       // $game = $repository->find($gameid);
 
         // $gameid est donc une instance de notre jeu
         // ou null si l'id $gameid  n'existe pas, d'où ce if :
@@ -41,7 +38,37 @@ class GameController extends Controller
         ));
     }
 
-    public function createCards(){
+    public function createGame(){
+        $em = $this->getDoctrine()->getManager();
+
+        $game = new Game();
+        $cardrepository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Card');
+
+        //remplis le jeu des 16 cartes de loveletter
+        $cardlist = $cardrepository->findAll();
+        foreach ($cardlist as $card){
+         $game->addCard($card);
+        }
+        $game->createDeck();
+        //ajoute les joueurs au jeu
+        $game->addPlayers(array('player1','player2','player3'));
+        $game->addCardInHand('player1',0);
+        $game->addCardInHand('player1',1);
+        $game->addCardInHand('player1',11);
+        $game->addCardInHand('player1',12);
+        $game->addCardInHand('player2',6);
+        $game->addCardInHand('player2',5);
+        $game->addCardInHand('player2',7);
+
+        $em->persist($game);
+        $em->flush();
+
+        return $game;
+    }
+
+    public function createCards(){ //cette methode crée les cartes statiques dans la base de donnée, elle ne doit être appellée qu'une fois pas base pour la populer.
         $em = $this->getDoctrine()->getManager();
 
         $c1 = new Card();

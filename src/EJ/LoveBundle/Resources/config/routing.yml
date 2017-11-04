@@ -9,8 +9,8 @@ LoveBundle_home:
         _controller: EJLoveBundle:Game:index
 
 LoveBundle_view:
-    path:      /game/{id}
+    path:      /game/{gameid}
     defaults:
         _controller: EJLoveBundle:Game:view
     requirements:
-        id: \d+
+        gameid: \d+
