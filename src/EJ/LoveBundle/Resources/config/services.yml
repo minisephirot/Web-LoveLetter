@@ -1,0 +1,4 @@
+services:
+#    ej_love.example:
+#        class: EJ\LoveBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

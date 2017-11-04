@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}OC Plateforme{% endblock %}</title>
+        <title>{% block title %}LoveLetter Online{% endblock %}</title>
 
         {% block stylesheets %}
             {# On charge le CSS de bootstrap depuis le site directement #}
@@ -14,44 +14,40 @@
         {% endblock %}
     </head>
 
-    <body>
-        <div class="container">
-            <div id="header" class="jumbotron">
-                <h1>Ma plateforme d'annonces</h1>
-                <p>
-                    Ce projet est propulsé par Symfony,
-                    et construit grâce au MOOC OpenClassrooms et SensioLabs.
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-symfony2">
-                        Participer au MOOC »
-                    </a>
-                </p>
-            </div>
-
-            <div class="row">
-                <div id="menu" class="col-md-3">
-                    <h3>Les annonces</h3>
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a href="{{ path('TestBundle_home') }}">Accueil</a></li>
-                        <li><a href="{{ path('TestBundle_add') }}">Ajouter une annonce</a></li>
+    <body style="background:darkred">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Love Letter</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{{ path('LoveBundle_home') }}">Home Page</a></li>
+                        <li><a href="{{ path('LoveBundle_view',{'id': 1 }) }}">Start a Game !</a></li>
                     </ul>
-
-                    <h4>Dernières annonces</h4>
-                    {{ render(controller("ProjetWebTestBundle:Advert:menu", {'limit': 3})) }}
-                </div>
-                <div id="content" class="col-md-9">
-                    {% block body %}
-                    {% endblock %}
-                </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Administration<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Sign in</a></li>
+                                <li><a href="#">Login</a></li>
+                                <li><a href="#">Statistics</a></li>
+                                <li><a href="#">Disconnect</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
+        </nav>
 
-            <hr>
-
-            <footer>
-                <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
-            </footer>
-        </div>
+        {% block body %}
+        {% endblock %}
 
         {% block javascripts %}
             {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}

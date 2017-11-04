@@ -3,6 +3,8 @@
 
 namespace ProjetWeb\TestBundle\Controller;
 
+use ProjetWeb\TestBundle\Entity\Advert;
+use ProjetWeb\TestBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -11,12 +13,21 @@ class AdvertController extends Controller
 {
     public function indexAction($page)
     {
+
         // On ne sait pas combien de pages il y a
         // Mais on sait qu'une page doit être supérieure ou égale à 1
         if ($page < 1) {
-            // On déclenche une exception NotFoundHttpException, cela va afficher
-            // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
-            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+            if ($page == ""){
+                $url = $this->generateUrl(
+                    'TestBundle_home',
+                    array('page' => '1')
+                );
+                $this->redirect($url);
+            }else{
+                // On déclenche une exception NotFoundHttpException, cela va afficher
+                // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
+                throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
+            }
         }
 
         // Ici, on récupérera la liste des annonces, puis on la passera au template
@@ -49,14 +60,21 @@ class AdvertController extends Controller
 
     public function viewAction($id)
     {
-        $advert = array(
-            'title'   => 'Recherche développpeur Symfony2',
-            'id'      => $id,
-            'author'  => 'Alexandre',
-            'content' => 'Nous recherchons un développeur Symfony2 débutant sur Lyon. Blabla…',
-            'date'    => new \Datetime()
-        );
+        // On récupère le repository
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('ProjetWebTestBundle:Advert');
 
+        // On récupère l'entité correspondante à l'id $id
+        $advert = $repository->find($id);
+
+        // $advert est donc une instance de OC\PlatformBundle\Entity\Advert
+        // ou null si l'id $id  n'existe pas, d'où ce if :
+        if (null === $advert) {
+            throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
+        }
+
+        // Le render ne change pas, on passait avant un tableau, maintenant un objet
         return $this->render('ProjetWebTestBundle:Advert:view.html.twig', array(
             'advert' => $advert
         ));
@@ -64,20 +82,40 @@ class AdvertController extends Controller
 
     public function addAction(Request $request)
     {
-        // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
+        // Création de l'entité
+        $advert = new Advert();
+        $advert->setTitle('Recherche développeur Symfony.');
+        $advert->setAuthor('Alexandre');
+        $advert->setName('Annonce d\'Alexandre');
+        $advert->setContent("Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…");
+        // On peut ne pas définir ni la date ni la publication,
+        // car ces attributs sont définis automatiquement dans le constructeur
+        // Création de l'entité Image
+        $image = new Image();
+        $image->setUrl('http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg');
+        $image->setAlt('Job de rêve');
 
-        // Si la requête est en POST, c'est que le visiteur a soumis le formulaire
+        // On lie l'image à l'annonce
+        $advert->setImage($image);
+        // On récupère l'EntityManager
+        $em = $this->getDoctrine()->getManager();
+
+        // Étape 1 : On « persiste » l'entité
+        $em->persist($advert);
+
+        // Étape 2 : On « flush » tout ce qui a été persisté avant
+        $em->flush();
+
+        // Reste de la méthode qu'on avait déjà écrit
         if ($request->isMethod('POST')) {
-            // Ici, on s'occupera de la création et de la gestion du formulaire
-
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 
             // Puis on redirige vers la page de visualisation de cettte annonce
-            return $this->redirectToRoute('TestBundle_view', array('id' => 5));
+            return $this->redirectToRoute('TestBundle_view', array('id' => $advert->getId()));
         }
 
         // Si on n'est pas en POST, alors on affiche le formulaire
-        return $this->render('ProjetWebTestBundle:Advert:add.html.twig');
+        return $this->render('ProjetWebTestBundle:Advert:add.html.twig', array('advert' => $advert));
     }
 
     public function deleteAction($id)
@@ -120,4 +158,25 @@ class AdvertController extends Controller
             'listAdverts' => $listAdverts
         ));
     }
+
+    public function editImageAction($advertId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // On récupère l'annonce
+        $advert = $em->getRepository('ProjetWebTestBundle:Advert')->find($advertId);
+
+        // On modifie l'URL de l'image par exemple
+        $advert->getImage()->setUrl('test.png');
+
+        // On n'a pas besoin de persister l'annonce ni l'image.
+        // Rappelez-vous, ces entités sont automatiquement persistées car
+        // on les a récupérées depuis Doctrine lui-même
+
+        // On déclenche la modification
+        $em->flush();
+
+        return new Response('OK');
+    }
+
 }

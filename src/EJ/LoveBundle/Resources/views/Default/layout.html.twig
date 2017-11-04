@@ -1,0 +1,15 @@
+{# src/ProjetWeb/TestBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    Partie - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+    {% block ll_body %}
+    {% endblock %}
+
+{% endblock %}

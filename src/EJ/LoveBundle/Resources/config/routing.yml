@@ -1,0 +1,16 @@
+LoveBundle_ultrahome:
+    path:      /
+    defaults:
+        _controller: EJLoveBundle:Game:toindex
+
+LoveBundle_home:
+    path:      /home
+    defaults:
+        _controller: EJLoveBundle:Game:index
+
+LoveBundle_view:
+    path:      /game/{id}
+    defaults:
+        _controller: EJLoveBundle:Game:view
+    requirements:
+        id: \d+
