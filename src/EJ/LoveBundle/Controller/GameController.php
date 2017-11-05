@@ -19,12 +19,25 @@ class GameController extends Controller
         return $this->render('EJLoveBundle:Default:index.html.twig');
     }
 
+    public function initAction()
+    {
+        $this->createCards();
+        return $this->redirectToRoute('LoveBundle_home');
+    }
+
+    public function createAction()
+    {
+        $game = $this->createGame();
+        return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+    }
+
     public function viewAction($gameid)
     {
-        // Pour l'instant on créer a la visualisation, cette étape sera dans la finalisation du lobby quand on aura un lobby
-        $game = $this->createGame();
         // On récupère l'entité correspondante à l'id $gameid
-       // $game = $repository->find($gameid);
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Game');
+         $game = $repository->find($gameid);
 
         // $gameid est donc une instance de notre jeu
         // ou null si l'id $gameid  n'existe pas, d'où ce if :
@@ -36,6 +49,61 @@ class GameController extends Controller
         return $this->render('EJLoveBundle:Default:view.html.twig', array(
             'game' => $game
         ));
+    }
+
+    public function playcardAction($gameid,$playerid,$cardid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Game');
+        $game = $repository->find($gameid);
+
+        //control vérifie si l'operation est authorisée (évite d'ajouter au board des cartes qui ne sont pas en main)
+        $control = $game->removeCardInHand($playerid,intval($cardid));
+        if ($control){
+            $game->addPlayedCard($playerid,intval($cardid));
+        }
+
+        $em->persist($game);
+        $em->flush();
+        return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+    }
+
+    public function discardAction($gameid,$playerid,$cardid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Game');
+        $game = $repository->find($gameid);
+
+        $control = $game->removeCardInHand($playerid,intval($cardid));
+        if ($control){
+            $game->addDiscardedCard(intval($cardid));
+        }
+
+        $em->persist($game);
+        $em->flush();
+        return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+    }
+
+    public function drawAction($gameid,$playerid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Game');
+        $game = $repository->find($gameid);
+
+        $game->addCardInHand($playerid,$game->drawCard());
+
+        $em->persist($game);
+        $em->flush();
+        return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
     }
 
     public function createGame(){
@@ -53,7 +121,7 @@ class GameController extends Controller
         }
         $game->createDeck();
         //ajoute les joueurs au jeu
-        $game->addPlayers(array('player1','player2','player3'));
+        $game->addPlayers(array('player1','player2'));
         $game->addCardInHand('player1',0);
         $game->addCardInHand('player1',1);
         $game->addCardInHand('player1',11);
@@ -61,6 +129,10 @@ class GameController extends Controller
         $game->addCardInHand('player2',6);
         $game->addCardInHand('player2',5);
         $game->addCardInHand('player2',7);
+        $game->addPlayedCard('player1',9);
+        $game->addPlayedCard('player2',15);
+        $game->addDiscardedCard(16);
+
 
         $em->persist($game);
         $em->flush();
@@ -72,52 +144,55 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $c1 = new Card();
-        $c1->setValue(1,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
+        $c1->setValue(0,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
 
         $c2 = new Card();
-        $c2->setValue(2,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
+        $c2->setValue(1,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
 
         $c3 = new Card();
-        $c3->setValue(3,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
+        $c3->setValue(2,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
 
         $c4 = new Card();
-        $c4->setValue(4,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
+        $c4->setValue(3,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
 
         $c5 = new Card();
-        $c5->setValue(5,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
+        $c5->setValue(4,"Guard","Name a non-Guard card and choose another player. If that player has that card he is out of the round","http://localhost/WebLoveLetter/web/images/guard.png");
 
         $c6 = new Card();
-        $c6->setValue(6,"Priest","Look at another player's hand.","http://localhost/WebLoveLetter/web/images/priest.png");
+        $c6->setValue(5,"Priest","Look at another player's hand.","http://localhost/WebLoveLetter/web/images/priest.png");
 
         $c7 = new Card();
-        $c7->setValue(7,"Priest","Look at another player's hand.","http://localhost/WebLoveLetter/web/images/priest.png");
+        $c7->setValue(6,"Priest","Look at another player's hand.","http://localhost/WebLoveLetter/web/images/priest.png");
 
         $c8 = new Card();
-        $c8->setValue(8,"Baron","Compare your hand with another player's, the one with the lowest value is out of the round.","http://localhost/WebLoveLetter/web/images/baron.png");
+        $c8->setValue(7,"Baron","Compare your hand with another player's, the one with the lowest value is out of the round.","http://localhost/WebLoveLetter/web/images/baron.png");
 
         $c9 = new Card();
-        $c9->setValue(9,"Baron","Compare your hand with another player's, the one with the lowest value is out of the round.","http://localhost/WebLoveLetter/web/images/baron.png");
+        $c9->setValue(8,"Baron","Compare your hand with another player's, the one with the lowest value is out of the round.","http://localhost/WebLoveLetter/web/images/baron.png");
 
         $c10 = new Card();
-        $c10->setValue(10,"Handmaid","Until your next turn ignore all others player's card effect.","http://localhost/WebLoveLetter/web/images/handmaid.png");
+        $c10->setValue(9,"Handmaid","Until your next turn ignore all others player's card effect.","http://localhost/WebLoveLetter/web/images/handmaid.png");
 
         $c11 = new Card();
-        $c11->setValue(11,"Handmaid","Until your next turn ignore all others player's card effect","http://localhost/WebLoveLetter/web/images/handmaid.png");
+        $c11->setValue(10,"Handmaid","Until your next turn ignore all others player's card effect","http://localhost/WebLoveLetter/web/images/handmaid.png");
 
         $c12 = new Card();
-        $c12->setValue(12,"Prince","Choose any player and discard his hand and draw a new card.","http://localhost/WebLoveLetter/web/images/prince.png");
+        $c12->setValue(11,"Prince","Choose any player and discard his hand and draw a new card.","http://localhost/WebLoveLetter/web/images/prince.png");
 
         $c13 = new Card();
-        $c13->setValue(13,"Prince","Choose any player and discard his hand and draw a new card.","http://localhost/WebLoveLetter/web/images/prince.png");
+        $c13->setValue(12,"Prince","Choose any player and discard his hand and draw a new card.","http://localhost/WebLoveLetter/web/images/prince.png");
 
         $c14 = new Card();
-        $c14->setValue(14,"King","Trade hands with the player of your choice.","http://localhost/WebLoveLetter/web/images/king.png");
+        $c14->setValue(13,"King","Trade hands with the player of your choice.","http://localhost/WebLoveLetter/web/images/king.png");
 
         $c15 = new Card();
-        $c15->setValue(15,"Countess","If you have this card and the King or the Prince in hand, you must discard this card","http://localhost/WebLoveLetter/web/images/countess.png");
+        $c15->setValue(14,"Countess","If you have this card and the King or the Prince in hand, you must discard this card","http://localhost/WebLoveLetter/web/images/countess.png");
 
         $c16 = new Card();
-        $c16->setValue(16,"Princess","If you discard this gard, you are out of the round.","http://localhost/WebLoveLetter/web/images/princess.png");
+        $c16->setValue(15,"Princess","If you discard this gard, you are out of the round.","http://localhost/WebLoveLetter/web/images/princess.png");
+
+        $c17 = new Card();
+        $c17->setValue(16,"?","???","http://localhost/WebLoveLetter/web/images/verso.png");
 
         $em->persist($c1);
         $em->persist($c2);
@@ -135,6 +210,7 @@ class GameController extends Controller
         $em->persist($c14);
         $em->persist($c15);
         $em->persist($c16);
+        $em->persist($c17);
         $em->flush();
     }
 }

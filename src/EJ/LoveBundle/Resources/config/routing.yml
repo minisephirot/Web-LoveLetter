@@ -8,9 +8,45 @@ LoveBundle_home:
     defaults:
         _controller: EJLoveBundle:Game:index
 
+LoveBundle_init:
+    path:      /init
+    defaults:
+        _controller: EJLoveBundle:Game:init
+
+LoveBundle_create:
+    path:      /create
+    defaults:
+        _controller: EJLoveBundle:Game:create
+
 LoveBundle_view:
     path:      /game/{gameid}
     defaults:
         _controller: EJLoveBundle:Game:view
     requirements:
         gameid: \d+
+
+LoveBundle_playcard:
+    path:      /game/{gameid}/playcard/{playerid}/{cardid}
+    defaults:
+        _controller: EJLoveBundle:Game:playcard
+    requirements:
+        gameid: \d+
+        playerid: "[a-zA-Z0-9-]+"
+        cardid: \d+
+
+LoveBundle_discard:
+    path:      /game/{gameid}/discard/{playerid}/{cardid}
+    defaults:
+        _controller: EJLoveBundle:Game:discard
+    requirements:
+        gameid: \d+
+        playerid: "[a-zA-Z0-9-]+"
+        cardid: \d+
+
+LoveBundle_draw:
+    path:      /game/{gameid}/draw/{playerid}
+    defaults:
+        _controller: EJLoveBundle:Game:draw
+    requirements:
+        gameid: \d+
+        playerid: "[a-zA-Z0-9-]+"

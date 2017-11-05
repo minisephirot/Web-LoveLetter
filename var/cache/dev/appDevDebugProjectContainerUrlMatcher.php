@@ -117,35 +117,35 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::indexAction',  '_route' => 'LoveBundle_home',);
         }
 
-        // LoveBundle_view
-        if (0 === strpos($pathinfo, '/game') && preg_match('#^/game/(?P<gameid>\\d+)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_view')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::viewAction',));
+        // LoveBundle_init
+        if ('/init' === $pathinfo) {
+            return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::initAction',  '_route' => 'LoveBundle_init',);
         }
 
-        if (0 === strpos($pathinfo, '/platform')) {
-            // TestBundle_home
-            if (preg_match('#^/platform(?:/(?P<page>\\d*))?$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'TestBundle_home')), array (  '_controller' => 'ProjetWeb\\TestBundle\\Controller\\AdvertController::indexAction',  'page' => 1,));
+        // LoveBundle_create
+        if ('/create' === $pathinfo) {
+            return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::createAction',  '_route' => 'LoveBundle_create',);
+        }
+
+        if (0 === strpos($pathinfo, '/game')) {
+            // LoveBundle_view
+            if (preg_match('#^/game/(?P<gameid>\\d+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_view')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::viewAction',));
             }
 
-            // TestBundle_view
-            if (0 === strpos($pathinfo, '/platform/advert') && preg_match('#^/platform/advert/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'TestBundle_view')), array (  '_controller' => 'ProjetWeb\\TestBundle\\Controller\\AdvertController::viewAction',));
+            // LoveBundle_playcard
+            if (preg_match('#^/game/(?P<gameid>\\d+)/playcard/(?P<playerid>[a-zA-Z0-9-]+)/(?P<cardid>\\d+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_playcard')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::playcardAction',));
             }
 
-            // TestBundle_add
-            if ('/platform/add' === $pathinfo) {
-                return array (  '_controller' => 'ProjetWeb\\TestBundle\\Controller\\AdvertController::addAction',  '_route' => 'TestBundle_add',);
+            // LoveBundle_discard
+            if (preg_match('#^/game/(?P<gameid>\\d+)/discard/(?P<playerid>[a-zA-Z0-9-]+)/(?P<cardid>\\d+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_discard')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::discardAction',));
             }
 
-            // TestBundle_edit
-            if (0 === strpos($pathinfo, '/platform/edit') && preg_match('#^/platform/edit/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'TestBundle_edit')), array (  '_controller' => 'ProjetWeb\\TestBundle\\Controller\\AdvertController::editAction',));
-            }
-
-            // TestBundle_delete
-            if (0 === strpos($pathinfo, '/platform/delete') && preg_match('#^/platform/delete/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'TestBundle_delete')), array (  '_controller' => 'ProjetWeb\\TestBundle\\Controller\\AdvertController::deleteAction',));
+            // LoveBundle_draw
+            if (preg_match('#^/game/(?P<gameid>\\d+)/draw/(?P<playerid>[a-zA-Z0-9-]+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_draw')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::drawAction',));
             }
 
         }

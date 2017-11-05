@@ -104,6 +104,16 @@ class Game
     }
 
     /**
+     * Get card by it's ID
+     * @param int $id
+     * @return \EJ\LoveBundle\Entity\Card
+     */
+    public function getCard($id)
+    {
+        return $this->cards[$id];
+    }
+
+    /**
      * Add Players to every array which needs a player
      *
      * @param array $nomjoueurs
@@ -177,15 +187,21 @@ class Game
     }
 
     /**
-     * Remove in hand of the designated player a card
+     * Remove in hand of the designated player a card a boolean is returned true = card exist false if it doesn't
      *
      * @param string $player
      * @param int $cardid
      *
+     * @return boolean
      */
     public function removeCardInHand($player, $cardid)
     {
-        $this->cardsInHand[$player][] = array_diff($this->cardsInHand[$player][],array($cardid));
+        if (in_array($cardid,$this->cardsInHand[$player])){
+            $this->cardsInHand[$player] = array_diff($this->cardsInHand[$player],array($cardid));
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -220,13 +236,13 @@ class Game
      */
     public function drawCard()
     {
-        $card = array_pop($this->cardsInDeck[]);
+        $card = array_pop($this->cardsInDeck);
         return $card;
     }
 
     public function createDeck(){
 
-        for ($x = 1; $x <= 16; $x++)
+        for ($x = 0; $x <= 15; $x++)
         {
             $this->cardsInDeck[] = $x;
         }

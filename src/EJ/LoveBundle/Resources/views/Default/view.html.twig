@@ -5,23 +5,68 @@
 {% endblock %}
 
 {% block ll_body %}
+    <link rel="stylesheet"
+          type="text/css"
+          href="http://localhost/WebLoveLetter/web/pulse.css"
+    />
+    <style>
+
+        .card{
+            border:5px solid transparent
+        }
+        .card:hover{
+            border-color: green;
+        }
+    </style>
 
     <div class="container">
         <div id="header"  class="jumbotron">
+            <button type="button" class="btn btn-info pulse-danger" data-toggle="collapse" data-target="#debug">Info debuggage</button>
+            <div id="debug" class="collapse well">
+                Tableau des joueurs :
+                {{ dump(game.players)}}
+                Tableau des cartes en main des joueurs
+                {{ dump(game.cardsInHand)}}
+                Tableau des cartes jouées par les joueurs
+                {{ dump(game.cardsPlayed)}}
+                Tableau de la pioche
+                {{ dump(game.cardsInDeck)}}
+                Tableau de la défausse
+                {{ dump(game.cardsDiscarded)}}
+            </div>
 
-            <h2>Partie numéro {{ game.id }}</h2>
-            <pre>
-                    {{ dump(game.cardsInHand) }}
-            </pre>
-            <ul>
-                {% for key,values in game.cardsInHand %}
-                    <li>{{ key }}</li>
-                    {% for key, value in values %}
-                        <img src="{{ game.cards[value].imageCarte }}" alt="{{ game.cards[value].nomCarte }}">
-                        {{ value }}
-                    {% endfor %}
+            <h1>Partie numéro {{ game.id }}</h1>
+                {% for player,values in game.cardsInHand %}
+                    <h3>{{ player }}</h3>
+                    <ul class="list-inline">
+                        <h4>Hand :</h4>
+                        {% for key, value in values %}
+                            <li><img class="pulse-primary" title="Action" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<a href={{ path('LoveBundle_playcard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Play this card</a><br>
+                            <a href={{ path('LoveBundle_discard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Discard</a>"
+                                     src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                        {% endfor %}
+                        <h4>Board :</h4>
+                        {% for key, value in game.cardsPlayed[player] %}
+                            <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                        {% endfor %}
+                    </ul>
                 {% endfor %}
-            </ul>
+                 <h4>Deck :</h4>
+                <a type="button" class="btn btn-info pulse-success" href={{ path('LoveBundle_draw', {'gameid': game.id,'playerid': 'player1'}) }}>Piocher !</a>
+                <ul class="list-inline">
+                {% for key, value in game.cardsInDeck %}
+                    <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                {% endfor %}
+                <h4>Discards :</h4>
+                {% for key, value in game.cardsDiscarded %}
+                    <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                {% endfor %}
+                </ul>
+                <script>
+                    $(document).ready(function(){
+                        $('[data-toggle="popover"]').popover();
+                    });
+                </script>
 
         </div>
         <hr>

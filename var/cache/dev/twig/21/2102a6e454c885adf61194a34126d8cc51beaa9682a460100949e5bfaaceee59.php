@@ -15,11 +15,11 @@ class __TwigTemplate_bbe4bad4718e6c7ff9d873f9ade875cecbf2ff655d4fe86c28f4441e732
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_50a471ad084dd39cdc78ef5a3fb8756215c68b6e358f1381fb5dccad65134889 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_50a471ad084dd39cdc78ef5a3fb8756215c68b6e358f1381fb5dccad65134889->enter($__internal_50a471ad084dd39cdc78ef5a3fb8756215c68b6e358f1381fb5dccad65134889_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "WebProfilerBundle:Profiler:header.html.twig"));
+        $__internal_53ae35f22742f28a297c8cae0f3b070b35f3e5a4bb7f591035432ca3a7335fb8 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_53ae35f22742f28a297c8cae0f3b070b35f3e5a4bb7f591035432ca3a7335fb8->enter($__internal_53ae35f22742f28a297c8cae0f3b070b35f3e5a4bb7f591035432ca3a7335fb8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "WebProfilerBundle:Profiler:header.html.twig"));
 
-        $__internal_a6b0dddb569fe63a336a62392666cea81c5e47ea3b12d2766e4938fbb211b031 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_a6b0dddb569fe63a336a62392666cea81c5e47ea3b12d2766e4938fbb211b031->enter($__internal_a6b0dddb569fe63a336a62392666cea81c5e47ea3b12d2766e4938fbb211b031_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "WebProfilerBundle:Profiler:header.html.twig"));
+        $__internal_e90c62e0a6e3c209a1bbd5f00c8887fe68993cab999af4fb7b0a8d5562572dda = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_e90c62e0a6e3c209a1bbd5f00c8887fe68993cab999af4fb7b0a8d5562572dda->enter($__internal_e90c62e0a6e3c209a1bbd5f00c8887fe68993cab999af4fb7b0a8d5562572dda_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "WebProfilerBundle:Profiler:header.html.twig"));
 
         // line 1
         echo "<div id=\"header\">
@@ -41,10 +41,10 @@ class __TwigTemplate_bbe4bad4718e6c7ff9d873f9ade875cecbf2ff655d4fe86c28f4441e732
 </div>
 ";
         
-        $__internal_50a471ad084dd39cdc78ef5a3fb8756215c68b6e358f1381fb5dccad65134889->leave($__internal_50a471ad084dd39cdc78ef5a3fb8756215c68b6e358f1381fb5dccad65134889_prof);
+        $__internal_53ae35f22742f28a297c8cae0f3b070b35f3e5a4bb7f591035432ca3a7335fb8->leave($__internal_53ae35f22742f28a297c8cae0f3b070b35f3e5a4bb7f591035432ca3a7335fb8_prof);
 
         
-        $__internal_a6b0dddb569fe63a336a62392666cea81c5e47ea3b12d2766e4938fbb211b031->leave($__internal_a6b0dddb569fe63a336a62392666cea81c5e47ea3b12d2766e4938fbb211b031_prof);
+        $__internal_e90c62e0a6e3c209a1bbd5f00c8887fe68993cab999af4fb7b0a8d5562572dda->leave($__internal_e90c62e0a6e3c209a1bbd5f00c8887fe68993cab999af4fb7b0a8d5562572dda_prof);
 
     }
 
