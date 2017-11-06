@@ -9,16 +9,6 @@
           type="text/css"
           href="http://localhost/WebLoveLetter/web/pulse.css"
     />
-    <style>
-
-        .card{
-            border:5px solid transparent
-        }
-        .card:hover{
-            border-color: green;
-        }
-    </style>
-
     <div class="container">
         <div id="header"  class="jumbotron">
             <button type="button" class="btn btn-info pulse-danger" data-toggle="collapse" data-target="#debug">Info debuggage</button>
@@ -33,6 +23,8 @@
                 {{ dump(game.cardsInDeck)}}
                 Tableau de la défausse
                 {{ dump(game.cardsDiscarded)}}
+                Carte Secrete:
+                {{ dump(game.cardHidden)}}
             </div>
 
             <h1>Partie numéro {{ game.id }}</h1>
@@ -59,7 +51,11 @@
                 {% endfor %}
                 <h4>Discards :</h4>
                 {% for key, value in game.cardsDiscarded %}
-                    <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                    {% if value == game.cardHidden %}
+                        <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}"></li>
+                    {% else %}
+                        <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                    {% endif %}
                 {% endfor %}
                 </ul>
                 <script>

@@ -41,7 +41,6 @@ class Card
      */
     private $imageCarte;
 
-
     /**
      * Get id
      *
@@ -132,7 +131,6 @@ class Card
         $this->description = $desc;
         $this->imageCarte = $img;
     }
-
 
     /**
      * Set id

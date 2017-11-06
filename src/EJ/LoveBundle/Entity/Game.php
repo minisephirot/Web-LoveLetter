@@ -32,6 +32,13 @@ class Game
     private $cards;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="cardHidden", type="integer", nullable=true)
+     */
+    private $cardHidden;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="cardsPlayed", type="array", nullable=true)
@@ -110,7 +117,7 @@ class Game
      */
     public function getCard($id)
     {
-        return $this->cards[$id];
+            return $this->cards[$id];
     }
 
     /**
@@ -306,5 +313,29 @@ class Game
     public function getCardsDiscarded()
     {
         return $this->cardsDiscarded;
+    }
+
+    /**
+     * Set cardHidden
+     *
+     * @param integer $cardHidden
+     *
+     * @return Game
+     */
+    public function setCardHidden($cardHidden)
+    {
+        $this->cardHidden = $cardHidden;
+
+        return $this;
+    }
+
+    /**
+     * Get cardHidden
+     *
+     * @return integer
+     */
+    public function getCardHidden()
+    {
+        return $this->cardHidden;
     }
 }

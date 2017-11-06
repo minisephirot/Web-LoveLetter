@@ -119,20 +119,21 @@ class GameController extends Controller
         foreach ($cardlist as $card){
          $game->addCard($card);
         }
-        $game->createDeck();
         //ajoute les joueurs au jeu
         $game->addPlayers(array('player1','player2'));
-        $game->addCardInHand('player1',0);
-        $game->addCardInHand('player1',1);
-        $game->addCardInHand('player1',11);
-        $game->addCardInHand('player1',12);
-        $game->addCardInHand('player2',6);
-        $game->addCardInHand('player2',5);
-        $game->addCardInHand('player2',7);
-        $game->addPlayedCard('player1',9);
-        $game->addPlayedCard('player2',15);
-        $game->addDiscardedCard(16);
-
+        //On suit les regles du jeu : mettre les 16 Cartes dans la pioche
+        $game->createDeck();
+        //On retire la premiere carte du deck du jeu
+        $secretCard = $game->drawCard();
+        $game->setCardHidden($secretCard);
+        $game->addDiscardedCard($secretCard);
+        //On retire les 3 premières cartes du jeu car on joue a 2
+        $game->addDiscardedCard($game->drawCard());
+        $game->addDiscardedCard($game->drawCard());
+        $game->addDiscardedCard($game->drawCard());
+        //
+        $game->addCardInHand('player1',$game->drawCard());
+        $game->addCardInHand('player2',$game->drawCard());
 
         $em->persist($game);
         $em->flush();
