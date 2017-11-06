@@ -1,0 +1,11 @@
+-> Implementer FOSUserBundle et une Entitée Utilisateur
+
+-> Cacher les mains des cartes qui ne sont pas a l'utilisateur (if dans le twig)
+
+-> Faire fonctionner le jeu pour 3/4 joueurs
+
+-> Faire refresh la page DE TOUT les utilisateurs quand UN utilisateur fais une action
+
+-> Implementer les rêgles du jeu
+
+-> 
