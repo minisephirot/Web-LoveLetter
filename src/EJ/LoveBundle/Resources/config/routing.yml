@@ -50,3 +50,22 @@ LoveBundle_draw:
     requirements:
         gameid: \d+
         playerid: "[a-zA-Z0-9-]+"
+        
+        
+LoveBundle_ListParty:
+    path:      /list
+    defaults:
+        _controller: EJLoveBundle:Game:list
+        
+                
+        
+LoveBundle_createParty:
+    path:      /createParty
+    defaults:
+        _controller: EJLoveBundle:Game:createParty
+        
+LoveBundle_joinParty:
+    path:      /joinParty
+    defaults:
+        _controller: EJLoveBundle:Game:joinParty
+

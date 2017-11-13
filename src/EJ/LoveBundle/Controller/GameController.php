@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use EJ\LoveBundle\Entity\Card;
 use EJ\LoveBundle\Entity\Game;
+use EJ\LoveBundle\Entity\Party;
 
 class GameController extends Controller
 {
@@ -214,4 +215,34 @@ class GameController extends Controller
         $em->persist($c17);
         $em->flush();
     }
+    
+    
+     public function listAction(){
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Party');
+         
+        $partyList = $repository->findall();
+         
+        return $this->render('EJLoveBundle:Default:listParty.html.twig', array( 'list' => $partyList));
+    }
+    
+    
+    public function createPartyAction(){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $party = new Party();
+        $party->setHost($user);
+        $party->addPlayer($user);
+        $em->persist($party);
+        $em->flush();
+        return $this->render('EJLoveBundle:Default:lobbyParty.html.twig', array( 'party' => $party));;
+    }
+     
+    public function joinPartyAction(){
+        
+        
+    }
+             
 }
