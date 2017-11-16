@@ -1,6 +1,24 @@
 {% extends "EJLoveBundle:Default:layout.html.twig" %}
 
 {% block title %}
+<<<<<<< HEAD
+    Liste des Parties - {{ parent() }}
+{% endblock %}
+
+{% block ll_body %}
+
+    <div class="container">
+        <div class="well">
+            <h1>Party list :</h1><br>
+
+            {% for party in list %}
+            <li> <a href="">Partie numéro {{ party.id }} de {{ party.host }}</a></li>
+            {% endfor %}
+
+            <br><a class="btn btn-primary btn-lg" href="{{ path('LoveBundle_createParty') }}">Créer une partie</a>
+
+        </div>
+=======
     Partie en cours - {{ parent() }}
 {% endblock %}
 
@@ -14,7 +32,7 @@
         
         
         {% for party in list %}
-        <li> <a href=" {{ path('LoveBundle_joinParty', {'partyid': party.id}) }}  ">Partie numéro {{ party.id }} de {{ party.host }}</a></li>
+        <li> <a href="">Partie numéro {{ party.id }} de {{ party.host }}</a></li>
         {% endfor %}
         
         
@@ -24,6 +42,7 @@
         
         
         
+>>>>>>> 0826b4009ac73cfa7bd584250631b65ef3e34cfc
     </div>
       
       

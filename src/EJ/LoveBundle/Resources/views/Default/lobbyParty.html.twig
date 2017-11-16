@@ -5,26 +5,19 @@
 {% endblock %}
 
 {% block ll_body %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="http://localhost/WebLoveLetter/web/pulse.css"
-    />
-    <div class="container">
-        <h1>Party de {{ party.host }}:</h1>
-        
-                {% for key, value in party.partyPlayer %}
-                            <li>{{ value }}</li>
-                {% endfor %}
+<<<<<<< HEAD
 
-        
-        
-         <a class="btn btn-primary btn-lg" href="">
-                    Commencer la partie
-        </a>
-        
-        
-        
+    <div class="container">
+        <div class="well">
+            <h1>Partie de {{ party.host }}:</h1><br>
+
+            {% for key, value in party.partyPlayer %}
+                <li>{{ value }}</li>
+            {% endfor %}
+
+            <br><a class="btn btn-primary btn-lg" href="">Commencer la partie</a>
+
+        </div>
     </div>
-      
       
 {% endblock %}
