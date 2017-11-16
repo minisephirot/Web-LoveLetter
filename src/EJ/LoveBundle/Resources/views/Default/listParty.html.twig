@@ -11,7 +11,7 @@
             <h1>Party list :</h1><br>
 
             {% for party in list %}
-            <li> <a href="">Partie numéro {{ party.id }} de {{ party.host }}</a></li>
+            <li> <a href="{{ path('LoveBundle_joinParty', {'partyid': party.id}) }}">Partie numéro {{ party.id }} de {{ party.host }}</a></li>
             {% endfor %}
 
             <br><a class="btn btn-primary btn-lg" href="{{ path('LoveBundle_createParty') }}">Créer une partie</a>
