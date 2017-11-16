@@ -135,6 +135,18 @@ class Game
     }
 
     /**
+     * Add Player to every array which needs a player
+     *
+     * @param string $nomjoueurs
+     *
+     */
+    public function addPlayer($nomjoueur)
+    {
+        $this->cardsPlayed[$nomjoueur] = null;
+        $this->cardsInHand[$nomjoueur] = null;
+    }
+
+    /**
      * return the keys from the first dimension (the players)
      *
      *
@@ -247,6 +259,11 @@ class Game
         return $card;
     }
 
+    /**
+     * Generate a deck from the given cards and shuffle it
+     *
+     *
+     */
     public function createDeck(){
 
         for ($x = 0; $x <= 15; $x++)
@@ -338,4 +355,22 @@ class Game
     {
         return $this->cardHidden;
     }
+
+
+    /**
+     * Reset the game to it's initial state
+     *
+     */
+    public function resetGame(){
+        $array = $this->getCardsInHand();
+        $joueurs = array_keys($array);
+
+        foreach ($joueurs as $joueur){
+            $this->addPlayer($joueur);
+        }
+        $this->setCardHidden(array());
+        $this->setCardsDiscarded(array());
+        $this->setCardsInDeck(array());
+    }
+
 }

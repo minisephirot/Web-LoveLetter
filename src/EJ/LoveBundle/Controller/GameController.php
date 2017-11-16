@@ -32,6 +32,12 @@ class GameController extends Controller
         return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
     }
 
+    public function resetAction($gameid)
+    {
+        $game = $this->resetGame($gameid);
+        return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+    }
+
     public function viewAction($gameid)
     {
         // On récupère l'entité correspondante à l'id $gameid
@@ -122,6 +128,38 @@ class GameController extends Controller
         }
         //ajoute les joueurs au jeu
         $game->addPlayers(array('player1','player2'));
+        //On suit les regles du jeu : mettre les 16 Cartes dans la pioche
+        $game->createDeck();
+        //On retire la premiere carte du deck du jeu
+        $secretCard = $game->drawCard();
+        $game->setCardHidden($secretCard);
+        $game->addDiscardedCard($secretCard);
+        //On retire les 3 premières cartes du jeu car on joue a 2
+        $game->addDiscardedCard($game->drawCard());
+        $game->addDiscardedCard($game->drawCard());
+        $game->addDiscardedCard($game->drawCard());
+        //
+        $game->addCardInHand('player1',$game->drawCard());
+        $game->addCardInHand('player2',$game->drawCard());
+
+        $em->persist($game);
+        $em->flush();
+
+        return $game;
+    }
+
+    public function resetGame($gameid){
+        $em = $this->getDoctrine()->getManager();
+
+        $em = $this->getDoctrine()->getManager();
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Game');
+        $game = $repository->find($gameid);
+
+        //On reinitialise les champs qui en ont besoin
+        $game->resetGame();
         //On suit les regles du jeu : mettre les 16 Cartes dans la pioche
         $game->createDeck();
         //On retire la premiere carte du deck du jeu

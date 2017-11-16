@@ -11,6 +11,7 @@
     />
     <div class="container">
         <div id="header"  class="jumbotron">
+            <a type="button" class="btn btn-info pulse-danger" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset this game !</a>
             <button type="button" class="btn btn-info pulse-danger" data-toggle="collapse" data-target="#debug">Info debuggage</button>
             <div id="debug" class="collapse well">
                 Tableau des joueurs :
@@ -58,6 +59,7 @@
                     {% endif %}
                 {% endfor %}
                 </ul>
+
                 <script>
                     $(document).ready(function(){
                         $('[data-toggle="popover"]').popover();

@@ -18,6 +18,13 @@ LoveBundle_create:
     defaults:
         _controller: EJLoveBundle:Game:create
 
+LoveBundle_reset:
+    path:      /reset/{gameid}
+    defaults:
+        _controller: EJLoveBundle:Game:reset
+    requirements:
+            gameid: \d+
+
 LoveBundle_view:
     path:      /game/{gameid}
     defaults:
