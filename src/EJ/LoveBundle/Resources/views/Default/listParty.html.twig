@@ -14,7 +14,7 @@
         
         
         {% for party in list %}
-        <li> <a href="">Partie numéro {{ party.id }} de {{ party.host }}</a></li>
+        <li> <a href=" {{ path('LoveBundle_joinParty', {'partyid': party.id}) }}  ">Partie numéro {{ party.id }} de {{ party.host }}</a></li>
         {% endfor %}
         
         

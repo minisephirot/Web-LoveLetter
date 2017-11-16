@@ -202,9 +202,14 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        // LoveBundle_viewParty
+        if (0 === strpos($pathinfo, '/viewParty') && preg_match('#^/viewParty/(?P<partyid>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_viewParty')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::viewPartyAction',));
+        }
+
         // LoveBundle_joinParty
-        if ('/joinParty' === $pathinfo) {
-            return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::joinPartyAction',  '_route' => 'LoveBundle_joinParty',);
+        if (0 === strpos($pathinfo, '/joinParty') && preg_match('#^/joinParty/(?P<partyid>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_joinParty')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::joinPartyAction',));
         }
 
         if (0 === strpos($pathinfo, '/profile')) {

@@ -64,8 +64,14 @@ LoveBundle_createParty:
     defaults:
         _controller: EJLoveBundle:Game:createParty
         
+LoveBundle_viewParty:
+    path:      /viewParty/{partyid}
+    defaults:
+        _controller: EJLoveBundle:Game:viewParty
+        
+        
 LoveBundle_joinParty:
-    path:      /joinParty
+    path:      /joinParty/{partyid}
     defaults:
         _controller: EJLoveBundle:Game:joinParty
 

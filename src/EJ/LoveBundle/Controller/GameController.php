@@ -237,12 +237,41 @@ class GameController extends Controller
         $party->addPlayer($user);
         $em->persist($party);
         $em->flush();
-        return $this->render('EJLoveBundle:Default:lobbyParty.html.twig', array( 'party' => $party));;
+        return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid'=> $party->getId() ));
+        //return $this->render('EJLoveBundle:Default:lobbyParty.html.twig', array( 'party' => $party));;
+    }
+    
+    public function viewPartyAction($partyid){
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Party');
+         $party = $repository->find($partyid);
+
+        // $gameid est donc une instance de notre jeu
+        // ou null si l'id $gameid  n'existe pas, d'où ce if :
+        if (null === $partyid || $partyid < 1) {
+            throw new NotFoundHttpException('La partie assignée a l\'ID "' . $partyid . '" est inexistant.');
+        }
+
+        // Le render ne change pas, on passait avant un tableau, maintenant un objet
+        return $this->render('EJLoveBundle:Default:lobbyParty.html.twig', array(
+            'party' => $party
+        ));
+        
     }
      
-    public function joinPartyAction(){
-        
-        
+    public function joinPartyAction($partyid){
+        $em = $this->getDoctrine()->getManager();
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Party');
+        $party = $repository->find($partyid);
+        $user = $this->getUser();
+        $party->addPlayer($user);
+        $em->flush();
+        return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid'=> $party->getId() ));
     }
              
 }
