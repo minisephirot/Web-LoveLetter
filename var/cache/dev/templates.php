@@ -97,7 +97,7 @@
   'FOSUserBundle:Group:new_content.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/Group/new_content.html.twig',
   'FOSUserBundle:Group:show.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/Group/show.html.twig',
   'FOSUserBundle:Group:show_content.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/Group/show_content.html.twig',
-  'FOSUserBundle::layout.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/layout.html.twig',
+  'FOSUserBundle::layout.html.twig' => __DIR__.'/../../../app/Resources/FOSUserBundle/views/layout.html.twig',
   'FOSUserBundle:Profile:edit.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/Profile/edit.html.twig',
   'FOSUserBundle:Profile:edit_content.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/Profile/edit_content.html.twig',
   'FOSUserBundle:Profile:show.html.twig' => __DIR__.'/../../../vendor/friendsofsymfony/user-bundle/Resources/views/Profile/show.html.twig',

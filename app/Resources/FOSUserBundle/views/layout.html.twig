@@ -49,6 +49,9 @@
 
         <div class="container">
             <div class="well">
+                {% for message in app.session.flashbag.get('information') %}
+                    <h3>{{ message }}</h3><br>
+                {% endfor %}
                 {% block fos_user_content %}
                 {% endblock %}
             </div>

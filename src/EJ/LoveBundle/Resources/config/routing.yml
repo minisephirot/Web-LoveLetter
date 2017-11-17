@@ -14,7 +14,7 @@ LoveBundle_init:
         _controller: EJLoveBundle:Game:init
 
 LoveBundle_create:
-    path:      /create
+    path:      /createGame
     defaults:
         _controller: EJLoveBundle:Game:create
 
@@ -62,23 +62,23 @@ LoveBundle_draw:
 LoveBundle_ListParty:
     path:      /list
     defaults:
-        _controller: EJLoveBundle:Game:list
+        _controller: EJLoveBundle:Party:list
         
                 
         
 LoveBundle_createParty:
     path:      /createParty
     defaults:
-        _controller: EJLoveBundle:Game:createParty
+        _controller: EJLoveBundle:Party:createParty
         
 LoveBundle_viewParty:
     path:      /viewParty/{partyid}
     defaults:
-        _controller: EJLoveBundle:Game:viewParty
+        _controller: EJLoveBundle:Party:viewParty
         
         
 LoveBundle_joinParty:
     path:      /joinParty/{partyid}
     defaults:
-        _controller: EJLoveBundle:Game:joinParty
+        _controller: EJLoveBundle:Party:joinParty
 

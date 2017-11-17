@@ -22,12 +22,26 @@ class GameController extends Controller
 
     public function initAction()
     {
+        $connection = $this->getDoctrine()->getManager()->getConnection();
+        $db = $connection->getDatabasePlatform();
+        $connection->executeUpdate("SET foreign_key_checks = 0;");
+        $connection->executeUpdate($db->getTruncateTableSQL('game_card', true /* whether to cascade */));
+        $connection->executeUpdate($db->getTruncateTableSQL('card', true /* whether to cascade */));
+        $connection->executeUpdate($db->getTruncateTableSQL('game', true /* whether to cascade */));
+        $connection->executeUpdate($db->getTruncateTableSQL('party', true /* whether to cascade */));
+        $connection->executeUpdate("SET foreign_key_checks = 1;");
         $this->createCards();
         return $this->redirectToRoute('LoveBundle_home');
     }
 
     public function createAction()
     {
+        //Verifie si on est connecté
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == "anon.") {
+            $this->addFlash('information','Vous devez être connecté pour accéder a cette page.');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
         $game = $this->createGame();
         return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
     }
@@ -40,6 +54,12 @@ class GameController extends Controller
 
     public function viewAction($gameid)
     {
+        //Verifie si on est connecté
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == "anon.") {
+            $this->addFlash('information','Vous devez être connecté pour accéder a cette page.');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
         // On récupère l'entité correspondante à l'id $gameid
         $repository = $this->getDoctrine()
             ->getManager()
@@ -150,8 +170,6 @@ class GameController extends Controller
 
     public function resetGame($gameid){
         $em = $this->getDoctrine()->getManager();
-
-        $em = $this->getDoctrine()->getManager();
         // On récupère l'entité correspondante à l'id $gameid
         $repository = $this->getDoctrine()
             ->getManager()
@@ -252,64 +270,6 @@ class GameController extends Controller
         $em->persist($c16);
         $em->persist($c17);
         $em->flush();
-    }
-    
-    
-     public function listAction(){
-        $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('EJLoveBundle:Party');
-         
-        $partyList = $repository->findall();
-         
-        return $this->render('EJLoveBundle:Default:listParty.html.twig', array( 'list' => $partyList));
-    }
-    
-    
-    public function createPartyAction(){
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $party = new Party();
-        $party->setHost($user);
-        $party->addPlayer($user);
-        $em->persist($party);
-        $em->flush();
-        return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid'=> $party->getId() ));
-        //return $this->render('EJLoveBundle:Default:lobbyParty.html.twig', array( 'party' => $party));;
-    }
-    
-    public function viewPartyAction($partyid){
-        // On récupère l'entité correspondante à l'id $gameid
-        $repository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('EJLoveBundle:Party');
-         $party = $repository->find($partyid);
-
-        // $gameid est donc une instance de notre jeu
-        // ou null si l'id $gameid  n'existe pas, d'où ce if :
-        if (null === $partyid || $partyid < 1) {
-            throw new NotFoundHttpException('La partie assignée a l\'ID "' . $partyid . '" est inexistant.');
-        }
-
-        // Le render ne change pas, on passait avant un tableau, maintenant un objet
-        return $this->render('EJLoveBundle:Default:lobbyParty.html.twig', array(
-            'party' => $party
-        ));
-        
-    }
-     
-    public function joinPartyAction($partyid){
-        $em = $this->getDoctrine()->getManager();
-        // On récupère l'entité correspondante à l'id $gameid
-        $repository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('EJLoveBundle:Party');
-        $party = $repository->find($partyid);
-        $user = $this->getUser();
-        $party->addPlayer($user);
-        $em->flush();
-        return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid'=> $party->getId() ));
     }
              
 }

@@ -250,7 +250,7 @@ class Game
     /**
      * Remove the first card of the deck
      *
-     * @return Card
+     * @return integer
      *
      */
     public function drawCard()

@@ -122,20 +122,17 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::initAction',  '_route' => 'LoveBundle_init',);
         }
 
-        if (0 === strpos($pathinfo, '/create')) {
-            // LoveBundle_create
-            if ('/create' === $pathinfo) {
-                return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::createAction',  '_route' => 'LoveBundle_create',);
-            }
-
-            // LoveBundle_createParty
-            if ('/createParty' === $pathinfo) {
-                return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::createPartyAction',  '_route' => 'LoveBundle_createParty',);
-            }
-
+        // LoveBundle_create
+        if ('/createGame' === $pathinfo) {
+            return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::createAction',  '_route' => 'LoveBundle_create',);
         }
 
-        elseif (0 === strpos($pathinfo, '/re')) {
+        // LoveBundle_createParty
+        if ('/createParty' === $pathinfo) {
+            return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\PartyController::createPartyAction',  '_route' => 'LoveBundle_createParty',);
+        }
+
+        if (0 === strpos($pathinfo, '/re')) {
             // LoveBundle_reset
             if (0 === strpos($pathinfo, '/reset') && preg_match('#^/reset/(?P<gameid>\\d+)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_reset')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::resetAction',));
@@ -270,7 +267,7 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         elseif (0 === strpos($pathinfo, '/l')) {
             // LoveBundle_ListParty
             if ('/list' === $pathinfo) {
-                return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::listAction',  '_route' => 'LoveBundle_ListParty',);
+                return array (  '_controller' => 'EJ\\LoveBundle\\Controller\\PartyController::listAction',  '_route' => 'LoveBundle_ListParty',);
             }
 
             if (0 === strpos($pathinfo, '/login')) {
@@ -313,12 +310,12 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         // LoveBundle_viewParty
         if (0 === strpos($pathinfo, '/viewParty') && preg_match('#^/viewParty/(?P<partyid>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_viewParty')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::viewPartyAction',));
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_viewParty')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\PartyController::viewPartyAction',));
         }
 
         // LoveBundle_joinParty
         if (0 === strpos($pathinfo, '/joinParty') && preg_match('#^/joinParty/(?P<partyid>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_joinParty')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::joinPartyAction',));
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_joinParty')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\PartyController::joinPartyAction',));
         }
 
         if (0 === strpos($pathinfo, '/profile')) {

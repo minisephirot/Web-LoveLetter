@@ -29,9 +29,9 @@ class Party
     /**
      * @var array
      *
-     * @ORM\Column(name="partyPlayer", type="array", nullable=true)
+     * @ORM\Column(name="partyPlayers", type="array", nullable=true)
      */
-    private $partyPlayer;
+    private $partyPlayers;
 
 
     /**
@@ -76,7 +76,7 @@ class Party
      */
     public function addPlayer($player)
     {
-        $this->partyPlayer[] = $player;
+        $this->partyPlayers[] = $player;
     }
     
     /**
@@ -86,7 +86,30 @@ class Party
      */
     public function getpartyPlayer()
     {
-        return $this->partyPlayer;
+        return $this->partyPlayers;
+    }
+
+    /**
+     * Set partyPlayers
+     *
+     * @param array $partyPlayers
+     *
+     * @return Party
+     */
+    public function setPartyPlayers($partyPlayers)
+    {
+        $this->partyPlayers = $partyPlayers;
+    
+        return $this;
+    }
+
+    /**
+     * Get partyPlayers
+     *
+     * @return array
+     */
+    public function getPartyPlayers()
+    {
+        return $this->partyPlayers;
     }
 }
-

@@ -22,29 +22,29 @@ class __TwigTemplate_722506dce6fa84c4eb89fec36d92fe1b4faea35ca74ea262ec21acc3fbf
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_cdc09d7b8ea727b55f77a17bc555c1479bbe7202334f7416bd1439a40840e562 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_cdc09d7b8ea727b55f77a17bc555c1479bbe7202334f7416bd1439a40840e562->enter($__internal_cdc09d7b8ea727b55f77a17bc555c1479bbe7202334f7416bd1439a40840e562_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "EJLoveBundle:Default:view.html.twig"));
+        $__internal_f3d9ee1aa592aad0afacaa4c4e83d50d4fa0d3c412589c00fb6a8cda7dde6eae = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_f3d9ee1aa592aad0afacaa4c4e83d50d4fa0d3c412589c00fb6a8cda7dde6eae->enter($__internal_f3d9ee1aa592aad0afacaa4c4e83d50d4fa0d3c412589c00fb6a8cda7dde6eae_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "EJLoveBundle:Default:view.html.twig"));
 
-        $__internal_bcf97fa3528a0898614774a89e354a6fbf8f0852e22769e1ed5468ba04aa34ec = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_bcf97fa3528a0898614774a89e354a6fbf8f0852e22769e1ed5468ba04aa34ec->enter($__internal_bcf97fa3528a0898614774a89e354a6fbf8f0852e22769e1ed5468ba04aa34ec_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "EJLoveBundle:Default:view.html.twig"));
+        $__internal_ba6b7a4e7122f92c3ff8ffe4ede16da79b10a39723936a0c4b1e243828e99b21 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_ba6b7a4e7122f92c3ff8ffe4ede16da79b10a39723936a0c4b1e243828e99b21->enter($__internal_ba6b7a4e7122f92c3ff8ffe4ede16da79b10a39723936a0c4b1e243828e99b21_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "EJLoveBundle:Default:view.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_cdc09d7b8ea727b55f77a17bc555c1479bbe7202334f7416bd1439a40840e562->leave($__internal_cdc09d7b8ea727b55f77a17bc555c1479bbe7202334f7416bd1439a40840e562_prof);
+        $__internal_f3d9ee1aa592aad0afacaa4c4e83d50d4fa0d3c412589c00fb6a8cda7dde6eae->leave($__internal_f3d9ee1aa592aad0afacaa4c4e83d50d4fa0d3c412589c00fb6a8cda7dde6eae_prof);
 
         
-        $__internal_bcf97fa3528a0898614774a89e354a6fbf8f0852e22769e1ed5468ba04aa34ec->leave($__internal_bcf97fa3528a0898614774a89e354a6fbf8f0852e22769e1ed5468ba04aa34ec_prof);
+        $__internal_ba6b7a4e7122f92c3ff8ffe4ede16da79b10a39723936a0c4b1e243828e99b21->leave($__internal_ba6b7a4e7122f92c3ff8ffe4ede16da79b10a39723936a0c4b1e243828e99b21_prof);
 
     }
 
     // line 3
     public function block_title($context, array $blocks = array())
     {
-        $__internal_f5c03a9a70937b6bb72aa8b6fbff05291a17d20addf904c5eab4c5d0207fafa2 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_f5c03a9a70937b6bb72aa8b6fbff05291a17d20addf904c5eab4c5d0207fafa2->enter($__internal_f5c03a9a70937b6bb72aa8b6fbff05291a17d20addf904c5eab4c5d0207fafa2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_55005ce79a760c6a395e955862443479ea8ad482ab9e9b61e83cf2936835f0d5 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_55005ce79a760c6a395e955862443479ea8ad482ab9e9b61e83cf2936835f0d5->enter($__internal_55005ce79a760c6a395e955862443479ea8ad482ab9e9b61e83cf2936835f0d5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
-        $__internal_117f141bfca750607eb0e5be281e99b371d02f54e4d8dad08403d2b9f52eb7f9 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_117f141bfca750607eb0e5be281e99b371d02f54e4d8dad08403d2b9f52eb7f9->enter($__internal_117f141bfca750607eb0e5be281e99b371d02f54e4d8dad08403d2b9f52eb7f9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_d4e7b2a812e8b4af7f7de1d2296bd478b22d88d1bb606d7cd17517e3278bf788 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_d4e7b2a812e8b4af7f7de1d2296bd478b22d88d1bb606d7cd17517e3278bf788->enter($__internal_d4e7b2a812e8b4af7f7de1d2296bd478b22d88d1bb606d7cd17517e3278bf788_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
         // line 4
         echo "    Partie en cours - ";
@@ -52,21 +52,21 @@ class __TwigTemplate_722506dce6fa84c4eb89fec36d92fe1b4faea35ca74ea262ec21acc3fbf
         echo "
 ";
         
-        $__internal_117f141bfca750607eb0e5be281e99b371d02f54e4d8dad08403d2b9f52eb7f9->leave($__internal_117f141bfca750607eb0e5be281e99b371d02f54e4d8dad08403d2b9f52eb7f9_prof);
+        $__internal_d4e7b2a812e8b4af7f7de1d2296bd478b22d88d1bb606d7cd17517e3278bf788->leave($__internal_d4e7b2a812e8b4af7f7de1d2296bd478b22d88d1bb606d7cd17517e3278bf788_prof);
 
         
-        $__internal_f5c03a9a70937b6bb72aa8b6fbff05291a17d20addf904c5eab4c5d0207fafa2->leave($__internal_f5c03a9a70937b6bb72aa8b6fbff05291a17d20addf904c5eab4c5d0207fafa2_prof);
+        $__internal_55005ce79a760c6a395e955862443479ea8ad482ab9e9b61e83cf2936835f0d5->leave($__internal_55005ce79a760c6a395e955862443479ea8ad482ab9e9b61e83cf2936835f0d5_prof);
 
     }
 
     // line 7
     public function block_ll_body($context, array $blocks = array())
     {
-        $__internal_851f803f42f71eae7683ed62206918c3493933ef7c1a32054aa939272257e090 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_851f803f42f71eae7683ed62206918c3493933ef7c1a32054aa939272257e090->enter($__internal_851f803f42f71eae7683ed62206918c3493933ef7c1a32054aa939272257e090_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ll_body"));
+        $__internal_215a5be89871c122f5c54512f16f26b024725637f8c82eea618b0f627c051213 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_215a5be89871c122f5c54512f16f26b024725637f8c82eea618b0f627c051213->enter($__internal_215a5be89871c122f5c54512f16f26b024725637f8c82eea618b0f627c051213_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ll_body"));
 
-        $__internal_52832f62ee3f774fa3930dd4508feec34ac7db7413f16e06bb11e40f4aab2aa6 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_52832f62ee3f774fa3930dd4508feec34ac7db7413f16e06bb11e40f4aab2aa6->enter($__internal_52832f62ee3f774fa3930dd4508feec34ac7db7413f16e06bb11e40f4aab2aa6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ll_body"));
+        $__internal_350e32311ef79628c3f357d1afd9d28af7609a81593cdd46451ce72755593096 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_350e32311ef79628c3f357d1afd9d28af7609a81593cdd46451ce72755593096->enter($__internal_350e32311ef79628c3f357d1afd9d28af7609a81593cdd46451ce72755593096_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ll_body"));
 
         // line 8
         echo "    <link rel=\"stylesheet\"
@@ -75,161 +75,166 @@ class __TwigTemplate_722506dce6fa84c4eb89fec36d92fe1b4faea35ca74ea262ec21acc3fbf
     />
     <div class=\"container\">
         <div id=\"header\"  class=\"jumbotron\">
+            <a type=\"button\" class=\"btn btn-info pulse-danger\" href=";
+        // line 14
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("LoveBundle_reset", array("gameid" => twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 14, $this->getSourceContext()); })()), "id", array()))), "html", null, true);
+        echo ">Reset this game !</a>
             <button type=\"button\" class=\"btn btn-info pulse-danger\" data-toggle=\"collapse\" data-target=\"#debug\">Info debuggage</button>
             <div id=\"debug\" class=\"collapse well\">
                 Tableau des joueurs :
                 ";
-        // line 17
-        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 17, $this->getSourceContext()); })()), "players", array()));
+        // line 18
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 18, $this->getSourceContext()); })()), "players", array()));
         echo "
                 Tableau des cartes en main des joueurs
                 ";
-        // line 19
-        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 19, $this->getSourceContext()); })()), "cardsInHand", array()));
+        // line 20
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 20, $this->getSourceContext()); })()), "cardsInHand", array()));
         echo "
                 Tableau des cartes jouées par les joueurs
                 ";
-        // line 21
-        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 21, $this->getSourceContext()); })()), "cardsPlayed", array()));
+        // line 22
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 22, $this->getSourceContext()); })()), "cardsPlayed", array()));
         echo "
                 Tableau de la pioche
                 ";
-        // line 23
-        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 23, $this->getSourceContext()); })()), "cardsInDeck", array()));
+        // line 24
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 24, $this->getSourceContext()); })()), "cardsInDeck", array()));
         echo "
                 Tableau de la défausse
                 ";
-        // line 25
-        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 25, $this->getSourceContext()); })()), "cardsDiscarded", array()));
+        // line 26
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 26, $this->getSourceContext()); })()), "cardsDiscarded", array()));
         echo "
                 Carte Secrete:
                 ";
-        // line 27
-        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 27, $this->getSourceContext()); })()), "cardHidden", array()));
+        // line 28
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\DumpExtension')->dump($this->env, $context, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 28, $this->getSourceContext()); })()), "cardHidden", array()));
         echo "
             </div>
 
             <h1>Partie numéro ";
-        // line 30
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 30, $this->getSourceContext()); })()), "id", array()), "html", null, true);
+        // line 31
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 31, $this->getSourceContext()); })()), "id", array()), "html", null, true);
         echo "</h1>
                 ";
-        // line 31
+        // line 32
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 31, $this->getSourceContext()); })()), "cardsInHand", array()));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 32, $this->getSourceContext()); })()), "cardsInHand", array()));
         foreach ($context['_seq'] as $context["player"] => $context["values"]) {
-            // line 32
+            // line 33
             echo "                    <h3>";
             echo twig_escape_filter($this->env, $context["player"], "html", null, true);
             echo "</h3>
                     <ul class=\"list-inline\">
                         <h4>Hand :</h4>
                         ";
-            // line 35
+            // line 36
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($context["values"]);
             foreach ($context['_seq'] as $context["key"] => $context["value"]) {
-                // line 36
+                // line 37
                 echo "                            <li><img class=\"pulse-primary\" title=\"Action\" data-toggle=\"popover\" data-placement=\"bottom\" data-html=\"true\" data-content=\"<a href=";
-                echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("LoveBundle_playcard", array("gameid" => twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 36, $this->getSourceContext()); })()), "id", array()), "playerid" => $context["player"], "cardid" => $context["value"])), "html", null, true);
+                echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("LoveBundle_playcard", array("gameid" => twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 37, $this->getSourceContext()); })()), "id", array()), "playerid" => $context["player"], "cardid" => $context["value"])), "html", null, true);
                 echo ">Play this card</a><br>
                             <a href=";
-                // line 37
-                echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("LoveBundle_discard", array("gameid" => twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 37, $this->getSourceContext()); })()), "id", array()), "playerid" => $context["player"], "cardid" => $context["value"])), "html", null, true);
+                // line 38
+                echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("LoveBundle_discard", array("gameid" => twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 38, $this->getSourceContext()); })()), "id", array()), "playerid" => $context["player"], "cardid" => $context["value"])), "html", null, true);
                 echo ">Discard</a>\"
                                      src=\"";
-                // line 38
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 38, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "imageCarte", array()), "html", null, true);
+                // line 39
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 39, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "imageCarte", array()), "html", null, true);
                 echo "\" alt=\"";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 38, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "nomCarte", array()), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 39, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "nomCarte", array()), "html", null, true);
                 echo "\"></li>
                         ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['key'], $context['value'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 40
+            // line 41
             echo "                        <h4>Board :</h4>
                         ";
-            // line 41
+            // line 42
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 41, $this->getSourceContext()); })()), "cardsPlayed", array()), $context["player"], array(), "array"));
+            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 42, $this->getSourceContext()); })()), "cardsPlayed", array()), $context["player"], array(), "array"));
             foreach ($context['_seq'] as $context["key"] => $context["value"]) {
-                // line 42
+                // line 43
                 echo "                            <li><img src=\"";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 42, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "imageCarte", array()), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 43, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "imageCarte", array()), "html", null, true);
                 echo "\" alt=\"";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 42, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "nomCarte", array()), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 43, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "nomCarte", array()), "html", null, true);
                 echo "\"></li>
                         ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['key'], $context['value'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 44
+            // line 45
             echo "                    </ul>
                 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['player'], $context['values'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 46
+        // line 47
         echo "                 <h4>Deck :</h4>
                 <a type=\"button\" class=\"btn btn-info pulse-success\" href=";
-        // line 47
-        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("LoveBundle_draw", array("gameid" => twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 47, $this->getSourceContext()); })()), "id", array()), "playerid" => "player1")), "html", null, true);
+        // line 48
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("LoveBundle_draw", array("gameid" => twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 48, $this->getSourceContext()); })()), "id", array()), "playerid" => "player1")), "html", null, true);
         echo ">Piocher !</a>
                 <ul class=\"list-inline\">
                 ";
-        // line 49
+        // line 50
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 49, $this->getSourceContext()); })()), "cardsInDeck", array()));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 50, $this->getSourceContext()); })()), "cardsInDeck", array()));
         foreach ($context['_seq'] as $context["key"] => $context["value"]) {
-            // line 50
+            // line 51
             echo "                    <li><img src=\"";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 50, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "imageCarte", array()), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 51, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "imageCarte", array()), "html", null, true);
             echo "\" alt=\"";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 50, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "nomCarte", array()), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 51, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "nomCarte", array()), "html", null, true);
             echo "\"></li>
                 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['key'], $context['value'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 52
+        // line 53
         echo "                <h4>Discards :</h4>
                 ";
-        // line 53
+        // line 54
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 53, $this->getSourceContext()); })()), "cardsDiscarded", array()));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 54, $this->getSourceContext()); })()), "cardsDiscarded", array()));
         foreach ($context['_seq'] as $context["key"] => $context["value"]) {
-            // line 54
+            // line 55
             echo "                    ";
-            if (($context["value"] == twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 54, $this->getSourceContext()); })()), "cardHidden", array()))) {
-                // line 55
+            if (($context["value"] == twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 55, $this->getSourceContext()); })()), "cardHidden", array()))) {
+                // line 56
                 echo "                        <li><img src=\"";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 55, $this->getSourceContext()); })()), "card", array(0 => 16), "method"), "imageCarte", array()), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 56, $this->getSourceContext()); })()), "card", array(0 => 16), "method"), "imageCarte", array()), "html", null, true);
                 echo "\" alt=\"";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 55, $this->getSourceContext()); })()), "card", array(0 => 16), "method"), "nomCarte", array()), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 56, $this->getSourceContext()); })()), "card", array(0 => 16), "method"), "nomCarte", array()), "html", null, true);
                 echo "\"></li>
                     ";
             } else {
-                // line 57
+                // line 58
                 echo "                        <li><img src=\"";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 57, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "imageCarte", array()), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 58, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "imageCarte", array()), "html", null, true);
                 echo "\" alt=\"";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 57, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "nomCarte", array()), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["game"]) || array_key_exists("game", $context) ? $context["game"] : (function () { throw new Twig_Error_Runtime('Variable "game" does not exist.', 58, $this->getSourceContext()); })()), "card", array(0 => $context["value"]), "method"), "nomCarte", array()), "html", null, true);
                 echo "\"></li>
                     ";
             }
-            // line 59
+            // line 60
             echo "                ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['key'], $context['value'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 60
+        // line 61
         echo "                </ul>
+
                 <script>
                     \$(document).ready(function(){
                         \$('[data-toggle=\"popover\"]').popover();
@@ -243,10 +248,10 @@ class __TwigTemplate_722506dce6fa84c4eb89fec36d92fe1b4faea35ca74ea262ec21acc3fbf
 
 ";
         
-        $__internal_52832f62ee3f774fa3930dd4508feec34ac7db7413f16e06bb11e40f4aab2aa6->leave($__internal_52832f62ee3f774fa3930dd4508feec34ac7db7413f16e06bb11e40f4aab2aa6_prof);
+        $__internal_350e32311ef79628c3f357d1afd9d28af7609a81593cdd46451ce72755593096->leave($__internal_350e32311ef79628c3f357d1afd9d28af7609a81593cdd46451ce72755593096_prof);
 
         
-        $__internal_851f803f42f71eae7683ed62206918c3493933ef7c1a32054aa939272257e090->leave($__internal_851f803f42f71eae7683ed62206918c3493933ef7c1a32054aa939272257e090_prof);
+        $__internal_215a5be89871c122f5c54512f16f26b024725637f8c82eea618b0f627c051213->leave($__internal_215a5be89871c122f5c54512f16f26b024725637f8c82eea618b0f627c051213_prof);
 
     }
 
@@ -262,7 +267,7 @@ class __TwigTemplate_722506dce6fa84c4eb89fec36d92fe1b4faea35ca74ea262ec21acc3fbf
 
     public function getDebugInfo()
     {
-        return array (  232 => 60,  226 => 59,  218 => 57,  210 => 55,  207 => 54,  203 => 53,  200 => 52,  189 => 50,  185 => 49,  180 => 47,  177 => 46,  170 => 44,  159 => 42,  155 => 41,  152 => 40,  142 => 38,  138 => 37,  133 => 36,  129 => 35,  122 => 32,  118 => 31,  114 => 30,  108 => 27,  103 => 25,  98 => 23,  93 => 21,  88 => 19,  83 => 17,  72 => 8,  63 => 7,  50 => 4,  41 => 3,  11 => 1,);
+        return array (  236 => 61,  230 => 60,  222 => 58,  214 => 56,  211 => 55,  207 => 54,  204 => 53,  193 => 51,  189 => 50,  184 => 48,  181 => 47,  174 => 45,  163 => 43,  159 => 42,  156 => 41,  146 => 39,  142 => 38,  137 => 37,  133 => 36,  126 => 33,  122 => 32,  118 => 31,  112 => 28,  107 => 26,  102 => 24,  97 => 22,  92 => 20,  87 => 18,  80 => 14,  72 => 8,  63 => 7,  50 => 4,  41 => 3,  11 => 1,);
     }
 
     public function getSourceContext()
@@ -280,6 +285,7 @@ class __TwigTemplate_722506dce6fa84c4eb89fec36d92fe1b4faea35ca74ea262ec21acc3fbf
     />
     <div class=\"container\">
         <div id=\"header\"  class=\"jumbotron\">
+            <a type=\"button\" class=\"btn btn-info pulse-danger\" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset this game !</a>
             <button type=\"button\" class=\"btn btn-info pulse-danger\" data-toggle=\"collapse\" data-target=\"#debug\">Info debuggage</button>
             <div id=\"debug\" class=\"collapse well\">
                 Tableau des joueurs :
@@ -327,6 +333,7 @@ class __TwigTemplate_722506dce6fa84c4eb89fec36d92fe1b4faea35ca74ea262ec21acc3fbf
                     {% endif %}
                 {% endfor %}
                 </ul>
+
                 <script>
                     \$(document).ready(function(){
                         \$('[data-toggle=\"popover\"]').popover();
