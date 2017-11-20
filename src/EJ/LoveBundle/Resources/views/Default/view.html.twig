@@ -5,15 +5,14 @@
 {% endblock %}
 
 {% block ll_body %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="http://localhost/WebLoveLetter/web/pulse.css"
-    />
+    <link rel="stylesheet" type="text/css" href="http://localhost/WebLoveLetter/web/pulse.css"/>
     <div id="game" class="container">
         <div id="header"  class="jumbotron">
             <a type="button" class="btn btn-info pulse-danger" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset this game !</a>
             <button type="button" class="btn btn-info pulse-danger" data-toggle="collapse" data-target="#debug">Info debuggage</button>
             <div id="debug" class="collapse well">
+                Nom associé à ce client:
+                {{ dump(app.user.username) }}
                 Tableau des joueurs :
                 {{ dump(game.players)}}
                 Tour du joueur n° :
@@ -32,6 +31,7 @@
 
             <h1>Partie numéro {{ game.id }}</h1>
                 {% for player,values in game.cardsInHand %}
+                    <div class="well">
                     <h3>{{ player }}</h3>
                     <ul class="list-inline">
                         <h4>Hand :</h4>
@@ -45,36 +45,57 @@
                             <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
                         {% endfor %}
                     </ul>
+                    </div>
                 {% endfor %}
-                 <h4>Deck :</h4>
-                <a type="button" class="btn btn-info pulse-success" href={{ path('LoveBundle_draw', {'gameid': game.id,'playerid': 'player1'}) }}>Piocher !</a>
-                <ul class="list-inline">
-                {% for key, value in game.cardsInDeck %}
-                    <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
-                {% endfor %}
-                <h4>Discards :</h4>
-                {% for key, value in game.cardsDiscarded %}
-                    {% if value == game.cardHidden %}
-                        <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}"></li>
-                    {% else %}
-                        <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
-                    {% endif %}
-                {% endfor %}
-                </ul>
+
+                <div class="well" style="height: 400px">
+                    <a type="button" class="btn btn-info pulse-success" href={{ path('LoveBundle_draw', {'gameid': game.id,'playerid': 'player1'}) }}>Piocher (J1)</a>
+                    <a type="button" class="btn btn-info pulse-success" href={{ path('LoveBundle_draw', {'gameid': game.id,'playerid': 'player2'}) }}>Piocher (J2)</a>
+                    <h4>Deck :</h4>
+                    <div style="position:relative">
+                        <ul class="list-inline">
+                            {% set pixel = 10 %}
+                            {% set zaxe = 0 %}
+                            {% for key, value in game.cardsInDeck %}
+                               <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                                {% set pixel = pixel + 50 %}
+                                {% set zaxe = zaxe + 1 %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="well" style="height: 400px">
+                    <h4>Discards :</h4>
+                    <div style="position:relative">
+                        <ul class="list-inline">
+                            {% set pixel = 10 %}
+                            {% set zaxe = 0 %}
+                        {% for key, value in game.cardsDiscarded %}
+                            {% if value == game.cardHidden %}
+                                <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                            {% else %}
+                                <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                            {% endif %}
+                            {% set pixel = pixel + 50 %}
+                            {% set zaxe = zaxe + 1 %}
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
 
                 <script type="text/javascript">
-                    $(document).ready(function(){
+                    $(function(){
                         $('[data-toggle="popover"]').popover();
                     });
                     var auto_refresh = setInterval(function () {
                             $.getJSON('{{ path('LoveBundle_refresh',{'gameid': game.id}) }}',function (data) {
-                                alert(data);
                                 if ({{ game.playerTurn }} != data){
                                     $('#game').load("{{ game.id }} #game").fadeIn("slow");
                                     alert("Rafraichi : db update");
                                 }
                             })
-                        }, 2000); // refresh every 2000 milliseconds
+                        }, 5000); // refresh every 2000 milliseconds
                 </script>
 
         </div>
