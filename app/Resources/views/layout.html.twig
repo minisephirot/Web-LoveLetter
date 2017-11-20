@@ -3,6 +3,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            .full {
+                background: url('http://localhost/WebLoveLetter/web/images/verso.png') no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                background-size: cover;
+                -o-background-size: cover;
+                height:100%;
+            }
+        </style>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,7 +25,7 @@
         {% endblock %}
     </head>
 
-    <body style="background:darkred">
+    <body class="full">
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -56,14 +66,15 @@
             </div>
         </nav>
 
+        <div class="container">
         {% block body %}
         {% endblock %}
+        </div>
 
         {% block javascripts %}
             {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
             <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         {% endblock %}
-
     </body>
 </html>
