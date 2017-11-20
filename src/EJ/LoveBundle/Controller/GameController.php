@@ -4,6 +4,7 @@ namespace EJ\LoveBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 use EJ\LoveBundle\Entity\Card;
 use EJ\LoveBundle\Entity\Game;
 use EJ\LoveBundle\Entity\Party;
@@ -131,6 +132,18 @@ class GameController extends Controller
         $em->persist($game);
         $em->flush();
         return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+    }
+
+    public function getTourAction($gameid){
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Game');
+        $game = $repository->find($gameid);
+        //on recup qui joue et on le renvoie en tant que json
+        $tour = $game->getPlayerTurn();
+
+        return $this->json($tour);
     }
 
     public function createGame(){

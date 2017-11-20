@@ -15,6 +15,7 @@ class Game
     public function __construct()
     {
         $this->cards = new ArrayCollection();
+        $this->playerTurn = 0;
     }
 
     /**
@@ -37,6 +38,13 @@ class Game
      * @ORM\Column(name="cardHidden", type="integer", nullable=true)
      */
     private $cardHidden;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="playerTurn", type="integer", nullable=false)
+     */
+    private $playerTurn;
 
     /**
      * @var array
@@ -364,13 +372,52 @@ class Game
     public function resetGame(){
         $array = $this->getCardsInHand();
         $joueurs = array_keys($array);
-
+        $this->playerTurn = 0;
         foreach ($joueurs as $joueur){
             $this->addPlayer($joueur);
         }
-        $this->setCardHidden(array());
+        $this->setCardHidden(null);
         $this->setCardsDiscarded(array());
         $this->setCardsInDeck(array());
     }
 
+
+    /**
+     * Set playerTurn
+     *
+     * @param integer $playerTurn
+     *
+     * @return Game
+     */
+    public function setPlayerTurn($playerTurn)
+    {
+        $this->playerTurn = $playerTurn;
+    
+        return $this;
+    }
+
+    /**
+     * Advance to the next turn
+     *
+     *
+     */
+    public function advanceTurn()
+    {
+        $nb = count($this->getPlayers());
+        if ($this->getPlayerTurn() >= $nb){
+            $this->setPlayerTurn(0);
+        }else{
+            $this->playerTurn++;
+        }
+    }
+
+    /**
+     * Get playerTurn
+     *
+     * @return integer
+     */
+    public function getPlayerTurn()
+    {
+        return $this->playerTurn;
+    }
 }

@@ -262,6 +262,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_draw')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::drawAction',));
             }
 
+            // LoveBundle_refresh
+            if (preg_match('#^/game/(?P<gameid>\\d+)/refresh$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveBundle_refresh')), array (  '_controller' => 'EJ\\LoveBundle\\Controller\\GameController::getTourAction',));
+            }
+
         }
 
         elseif (0 === strpos($pathinfo, '/l')) {

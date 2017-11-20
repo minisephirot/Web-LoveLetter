@@ -57,7 +57,13 @@ LoveBundle_draw:
     requirements:
         gameid: \d+
         playerid: "[a-zA-Z0-9-]+"
-        
+
+LoveBundle_refresh:
+    path:      /game/{gameid}/refresh
+    defaults:
+        _controller: EJLoveBundle:Game:getTour
+    requirements:
+        gameid: \d+
         
 LoveBundle_ListParty:
     path:      /list
