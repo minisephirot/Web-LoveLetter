@@ -6,7 +6,7 @@
 
 {% block ll_body %}
 
-    <div class="container">
+    <div id="list" class="container">
         <div class="well">
             <h1>Party list :</h1><br>
 
@@ -18,6 +18,16 @@
 
         </div>
     </div>
+      
+    <script type="text/javascript">
+         $(function(){
+             $('[data-toggle="popover"]').popover();
+             });
+             var auto_refresh = setInterval(
+                 function () {
+                    $('#list').load(" #list").fadeIn("slow");
+            }, 5000); // refresh every 2000 milliseconds
+    </script>
       
       
 {% endblock %}

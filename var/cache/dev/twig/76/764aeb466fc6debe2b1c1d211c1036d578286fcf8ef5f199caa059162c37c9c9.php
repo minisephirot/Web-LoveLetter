@@ -1,6 +1,6 @@
 <?php
 
-/* @EJLove/Default/lobbyParty.html.twig */
+/* EJLoveBundle:Default:lobbyParty.html.twig */
 class __TwigTemplate_096ae46e36236faf41decfb8f7f5375debf802632846ef3b30562fefb67c8622 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -8,7 +8,7 @@ class __TwigTemplate_096ae46e36236faf41decfb8f7f5375debf802632846ef3b30562fefb67
         parent::__construct($env);
 
         // line 1
-        $this->parent = $this->loadTemplate("EJLoveBundle:Default:layout.html.twig", "@EJLove/Default/lobbyParty.html.twig", 1);
+        $this->parent = $this->loadTemplate("EJLoveBundle:Default:layout.html.twig", "EJLoveBundle:Default:lobbyParty.html.twig", 1);
         $this->blocks = array(
             'title' => array($this, 'block_title'),
             'll_body' => array($this, 'block_ll_body'),
@@ -22,29 +22,29 @@ class __TwigTemplate_096ae46e36236faf41decfb8f7f5375debf802632846ef3b30562fefb67
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_8140feabec0199a57936c256dccb3252c0e8d9683cc90f5eb270f410f2f50f04 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_8140feabec0199a57936c256dccb3252c0e8d9683cc90f5eb270f410f2f50f04->enter($__internal_8140feabec0199a57936c256dccb3252c0e8d9683cc90f5eb270f410f2f50f04_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@EJLove/Default/lobbyParty.html.twig"));
+        $__internal_bafb43a170a7baf4a0f3a1ff913aab577155ad7548b122fbbb3601c0187f72e9 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_bafb43a170a7baf4a0f3a1ff913aab577155ad7548b122fbbb3601c0187f72e9->enter($__internal_bafb43a170a7baf4a0f3a1ff913aab577155ad7548b122fbbb3601c0187f72e9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "EJLoveBundle:Default:lobbyParty.html.twig"));
 
-        $__internal_afb3e0c27f91b25f847ffd08a8edcea16b529b02790b2ee0821e3336740de2ad = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_afb3e0c27f91b25f847ffd08a8edcea16b529b02790b2ee0821e3336740de2ad->enter($__internal_afb3e0c27f91b25f847ffd08a8edcea16b529b02790b2ee0821e3336740de2ad_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@EJLove/Default/lobbyParty.html.twig"));
+        $__internal_cebe43b8f1bd5fc1512d3a3768fcc5e6ab6fb443ce315e0ceb55ef08ed2e8ffb = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_cebe43b8f1bd5fc1512d3a3768fcc5e6ab6fb443ce315e0ceb55ef08ed2e8ffb->enter($__internal_cebe43b8f1bd5fc1512d3a3768fcc5e6ab6fb443ce315e0ceb55ef08ed2e8ffb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "EJLoveBundle:Default:lobbyParty.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_8140feabec0199a57936c256dccb3252c0e8d9683cc90f5eb270f410f2f50f04->leave($__internal_8140feabec0199a57936c256dccb3252c0e8d9683cc90f5eb270f410f2f50f04_prof);
+        $__internal_bafb43a170a7baf4a0f3a1ff913aab577155ad7548b122fbbb3601c0187f72e9->leave($__internal_bafb43a170a7baf4a0f3a1ff913aab577155ad7548b122fbbb3601c0187f72e9_prof);
 
         
-        $__internal_afb3e0c27f91b25f847ffd08a8edcea16b529b02790b2ee0821e3336740de2ad->leave($__internal_afb3e0c27f91b25f847ffd08a8edcea16b529b02790b2ee0821e3336740de2ad_prof);
+        $__internal_cebe43b8f1bd5fc1512d3a3768fcc5e6ab6fb443ce315e0ceb55ef08ed2e8ffb->leave($__internal_cebe43b8f1bd5fc1512d3a3768fcc5e6ab6fb443ce315e0ceb55ef08ed2e8ffb_prof);
 
     }
 
     // line 3
     public function block_title($context, array $blocks = array())
     {
-        $__internal_647c634e632bf5ebe594c437627eb437f5c963edfdadd2e7b5c8b65fa5176955 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_647c634e632bf5ebe594c437627eb437f5c963edfdadd2e7b5c8b65fa5176955->enter($__internal_647c634e632bf5ebe594c437627eb437f5c963edfdadd2e7b5c8b65fa5176955_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_2f41031083e898551c0828adc4a77cd942aa6f8e5745440ba8344e4818e4811d = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_2f41031083e898551c0828adc4a77cd942aa6f8e5745440ba8344e4818e4811d->enter($__internal_2f41031083e898551c0828adc4a77cd942aa6f8e5745440ba8344e4818e4811d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
-        $__internal_4ed6b826f38bdd017e959bcf26ed27fd22ca230b60be80eba6600efb038060a3 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_4ed6b826f38bdd017e959bcf26ed27fd22ca230b60be80eba6600efb038060a3->enter($__internal_4ed6b826f38bdd017e959bcf26ed27fd22ca230b60be80eba6600efb038060a3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_751e5576df7e855789807b588324289bf69c1399571743df6a15e1be7865c4ca = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_751e5576df7e855789807b588324289bf69c1399571743df6a15e1be7865c4ca->enter($__internal_751e5576df7e855789807b588324289bf69c1399571743df6a15e1be7865c4ca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
         // line 4
         echo "    Partie en cours - ";
@@ -52,25 +52,25 @@ class __TwigTemplate_096ae46e36236faf41decfb8f7f5375debf802632846ef3b30562fefb67
         echo "
 ";
         
-        $__internal_4ed6b826f38bdd017e959bcf26ed27fd22ca230b60be80eba6600efb038060a3->leave($__internal_4ed6b826f38bdd017e959bcf26ed27fd22ca230b60be80eba6600efb038060a3_prof);
+        $__internal_751e5576df7e855789807b588324289bf69c1399571743df6a15e1be7865c4ca->leave($__internal_751e5576df7e855789807b588324289bf69c1399571743df6a15e1be7865c4ca_prof);
 
         
-        $__internal_647c634e632bf5ebe594c437627eb437f5c963edfdadd2e7b5c8b65fa5176955->leave($__internal_647c634e632bf5ebe594c437627eb437f5c963edfdadd2e7b5c8b65fa5176955_prof);
+        $__internal_2f41031083e898551c0828adc4a77cd942aa6f8e5745440ba8344e4818e4811d->leave($__internal_2f41031083e898551c0828adc4a77cd942aa6f8e5745440ba8344e4818e4811d_prof);
 
     }
 
     // line 7
     public function block_ll_body($context, array $blocks = array())
     {
-        $__internal_73421c66863dee4181f1f12176f3a7aa7cae42407c5ff82b8b2024f888a63753 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_73421c66863dee4181f1f12176f3a7aa7cae42407c5ff82b8b2024f888a63753->enter($__internal_73421c66863dee4181f1f12176f3a7aa7cae42407c5ff82b8b2024f888a63753_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ll_body"));
+        $__internal_d28c367c7a02db6710437d906fc14c0d2afd0c420a05ba9c9d54bea4a7a4ebba = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_d28c367c7a02db6710437d906fc14c0d2afd0c420a05ba9c9d54bea4a7a4ebba->enter($__internal_d28c367c7a02db6710437d906fc14c0d2afd0c420a05ba9c9d54bea4a7a4ebba_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ll_body"));
 
-        $__internal_4843976f9618dc9b7fc468e2b39dcec925cd3e8f40660f079b499ab58d774e04 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_4843976f9618dc9b7fc468e2b39dcec925cd3e8f40660f079b499ab58d774e04->enter($__internal_4843976f9618dc9b7fc468e2b39dcec925cd3e8f40660f079b499ab58d774e04_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ll_body"));
+        $__internal_0539031fc00ac0fe94406966b1b3be332d1789973f45d731eb1d942fb35ae2e0 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_0539031fc00ac0fe94406966b1b3be332d1789973f45d731eb1d942fb35ae2e0->enter($__internal_0539031fc00ac0fe94406966b1b3be332d1789973f45d731eb1d942fb35ae2e0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ll_body"));
 
         // line 8
         echo "
-    <div class=\"container\">
+    <div id=\"party\" class=\"container\">
         <div class=\"well\">
             <h1>Partie de ";
         // line 11
@@ -92,24 +92,41 @@ class __TwigTemplate_096ae46e36236faf41decfb8f7f5375debf802632846ef3b30562fefb67
         unset($context['_seq'], $context['_iterated'], $context['key'], $context['value'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 16
-        echo "
-            <br><a class=\"btn btn-primary btn-lg\" href=\"\">Commencer la partie</a>
-
-        </div>
+        echo "            ";
+        if ((twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 16, $this->getSourceContext()); })()), "user", array()) == twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["party"]) || array_key_exists("party", $context) ? $context["party"] : (function () { throw new Twig_Error_Runtime('Variable "party" does not exist.', 16, $this->getSourceContext()); })()), "host", array()))) {
+            // line 17
+            echo "                <br><a class=\"btn btn-primary btn-lg\" href=\"\">Commencer la partie</a>
+            ";
+        }
+        // line 19
+        echo "        </div>
     </div>
+
+    <script type=\"text/javascript\">
+         \$(function(){
+             \$('[data-toggle=\"popover\"]').popover();
+             });
+             var auto_refresh = setInterval(
+                 function () {
+                    \$('#party').load(\"";
+        // line 28
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["party"]) || array_key_exists("party", $context) ? $context["party"] : (function () { throw new Twig_Error_Runtime('Variable "party" does not exist.', 28, $this->getSourceContext()); })()), "id", array()), "html", null, true);
+        echo " #party\").fadeIn(\"slow\");
+            }, 5000); // refresh every 2000 milliseconds
+    </script>
       
 ";
         
-        $__internal_4843976f9618dc9b7fc468e2b39dcec925cd3e8f40660f079b499ab58d774e04->leave($__internal_4843976f9618dc9b7fc468e2b39dcec925cd3e8f40660f079b499ab58d774e04_prof);
+        $__internal_0539031fc00ac0fe94406966b1b3be332d1789973f45d731eb1d942fb35ae2e0->leave($__internal_0539031fc00ac0fe94406966b1b3be332d1789973f45d731eb1d942fb35ae2e0_prof);
 
         
-        $__internal_73421c66863dee4181f1f12176f3a7aa7cae42407c5ff82b8b2024f888a63753->leave($__internal_73421c66863dee4181f1f12176f3a7aa7cae42407c5ff82b8b2024f888a63753_prof);
+        $__internal_d28c367c7a02db6710437d906fc14c0d2afd0c420a05ba9c9d54bea4a7a4ebba->leave($__internal_d28c367c7a02db6710437d906fc14c0d2afd0c420a05ba9c9d54bea4a7a4ebba_prof);
 
     }
 
     public function getTemplateName()
     {
-        return "@EJLove/Default/lobbyParty.html.twig";
+        return "EJLoveBundle:Default:lobbyParty.html.twig";
     }
 
     public function isTraitable()
@@ -119,7 +136,7 @@ class __TwigTemplate_096ae46e36236faf41decfb8f7f5375debf802632846ef3b30562fefb67
 
     public function getDebugInfo()
     {
-        return array (  95 => 16,  86 => 14,  82 => 13,  77 => 11,  72 => 8,  63 => 7,  50 => 4,  41 => 3,  11 => 1,);
+        return array (  113 => 28,  102 => 19,  98 => 17,  95 => 16,  86 => 14,  82 => 13,  77 => 11,  72 => 8,  63 => 7,  50 => 4,  41 => 3,  11 => 1,);
     }
 
     public function getSourceContext()
@@ -132,19 +149,29 @@ class __TwigTemplate_096ae46e36236faf41decfb8f7f5375debf802632846ef3b30562fefb67
 
 {% block ll_body %}
 
-    <div class=\"container\">
+    <div id=\"party\" class=\"container\">
         <div class=\"well\">
             <h1>Partie de {{ party.host }}:</h1><br>
 
             {% for key, value in party.partyPlayer %}
                 <li>{{ value }}</li>
             {% endfor %}
-
-            <br><a class=\"btn btn-primary btn-lg\" href=\"\">Commencer la partie</a>
-
+            {% if app.user == party.host %}
+                <br><a class=\"btn btn-primary btn-lg\" href=\"\">Commencer la partie</a>
+            {% endif %}
         </div>
     </div>
+
+    <script type=\"text/javascript\">
+         \$(function(){
+             \$('[data-toggle=\"popover\"]').popover();
+             });
+             var auto_refresh = setInterval(
+                 function () {
+                    \$('#party').load(\"{{ party.id }} #party\").fadeIn(\"slow\");
+            }, 5000); // refresh every 2000 milliseconds
+    </script>
       
-{% endblock %}", "@EJLove/Default/lobbyParty.html.twig", "C:\\wamp64\\www\\WebLoveLetter\\src\\EJ\\LoveBundle\\Resources\\views\\Default\\lobbyParty.html.twig");
+{% endblock %}", "EJLoveBundle:Default:lobbyParty.html.twig", "C:\\wamp64\\www\\WebLoveLetter\\src\\EJ\\LoveBundle\\Resources\\views\\Default\\lobbyParty.html.twig");
     }
 }

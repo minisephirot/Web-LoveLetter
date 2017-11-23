@@ -6,17 +6,27 @@
 
 {% block ll_body %}
 
-    <div class="container">
+    <div id="party" class="container">
         <div class="well">
             <h1>Partie de {{ party.host }}:</h1><br>
 
             {% for key, value in party.partyPlayer %}
                 <li>{{ value }}</li>
             {% endfor %}
-
-            <br><a class="btn btn-primary btn-lg" href="">Commencer la partie</a>
-
+            {% if app.user == party.host %}
+                <br><a class="btn btn-primary btn-lg" href="">Commencer la partie</a>
+            {% endif %}
         </div>
     </div>
+
+    <script type="text/javascript">
+         $(function(){
+             $('[data-toggle="popover"]').popover();
+             });
+             var auto_refresh = setInterval(
+                 function () {
+                    $('#party').load("{{ party.id }} #party").fadeIn("slow");
+            }, 5000); // refresh every 2000 milliseconds
+    </script>
       
 {% endblock %}
