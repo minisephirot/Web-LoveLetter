@@ -23,9 +23,7 @@
         $(function() {
             
             if ( {{ party.isStarted }} == 1){
-                alert('coucou');
-                window.location.replace = "({{ path('LoveBundle_view',{'gameid': party.id})}})";
-               
+                window.location.replace("http://localhost"+"{{ path('LoveBundle_view',{'gameid': party.id})}}");
             }/*else{
                 var auto_refresh = setInterval(
                  function () {
