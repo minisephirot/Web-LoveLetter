@@ -12,7 +12,7 @@ class Party
     
     public function __construct()
     {
-       $this->isStarted = 1;
+       $this->isStarted = 0;
     }
 
     /**
@@ -133,4 +133,29 @@ class Party
     {
         return $this->isStarted;
     }
+    
+    /**
+     * Set partyPlayers
+     *
+     *
+     */
+    public function setPartyStarted()
+    {
+        $this->isStarted = 1;
+    }
+    
+    /**
+     * Get partyPlayers
+     *
+     * @return array
+     */
+    public function getPartyPlayersName()
+    {
+        $listName = array();
+        foreach ($this->partyPlayers as $key => $value){
+            $listName[] = $value->getUsername();
+        }
+        return $listName;
+    }
+    
 }

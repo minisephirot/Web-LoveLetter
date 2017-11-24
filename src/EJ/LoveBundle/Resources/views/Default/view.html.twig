@@ -60,8 +60,7 @@
                 {% endfor %}
 
                 <div class="well" style="height: 400px">
-                    <a type="button" class="btn btn-info pulse-success" href={{ path('LoveBundle_draw', {'gameid': game.id,'playerid': 'player1'}) }}>Piocher (J1)</a>
-                    <a type="button" class="btn btn-info pulse-success" href={{ path('LoveBundle_draw', {'gameid': game.id,'playerid': 'player2'}) }}>Piocher (J2)</a>
+                    <a type="button" class="btn btn-info pulse-success" href={{ path('LoveBundle_draw', {'gameid': game.id,'playerid':  app.user }) }}>Piocher</a>
                     <h4>Deck :</h4>
                     <div style="position:relative">
                         <ul class="list-inline">

@@ -23,7 +23,6 @@ class Game
      *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -74,6 +73,15 @@ class Game
      */
     private $cardsDiscarded;
 
+    /**
+     * set id
+     *
+     */
+    public function setId($id)
+    {
+         $this->id = $id;
+    }
+    
     /**
      * Get id
      *

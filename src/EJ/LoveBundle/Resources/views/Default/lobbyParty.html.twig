@@ -8,13 +8,14 @@
 
     <div id="party" class="container">
         <div class="well">
+              {{ dump(party.partyPlayers)}}
             <h1>Partie de {{ party.host }}:</h1><br>
 
             {% for key, value in party.partyPlayer %}
                 <li>{{ value }}</li>
             {% endfor %}
             {% if app.user == party.host %}
-                <br><a class="btn btn-primary btn-lg" href="">Commencer la partie</a>
+                <br><a class="btn btn-primary btn-lg" href="{{ path('LoveBundle_create',{'id': party.id})}}">Commencer la partie</a>
             {% endif %}
         </div>
     </div>
@@ -24,14 +25,14 @@
             
             if ( {{ party.isStarted }} == 1){
                 window.location.replace("http://localhost"+"{{ path('LoveBundle_view',{'gameid': party.id})}}");
-            }/*else{
+            }else{
                 var auto_refresh = setInterval(
                  function () {
                         // $('#party').load("{{ party.id }} #party").fadeIn("slow");
                         window.location.reload();
                         //alert({{ party.isStarted }})
                 }, 5000); // refresh every 2000 milliseconds
-            }*/
+            }
                        
         });
         

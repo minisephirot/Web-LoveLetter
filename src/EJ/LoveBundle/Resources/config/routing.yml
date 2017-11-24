@@ -14,10 +14,12 @@ LoveBundle_init:
         _controller: EJLoveBundle:Game:init
 
 LoveBundle_create:
-    path:      /createGame
+    path:      /createGame/{id}
     defaults:
         _controller: EJLoveBundle:Game:create
-
+    requirements:
+            gameid: \d+
+            
 LoveBundle_reset:
     path:      /reset/{gameid}
     defaults:
