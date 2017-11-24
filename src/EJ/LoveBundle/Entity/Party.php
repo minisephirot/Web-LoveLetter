@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Party
 {
+    
+    public function __construct()
+    {
+       $this->isStarted = 1;
+    }
 
     /**
      * @var int
@@ -33,6 +38,12 @@ class Party
      */
     private $partyPlayers;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="isStarted", type="integer", nullable=false)
+     */
+    private $isStarted;
 
     /**
      * Get id
@@ -111,5 +122,15 @@ class Party
     public function getPartyPlayers()
     {
         return $this->partyPlayers;
+    }
+    
+    /**
+     * Get isStarted
+     *
+     * @return array
+     */
+    public function getIsStarted()
+    {
+        return $this->isStarted;
     }
 }

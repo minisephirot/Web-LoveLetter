@@ -20,13 +20,23 @@
     </div>
 
     <script type="text/javascript">
-         $(function(){
-             $('[data-toggle="popover"]').popover();
-             });
-             var auto_refresh = setInterval(
+        $(function() {
+            
+            if ( {{ party.isStarted }} == 1){
+                alert('coucou');
+                window.location.replace = "({{ path('LoveBundle_view',{'gameid': party.id})}})";
+               
+            }/*else{
+                var auto_refresh = setInterval(
                  function () {
-                    $('#party').load("{{ party.id }} #party").fadeIn("slow");
-            }, 5000); // refresh every 2000 milliseconds
+                        // $('#party').load("{{ party.id }} #party").fadeIn("slow");
+                        window.location.reload();
+                        //alert({{ party.isStarted }})
+                }, 5000); // refresh every 2000 milliseconds
+            }*/
+                       
+        });
+        
     </script>
       
 {% endblock %}
