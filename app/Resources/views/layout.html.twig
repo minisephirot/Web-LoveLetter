@@ -3,16 +3,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            .full {
-                background: url('http://localhost/WebLoveLetter/web/images/verso.png') no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                background-size: cover;
-                -o-background-size: cover;
-                height:100%;
-            }
-        </style>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,6 +10,7 @@
 
         {% block stylesheets %}
             {# On charge le CSS de bootstrap depuis le site directement #}
+            <link rel="stylesheet" type="text/css" href="http://localhost/WebLoveLetter/web/pulse.css"/>
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
             <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         {% endblock %}

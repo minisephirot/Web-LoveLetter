@@ -1,5 +1,12 @@
 /* MON CSS*/
-
+.full {
+	background: url('http://localhost/WebLoveLetter/web/images/verso.png') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	-o-background-size: cover;
+	height:100%;
+}
 /* CSS DU PULSE*/
 .pulse-primary:hover {
 	color: rgba(255, 255, 255, 0.8);
