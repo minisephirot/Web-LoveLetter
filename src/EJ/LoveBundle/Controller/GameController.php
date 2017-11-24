@@ -88,10 +88,25 @@ class GameController extends Controller
             ->getRepository('EJLoveBundle:Game');
         $game = $repository->find($gameid);
 
-        //control vérifie si l'operation est authorisée (évite d'ajouter au board des cartes qui ne sont pas en main)
+
+        //vérifie que le joueur lancant l'action correspond bien au joueur ayant la main
+        if ($this->getUser()->getUsername() != $game->getPlayerNameTurn() ){
+            $this->addFlash('information','Vous ne pouvez pas jouer, ce n\'est pas votre tour.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+        }
+        //vérifie que le joueur jouant la carte est bien le propriétaire de la carte
+        if ($playerid != $game->getPlayerNameTurn() ){
+            $this->addFlash('information','Vous ne pouvez pas jouer une carte de votre adversaire.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+        }
+        //Action
+        //control vérifie si l'operation est autorisée (évite d'ajouter au board des cartes qui ne sont pas en main)
         $control = $game->removeCardInHand($playerid,intval($cardid));
         if ($control){
+            $game->advanceTurn();
             $game->addPlayedCard($playerid,intval($cardid));
+        }else{
+            $this->addFlash('information','Vous ne pouvez pas jouer une carte que vous ne possedez pas.');
         }
 
         $em->persist($game);
@@ -108,9 +123,24 @@ class GameController extends Controller
             ->getRepository('EJLoveBundle:Game');
         $game = $repository->find($gameid);
 
+        //vérifie que le joueur lancant l'action correspond bien au joueur ayant la main
+        if ($this->getUser()->getUsername() != $game->getPlayerNameTurn() ){
+            $this->addFlash('information','Vous ne pouvez pas jouer, ce n\'est pas votre tour.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+        }
+        //vérifie que le joueur jouant la carte est bien le propriétaire de la carte
+        if ($playerid != $game->getPlayerNameTurn() ){
+            $this->addFlash('information','Vous ne pouvez pas defausser une carte de votre adversaire.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+        }
+        //Action
+        //control vérifie si l'operation est autorisée (évite d'ajouter a la défausse des cartes qui ne sont pas en main)
         $control = $game->removeCardInHand($playerid,intval($cardid));
         if ($control){
+            $game->advanceTurn();
             $game->addDiscardedCard(intval($cardid));
+        }else{
+            $this->addFlash('information','Vous ne pouvez pas défausser une carte que vous ne possedez pas.');
         }
 
         $em->persist($game);
@@ -127,8 +157,27 @@ class GameController extends Controller
             ->getRepository('EJLoveBundle:Game');
         $game = $repository->find($gameid);
 
+        //vérifie que le joueur lancant l'action correspond bien au joueur ayant la main
+        if ($this->getUser()->getUsername() != $game->getPlayerNameTurn() ){
+            $this->addFlash('information','Vous ne pouvez pas piocher, ce n\'est pas votre tour.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+        }
+        //vérifie que le joueur jouant la carte est bien le propriétaire de la carte
+        if ($playerid != $game->getPlayerNameTurn() ){
+            $this->addFlash('information','Vous ne pouvez pas faire piocher votre adversaire.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+        }
+        //vérifie que la pioche n'est pas vide
+        if (empty($game->getCardsInDeck()) ){
+            $this->addFlash('information','Vous ne pouvez pas piocher, la pioche est vide.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+        }
+        //Action
+        $game->advanceTurn();
         $game->addCardInHand($playerid,$game->drawCard());
 
+
+        //persistance des données
         $em->persist($game);
         $em->flush();
         return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));

@@ -16,7 +16,7 @@
                 Tableau des joueurs :
                 {{ dump(game.players)}}
                 Tour du joueur n° :
-                {{ dump(game.playerTurn)}}
+                {{ dump(game.playerTurn , game.players[game.playerTurn] )}}
                 Tableau des cartes en main des joueurs
                 {{ dump(game.cardsInHand)}}
                 Tableau des cartes jouées par les joueurs
@@ -30,6 +30,17 @@
             </div>
 
             <h1>Partie numéro {{ game.id }}</h1>
+            <h3>Tour du joueur "{{ game.players[game.playerTurn] }}"</h3>
+            <br>{% for message in app.flashes('information') %}
+                <div class="alert alert-danger alert-dismissible" id="flash" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+
                 {% for player,values in game.cardsInHand %}
                     <div class="well">
                     <h3>{{ player }}</h3>
@@ -85,6 +96,11 @@
                 </div>
 
                 <script type="text/javascript">
+                    $(function() {
+                        $('#flash').delay(500).fadeIn('normal', function() {
+                            $(this).delay(2500).fadeOut();
+                        });
+                    });
                     $(function(){
                         $('[data-toggle="popover"]').popover();
                     });
@@ -92,7 +108,7 @@
                             $.getJSON('{{ path('LoveBundle_refresh',{'gameid': game.id}) }}',function (data) {
                                 if ({{ game.playerTurn }} != data){
                                     $('#game').load("{{ game.id }} #game").fadeIn("slow");
-                                    alert("Rafraichi : db update");
+                                    alert("Valeur du controller : " +data +" Dump playerturn :" + {{ game.playerTurn }} );
                                 }
                             })
                         }, 5000); // refresh every 2000 milliseconds
