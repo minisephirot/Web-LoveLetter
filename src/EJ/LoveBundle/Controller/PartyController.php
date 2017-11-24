@@ -84,6 +84,13 @@ class PartyController extends Controller
             ->getManager()
             ->getRepository('EJLoveBundle:Party');
         $party = $repository->find($partyid);
+
+        //redirige directement l'user si la partie a déjà commencé :
+        if ($party->getIsStarted()) {
+            $this->addFlash('information','La partie à déjà commencé.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $party->getId() ));
+        }
+
         $user = $this->getUser();
         $party->addPlayer($user);
         $em->flush();
