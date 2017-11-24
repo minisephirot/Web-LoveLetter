@@ -96,6 +96,7 @@
                 </div>
 
                 <script type="text/javascript">
+                    var playerint = {{ game.playerTurn }}
                     $(function() {
                         $('#flash').delay(500).fadeIn('normal', function() {
                             $(this).delay(2500).fadeOut();
@@ -106,9 +107,10 @@
                     });
                     var auto_refresh = setInterval(function () {
                             $.getJSON('{{ path('LoveBundle_refresh',{'gameid': game.id}) }}',function (data) {
-                                if ({{ game.playerTurn }} != data){
-                                    $('#game').load("{{ game.id }} #game").fadeIn("slow");
-                                    alert("Valeur du controller : " +data +" Dump playerturn :" + {{ game.playerTurn }} );
+                                if (playerint != data){
+                                    //$('#game').load("{{ game.id }} #game").fadeIn("slow");
+                                    window.location.reload();
+                                    alert("Valeur du controller : " +data +" Dump playerturn :" + playerint );
                                 }
                             })
                         }, 5000); // refresh every 2000 milliseconds

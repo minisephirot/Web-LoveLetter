@@ -403,12 +403,22 @@ class Game
      */
     public function advanceTurn()
     {
+        $this->playerTurn++;
         $nb = count($this->getPlayers());
         if ($this->getPlayerTurn() >= $nb){
             $this->setPlayerTurn(0);
-        }else{
-            $this->playerTurn++;
         }
+    }
+
+    /**
+     * get the player's name wich have the hand
+     *
+     *
+     */
+    public function getPlayerNameTurn()
+    {
+        $players = $this->getPlayers();
+        return $players[$this->getPlayerTurn()];
     }
 
     /**
