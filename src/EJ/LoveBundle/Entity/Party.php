@@ -40,6 +40,13 @@ class Party
     private $partyPlayers;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="$playerScore", type="array", nullable=true)
+     */
+    private $playerScore;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="isStarted", type="integer", nullable=false)
@@ -91,11 +98,12 @@ class Party
     /**
      * Add player
      *
-     * 
+     * @param EJ\LoveBundle\Entity\User
      */
     public function addPlayer($player)
     {
         $this->partyPlayers[] = $player;
+        $this->playerScore[$player->getUsername()] = 0;
     }
     
     /**
@@ -135,15 +143,29 @@ class Party
     /**
      * Get isStarted
      *
-     * @return array
+     * @return integer
      */
     public function getIsStarted()
     {
         return $this->isStarted;
     }
-    
+
     /**
-     * Set partyPlayers
+     * Set isStarted
+     *
+     * @param integer $isStarted
+     *
+     * @return Party
+     */
+    public function setIsStarted($isStarted)
+    {
+        $this->isStarted = $isStarted;
+
+        return $this;
+    }
+
+    /**
+     * Set party started
      *
      *
      */
@@ -165,21 +187,6 @@ class Party
         }
         return $listName;
     }
-    
-
-    /**
-     * Set isStarted
-     *
-     * @param integer $isStarted
-     *
-     * @return Party
-     */
-    public function setIsStarted($isStarted)
-    {
-        $this->isStarted = $isStarted;
-    
-        return $this;
-    }
 
     /**
      * Set isOver
@@ -196,6 +203,16 @@ class Party
     }
 
     /**
+     * Set party over
+     *
+     *
+     */
+    public function setPartyOver()
+    {
+        $this->isStarted = 1;
+    }
+
+    /**
      * Get isOver
      *
      * @return integer
@@ -203,5 +220,40 @@ class Party
     public function getIsOver()
     {
         return $this->isOver;
+    }
+
+    /**
+     * Set playerScore
+     *
+     * @param array $playerScore
+     *
+     * @return Party
+     */
+    public function setPlayerScore($playerScore)
+    {
+        $this->playerScore = $playerScore;
+    
+        return $this;
+    }
+
+    /**
+     * Set a player score
+     *
+     * @param string $player
+     *
+     */
+    public function addPlayerScore($player)
+    {
+        $this->playerScore[$player] = $this->playerScore[$player]+1;
+    }
+
+    /**
+     * Get playerScore
+     *
+     * @return array
+     */
+    public function getPlayerScore()
+    {
+        return $this->playerScore;
     }
 }

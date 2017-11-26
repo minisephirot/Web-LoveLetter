@@ -32,7 +32,7 @@ class GameController extends Controller
         $connection->executeUpdate($db->getTruncateTableSQL('party', true /* whether to cascade */));
         $connection->executeUpdate("SET foreign_key_checks = 1;");
         $this->createCards();
-        return $this->redirectToRoute('LoveBundle_home');
+        return $this->redirectToRoute('LoveBundle_admin');
     }
 
     public function createAction($gameid)
