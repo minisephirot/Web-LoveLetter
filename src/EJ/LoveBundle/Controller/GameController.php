@@ -221,6 +221,8 @@ class GameController extends Controller
         }
 
         $em->persist($game);
+        $metadata = $em->getClassMetaData(get_class($game));
+        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
         $em->flush();
 
         return $game;
