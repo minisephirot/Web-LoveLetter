@@ -10,30 +10,29 @@ use EJ\LoveBundle\Entity\Party;
 
 class PartyController extends Controller
 {
-     public function listAction(){
-         //Verifie si on est connecté
-         $user = $this->get('security.token_storage')->getToken()->getUser();
-         if ($user == "anon.") {
-             $this->addFlash('information','Vous devez être connecté pour accéder a cette page.');
-             return $this->redirectToRoute('fos_user_security_login');
-         }
+    public function adminAction(){
         $repository = $this->getDoctrine()
             ->getManager()
             ->getRepository('EJLoveBundle:Party');
-         
+        $partyList = $repository->findall();
+        $repository2 = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Game');
+        $gameList = $repository2->findall();
+
+        return $this->render('EJLoveBundle:Default:admin.html.twig', array( 'partylist' => $partyList, 'gamelist' => $gameList));
+    }
+
+     public function listAction(){
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Party');
         $partyList = $repository->findall();
          
         return $this->render('EJLoveBundle:Default:listParty.html.twig', array( 'list' => $partyList));
     }
     
-    
     public function createPartyAction(){
-        //Verifie si on est connecté
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if ($user == "anon.") {
-            $this->addFlash('information','Vous devez être connecté pour accéder a cette page.');
-            return $this->redirectToRoute('fos_user_security_login');
-        }
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $party = new Party();
@@ -46,12 +45,6 @@ class PartyController extends Controller
     }
     
     public function viewPartyAction($partyid){
-        //Verifie si on est connecté
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if ($user == "anon.") {
-            $this->addFlash('information','Vous devez être connecté pour accéder a cette page.');
-            return $this->redirectToRoute('fos_user_security_login');
-        }
         // On récupère l'entité correspondante à l'id $gameid
         $repository = $this->getDoctrine()
             ->getManager()
@@ -72,12 +65,6 @@ class PartyController extends Controller
     }
      
     public function joinPartyAction($partyid){
-        //Verifie si on est connecté
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if ($user == "anon.") {
-            $this->addFlash('information','Vous devez être connecté pour accéder a cette page.');
-            return $this->redirectToRoute('fos_user_security_login');
-        }
         $em = $this->getDoctrine()->getManager();
         // On récupère l'entité correspondante à l'id $gameid
         $repository = $this->getDoctrine()
@@ -92,7 +79,10 @@ class PartyController extends Controller
         }
 
         $user = $this->getUser();
-        $party->addPlayer($user);
+        if (in_array($user,$party->getpartyPlayer()) == false){
+            $party->addPlayer($user);
+        }
+
         $em->flush();
         return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid'=> $party->getId() ));
     }

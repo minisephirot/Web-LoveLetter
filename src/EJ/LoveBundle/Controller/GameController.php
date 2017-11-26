@@ -35,15 +35,9 @@ class GameController extends Controller
         return $this->redirectToRoute('LoveBundle_home');
     }
 
-    public function createAction($id)
+    public function createAction($gameid)
     {
-        //Verifie si on est connecté
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if ($user == "anon.") {
-            $this->addFlash('information','Vous devez être connecté pour accéder a cette page.');
-            return $this->redirectToRoute('fos_user_security_login');
-        }
-        $game = $this->createGame($id);
+        $game = $this->createGame($gameid);
         return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
     }
 
@@ -55,12 +49,6 @@ class GameController extends Controller
 
     public function viewAction($gameid)
     {
-        //Verifie si on est connecté
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if ($user == "anon.") {
-            $this->addFlash('information','Vous devez être connecté pour accéder a cette page.');
-            return $this->redirectToRoute('fos_user_security_login');
-        }
         // On récupère l'entité correspondante à l'id $gameid
         $repository = $this->getDoctrine()
             ->getManager()
@@ -227,12 +215,10 @@ class GameController extends Controller
         $game->addDiscardedCard($game->drawCard());
         $game->addDiscardedCard($game->drawCard());
         $game->addDiscardedCard($game->drawCard());
-        //
+        //on fais piocher tout les joueurs
         foreach ($game->getPlayers() as $player){
             $game->addCardInHand($player,$game->drawCard());
         }
-        //$game->addCardInHand('player1',$game->drawCard());
-        //$game->addCardInHand('player2',$game->drawCard());
 
         $em->persist($game);
         $em->flush();
@@ -260,9 +246,11 @@ class GameController extends Controller
         $game->addDiscardedCard($game->drawCard());
         $game->addDiscardedCard($game->drawCard());
         $game->addDiscardedCard($game->drawCard());
-        //
-        $game->addCardInHand('player1',$game->drawCard());
-        $game->addCardInHand('player2',$game->drawCard());
+
+        //on fais piocher tout les joueurs
+        foreach ($game->getPlayers() as $player){
+            $game->addCardInHand($player,$game->drawCard());
+        }
 
         $em->persist($game);
         $em->flush();

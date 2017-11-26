@@ -1,0 +1,66 @@
+{% extends "EJLoveBundle:Default:layout.html.twig" %}
+
+{% block title %}
+    Tableau d'Administration - {{ parent() }}
+{% endblock %}
+
+{% block ll_body %}
+
+    <div id="list" class="container">
+        <div class="well">
+            <h1>Tableau d'Administration :</h1><br>
+
+            {% if partylist is empty %}
+                Il n'y a aucune partie a afficher.
+            {% else %}
+                {% for party in partylist %}
+                    <li> <a href="{{ path('LoveBundle_joinParty', {'partyid': party.id}) }}">Partie numéro {{ party.id }} de {{ party.host }}</a></li>
+                    <button style="margin-left:5%" type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#debugp{{ party.id }}">Data partie</button>
+                    <div id="debugp{{ party.id }}" class="collapse well">
+                        Liste des joueurs dans la partie :
+                        {{ dump(party.partyPlayers)}}
+                    </div><br>
+                    {% set index = loop.index %}
+                    {% for game in gamelist %}
+                        {% if (index == game.id)  %}
+                            <a style="margin-left:5%" href="{{ path('LoveBundle_view', {'gameid': game.id}) }}">Manche en cours de la partie numéro {{ game.id }}</a>
+                            <br><a style="margin-left:5%" type="button" class="btn btn-info btn-sm" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset la manche</a>
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#debug{{ game.id }}">Data manche</button>
+                            <div id="debug{{ game.id }}" class="collapse well">
+                                Tableau des joueurs :
+                                {{ dump(game.players)}}
+                                Tour du joueur n° :
+                                {{ dump(game.playerTurn , game.players[game.playerTurn] )}}
+                                Tableau des cartes en main des joueurs
+                                {{ dump(game.cardsInHand)}}
+                                Tableau des cartes jouées par les joueurs
+                                {{ dump(game.cardsPlayed)}}
+                                Tableau de la pioche
+                                {{ dump(game.cardsInDeck)}}
+                                Tableau de la défausse
+                                {{ dump(game.cardsDiscarded)}}
+                                Carte Secrete:
+                                {{ dump(game.cardHidden)}}
+                            </div>
+                            <br><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+
+            <br><hr><br><a style="margin-left:5%" type="button" class="btn btn-info pulse-warning" href={{ path('LoveBundle_init') }}>Vider toute les tables</a>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        var auto_refresh = setInterval(
+            function () {
+                $('#list').load(" #list").fadeIn("slow");
+            }, 60000); // refresh every minute
+    </script>
+      
+      
+{% endblock %}

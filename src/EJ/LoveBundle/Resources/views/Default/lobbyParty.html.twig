@@ -8,21 +8,23 @@
 
     <div id="party" class="container">
         <div class="well">
-              {{ dump(party.partyPlayers)}}
+            <button type="button" class="btn btn-info pulse-danger" data-toggle="collapse" data-target="#debug">Info debuggage</button>
+            <div id="debug" class="collapse well">
+                Liste des joueurs dans la partie :
+                {{ dump(party.partyPlayers)}}
+            </div><br>
             <h1>Partie de {{ party.host }}:</h1><br>
-
             {% for key, value in party.partyPlayer %}
                 <li>{{ value }}</li>
             {% endfor %}
             {% if app.user == party.host %}
-                <br><a class="btn btn-primary btn-lg" href="{{ path('LoveBundle_create',{'id': party.id})}}">Commencer la partie</a>
+                <br><a class="btn btn-primary btn-lg" href="{{ path('LoveBundle_create',{'gameid': party.id})}}">Commencer la partie</a>
             {% endif %}
         </div>
     </div>
 
     <script type="text/javascript">
         $(function() {
-            
             if ( {{ party.isStarted }} == 1){
                 window.location.replace("http://localhost"+"{{ path('LoveBundle_view',{'gameid': party.id})}}");
             }else{

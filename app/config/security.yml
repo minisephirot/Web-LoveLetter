@@ -24,8 +24,6 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                # if you are using Symfony < 2.8, use the following config instead:
-                # csrf_provider: form.csrf_provider
 
             logout:       true
             anonymous:    true
@@ -34,4 +32,9 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/game/, role: ROLE_USER }
+        - { path: ^/game/$, role: ROLE_USER }
+        - { path: ^/party/, role: ROLE_USER }
+        - { path: ^/party/$, role: ROLE_USER }
+        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/admin/$, role: ROLE_ADMIN }

@@ -8,20 +8,25 @@ LoveBundle_home:
     defaults:
         _controller: EJLoveBundle:Game:index
 
+LoveBundle_admin:
+    path:      /admin
+    defaults:
+        _controller: EJLoveBundle:Party:admin
+
 LoveBundle_init:
-    path:      /init
+    path:      /admin/init
     defaults:
         _controller: EJLoveBundle:Game:init
 
 LoveBundle_create:
-    path:      /createGame/{id}
+    path:      /game/createGame/{gameid}
     defaults:
         _controller: EJLoveBundle:Game:create
     requirements:
             gameid: \d+
             
 LoveBundle_reset:
-    path:      /reset/{gameid}
+    path:      /game/reset/{gameid}
     defaults:
         _controller: EJLoveBundle:Game:reset
     requirements:
@@ -68,25 +73,23 @@ LoveBundle_refresh:
         gameid: \d+
         
 LoveBundle_ListParty:
-    path:      /list
+    path:      /party/list
     defaults:
         _controller: EJLoveBundle:Party:list
-        
-                
-        
+
 LoveBundle_createParty:
-    path:      /createParty
+    path:      /party/createParty
     defaults:
         _controller: EJLoveBundle:Party:createParty
         
 LoveBundle_viewParty:
-    path:      /viewParty/{partyid}
+    path:      /party/viewParty/{partyid}
     defaults:
         _controller: EJLoveBundle:Party:viewParty
         
         
 LoveBundle_joinParty:
-    path:      /joinParty/{partyid}
+    path:      /party/joinParty/{partyid}
     defaults:
         _controller: EJLoveBundle:Party:joinParty
 
