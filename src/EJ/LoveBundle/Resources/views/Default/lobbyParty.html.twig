@@ -12,6 +12,10 @@
             <div id="debug" class="collapse well">
                 Liste des joueurs dans la partie :
                 {{ dump(party.partyPlayers)}}
+                Est-ce que la partie est demarrée (1:Oui/0:Non) :
+                {{ dump(party.isStarted)}}
+                Est-ce que la partie est finie (1:Oui/0:Non) :
+                {{ dump(party.isOver)}}
             </div><br>
             <h1>Partie de {{ party.host }}:</h1><br>
             {% for key, value in party.partyPlayer %}

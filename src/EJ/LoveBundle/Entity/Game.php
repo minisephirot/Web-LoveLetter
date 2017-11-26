@@ -23,8 +23,14 @@ class Game
      *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="EJ\LoveBundle\Entity\Party", cascade={"persist"})
+     */
+    private $party;
 
     /**
      * @ORM\ManyToMany(targetEntity="EJ\LoveBundle\Entity\Card", cascade={"persist"})
@@ -44,6 +50,13 @@ class Game
      * @ORM\Column(name="playerTurn", type="integer", nullable=false)
      */
     private $playerTurn;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="playerStatus", type="array", nullable=true)
+     */
+    private $playerStatus;
 
     /**
      * @var array
@@ -79,9 +92,9 @@ class Game
      */
     public function setId($id)
     {
-         $this->id = $id;
+        $this->id = $id;
     }
-    
+
     /**
      * Get id
      *
@@ -133,7 +146,7 @@ class Game
      */
     public function getCard($id)
     {
-            return $this->cards[$id];
+        return $this->cards[$id];
     }
 
     /**
@@ -147,6 +160,7 @@ class Game
         foreach ($nomjoueurs as $nomjoueur){
             $this->cardsPlayed[$nomjoueur] = null;
             $this->cardsInHand[$nomjoueur] = null ;
+            $this->playerStatus[$nomjoueur] = 1;
         }
     }
 
@@ -160,6 +174,7 @@ class Game
     {
         $this->cardsPlayed[$nomjoueur] = null;
         $this->cardsInHand[$nomjoueur] = null;
+        $this->playerStatus[$nomjoueur] = 1;
     }
 
     /**
@@ -400,7 +415,7 @@ class Game
     public function setPlayerTurn($playerTurn)
     {
         $this->playerTurn = $playerTurn;
-    
+
         return $this;
     }
 
@@ -437,5 +452,63 @@ class Game
     public function getPlayerTurn()
     {
         return $this->playerTurn;
+    }
+
+    /**
+     * Set playerStatus
+     *
+     * @param array $playerStatus
+     *
+     * @return Game
+     */
+    public function setPlayerStatus($playerStatus)
+    {
+        $this->playerStatus = $playerStatus;
+    
+        return $this;
+    }
+
+    /**
+     * Get playerStatus
+     *
+     * @return array
+     */
+    public function getPlayerStatus()
+    {
+        return $this->playerStatus;
+    }
+
+    /**
+     * Get playerStatus
+     *
+     * @return array
+     */
+    public function setPlayerOut($player)
+    {
+        $this->playerStatus[$player] = 0;
+    }
+
+    /**
+     * Set party
+     *
+     * @param \EJ\LoveBundle\Entity\Party $party
+     *
+     * @return Game
+     */
+    public function setParty(\EJ\LoveBundle\Entity\Party $party = null)
+    {
+        $this->party = $party;
+    
+        return $this;
+    }
+
+    /**
+     * Get party
+     *
+     * @return \EJ\LoveBundle\Entity\Party
+     */
+    public function getParty()
+    {
+        return $this->party;
     }
 }

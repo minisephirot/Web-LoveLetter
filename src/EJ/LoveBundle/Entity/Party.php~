@@ -1,0 +1,183 @@
+<?php
+
+namespace EJ\LoveBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="party")
+ */
+class Party
+{
+    
+    public function __construct()
+    {
+       $this->isStarted = 0;
+        $this->isOver = 0;
+    }
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", unique=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="host", type="string", length=255, unique=false)
+     */
+    private $host;
+    
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="partyPlayers", type="array", nullable=true)
+     */
+    private $partyPlayers;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="isStarted", type="integer", nullable=false)
+     */
+    private $isStarted;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="isOver", type="integer", nullable=false)
+     */
+    private $isOver;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set host
+     *
+     * @param string $host
+     *
+     * @return Party
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+
+        return $this;
+    }
+
+    /**
+     * Get host
+     *
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+    
+    
+    /**
+     * Add player
+     *
+     * 
+     */
+    public function addPlayer($player)
+    {
+        $this->partyPlayers[] = $player;
+    }
+    
+    /**
+     * Get partyPlayer
+     *
+     * @return array
+     */
+    public function getpartyPlayer()
+    {
+        return $this->partyPlayers;
+    }
+
+    /**
+     * Set partyPlayers
+     *
+     * @param array $partyPlayers
+     *
+     * @return Party
+     */
+    public function setPartyPlayers($partyPlayers)
+    {
+        $this->partyPlayers = $partyPlayers;
+    
+        return $this;
+    }
+
+    /**
+     * Get partyPlayers
+     *
+     * @return array
+     */
+    public function getPartyPlayers()
+    {
+        return $this->partyPlayers;
+    }
+    
+    /**
+     * Get isStarted
+     *
+     * @return array
+     */
+    public function getIsStarted()
+    {
+        return $this->isStarted;
+    }
+    
+    /**
+     * Set partyPlayers
+     *
+     *
+     */
+    public function setPartyStarted()
+    {
+        $this->isStarted = 1;
+    }
+    
+    /**
+     * Get partyPlayers
+     *
+     * @return array
+     */
+    public function getPartyPlayersName()
+    {
+        $listName = array();
+        foreach ($this->partyPlayers as $key => $value){
+            $listName[] = $value->getUsername();
+        }
+        return $listName;
+    }
+    
+
+    /**
+     * Set isStarted
+     *
+     * @param integer $isStarted
+     *
+     * @return Party
+     */
+    public function setIsStarted($isStarted)
+    {
+        $this->isStarted = $isStarted;
+    
+        return $this;
+    }
+}

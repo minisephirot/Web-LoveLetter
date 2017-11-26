@@ -13,6 +13,7 @@ class Party
     public function __construct()
     {
        $this->isStarted = 0;
+        $this->isOver = 0;
     }
 
     /**
@@ -44,6 +45,13 @@ class Party
      * @ORM\Column(name="isStarted", type="integer", nullable=false)
      */
     private $isStarted;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="isOver", type="integer", nullable=false)
+     */
+    private $isOver;
 
     /**
      * Get id
@@ -158,4 +166,42 @@ class Party
         return $listName;
     }
     
+
+    /**
+     * Set isStarted
+     *
+     * @param integer $isStarted
+     *
+     * @return Party
+     */
+    public function setIsStarted($isStarted)
+    {
+        $this->isStarted = $isStarted;
+    
+        return $this;
+    }
+
+    /**
+     * Set isOver
+     *
+     * @param integer $isOver
+     *
+     * @return Party
+     */
+    public function setIsOver($isOver)
+    {
+        $this->isOver = $isOver;
+    
+        return $this;
+    }
+
+    /**
+     * Get isOver
+     *
+     * @return integer
+     */
+    public function getIsOver()
+    {
+        return $this->isOver;
+    }
 }

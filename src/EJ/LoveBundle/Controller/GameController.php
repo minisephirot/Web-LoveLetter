@@ -76,7 +76,6 @@ class GameController extends Controller
             ->getRepository('EJLoveBundle:Game');
         $game = $repository->find($gameid);
 
-
         //vérifie que le joueur lancant l'action correspond bien au joueur ayant la main
         if ($this->getUser()->getUsername() != $game->getPlayerNameTurn() ){
             $this->addFlash('information','Vous ne pouvez pas jouer, ce n\'est pas votre tour.');
@@ -197,12 +196,13 @@ class GameController extends Controller
             ->getManager()
             ->getRepository('EJLoveBundle:Card');
 
+        $game->setId($id);
+        $game->setParty($party);
         //remplis le jeu des 16 cartes de loveletter
         $cardlist = $cardrepository->findAll();
         foreach ($cardlist as $card){
          $game->addCard($card);
         }
-        $game->setId($id);
         //ajoute les joueurs au jeu
         $game->addPlayers($party->getPartyPlayersName());
         //On suit les regles du jeu : mettre les 16 Cartes dans la pioche

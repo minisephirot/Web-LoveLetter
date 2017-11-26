@@ -15,6 +15,8 @@
                 {{ dump(app.user.username) }}
                 Tableau des joueurs :
                 {{ dump(game.players)}}
+                Etat des joueurs (1:dans la manche / 0:Out) :
+                {{ dump(game.playerStatus)}}
                 Tour du joueur n° :
                 {{ dump(game.playerTurn , game.players[game.playerTurn] )}}
                 Tableau des cartes en main des joueurs
