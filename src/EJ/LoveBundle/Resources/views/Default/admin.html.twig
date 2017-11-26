@@ -19,6 +19,12 @@
                     <div id="debugp{{ party.id }}" class="collapse well">
                         Liste des joueurs dans la partie :
                         {{ dump(party.partyPlayers)}}
+                        Liste des scores des joueurs dans la partie :
+                        {{ dump(party.playerScore)}}
+                        Est-ce que la partie est demarrée (1:Oui/0:Non) :
+                        {{ dump(party.isStarted)}}
+                        Est-ce que la partie est finie (1:Oui/0:Non) :
+                        {{ dump(party.isOver)}}
                     </div><br>
                     {% set index = loop.index %}
                     {% for game in gamelist %}
@@ -27,8 +33,12 @@
                             <br><a style="margin-left:5%" type="button" class="btn btn-info btn-sm" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset la manche</a>
                             <button type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#debug{{ game.id }}">Data manche</button>
                             <div id="debug{{ game.id }}" class="collapse well">
+                                Nom associé à ce client:
+                                {{ dump(app.user.username) }}
                                 Tableau des joueurs :
                                 {{ dump(game.players)}}
+                                Etat des joueurs (1:dans la manche / 0:Out) :
+                                {{ dump(game.playerStatus)}}
                                 Tour du joueur n° :
                                 {{ dump(game.playerTurn , game.players[game.playerTurn] )}}
                                 Tableau des cartes en main des joueurs
