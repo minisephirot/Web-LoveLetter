@@ -86,5 +86,17 @@ class PartyController extends Controller
         $em->flush();
         return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid'=> $party->getId() ));
     }
+
+    public function getNbJoueursAction($partyid){
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Party');
+        $party = $repository->find($partyid);
+        //on recup qui joue et on le renvoie en tant que json
+        $nb = $party->getNbPlayers();
+
+        return $this->json(array($nb,$party->getIsStarted()));
+    }
              
 }

@@ -12,6 +12,8 @@
             <div id="debug" class="collapse well">
                 Liste des joueurs dans la partie :
                 {{ dump(party.partyPlayers)}}
+                Nombre de joueurs dans la partie :
+                {{ dump(party.getNbPlayers)}}
                 Liste des scores des joueurs dans la partie :
                 {{ dump(party.playerScore)}}
                 Est-ce que la partie est demarrée (1:Oui/0:Non) :
@@ -19,7 +21,7 @@
                 Est-ce que la partie est finie (1:Oui/0:Non) :
                 {{ dump(party.isOver)}}
             </div><br>
-            <h1>Partie de {{ party.host }}:</h1><br>
+            <h1>Partie de {{ party.host }} : ({{ party.getNbPlayers}} joueurs inscrits)</h1><br>
             {% for key, value in party.partyPlayers %}
                 <li>{{ value }}</li>
             {% endfor %}
@@ -30,19 +32,19 @@
     </div>
 
     <script type="text/javascript">
-        $(function() {
-            if ( {{ party.isStarted }} == 1){
-                window.location.replace("http://localhost"+"{{ path('LoveBundle_view',{'gameid': party.id})}}");
-            }else{
-                var auto_refresh = setInterval(
-                 function () {
-                        // $('#party').load("{{ party.id }} #party").fadeIn("slow");
-                        window.location.reload();
-                        //alert({{ party.isStarted }})
-                }, 5000); // refresh every 2000 milliseconds
-            }
-                       
-        });
+        var nbjoueurs = {{ party.getNbPlayers}}
+        var started = {{ party.isStarted }}
+        var auto_refresh = setInterval(function () {
+            $.getJSON('{{ path('LoveBundle_partyrefresh',{'partyid': party.id}) }}',function (data) {
+                if (nbjoueurs != data[0]){
+                    //$('#game').load("{{ party.id }} #game").fadeIn("slow");
+                    window.location.reload();
+                }
+                if (data[1]){
+                    window.location.replace("http://localhost"+"{{ path('LoveBundle_view',{'gameid': party.id})}}");
+                }
+            })
+        }, 2000); // refresh every 2000 milliseconds
         
     </script>
       

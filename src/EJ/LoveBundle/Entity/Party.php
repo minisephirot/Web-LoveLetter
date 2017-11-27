@@ -178,6 +178,16 @@ class Party
     }
 
     /**
+     * Give the number of players in the party (refresh purpose)
+     *
+     * @return integer
+     */
+    public function getNbPlayers()
+    {
+        return count($this->getPartyPlayersName());
+    }
+
+    /**
      * Set isOver
      *
      * @param integer $isOver

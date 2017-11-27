@@ -48,15 +48,6 @@ LoveBundle_playcard:
         playerid: "[a-zA-Z0-9-]+"
         cardid: \d+
 
-LoveBundle_discard:
-    path:      /game/{gameid}/discard/{playerid}/{cardid}
-    defaults:
-        _controller: EJLoveBundle:Game:discard
-    requirements:
-        gameid: \d+
-        playerid: "[a-zA-Z0-9-]+"
-        cardid: \d+
-
 LoveBundle_refresh:
     path:      /game/{gameid}/refresh
     defaults:
@@ -79,7 +70,14 @@ LoveBundle_viewParty:
     defaults:
         _controller: EJLoveBundle:Party:viewParty
         
-        
+
+LoveBundle_partyrefresh:
+    path:      /party/refresh/{partyid}
+    defaults:
+        _controller: EJLoveBundle:Party:getNbJoueurs
+    requirements:
+        gameid: \d+
+
 LoveBundle_joinParty:
     path:      /party/joinParty/{partyid}
     defaults:
