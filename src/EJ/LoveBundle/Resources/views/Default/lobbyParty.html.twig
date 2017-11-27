@@ -20,7 +20,7 @@
                 {{ dump(party.isOver)}}
             </div><br>
             <h1>Partie de {{ party.host }}:</h1><br>
-            {% for key, value in party.partyPlayer %}
+            {% for key, value in party.partyPlayers %}
                 <li>{{ value }}</li>
             {% endfor %}
             {% if app.user == party.host %}

@@ -93,8 +93,7 @@ class Party
     {
         return $this->host;
     }
-    
-    
+
     /**
      * Add player
      *
@@ -104,16 +103,6 @@ class Party
     {
         $this->partyPlayers[] = $player;
         $this->playerScore[$player->getUsername()] = 0;
-    }
-    
-    /**
-     * Get partyPlayer
-     *
-     * @return array
-     */
-    public function getpartyPlayer()
-    {
-        return $this->partyPlayers;
     }
 
     /**

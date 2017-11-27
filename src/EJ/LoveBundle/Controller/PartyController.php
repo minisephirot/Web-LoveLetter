@@ -79,7 +79,7 @@ class PartyController extends Controller
         }
 
         $user = $this->getUser();
-        if (in_array($user,$party->getpartyPlayer()) == true){
+        if (in_array($user->getUsername(),$party->getPartyPlayersName()) == false){
             $party->addPlayer($user);
         }
 

@@ -489,6 +489,24 @@ class Game
     }
 
     /**
+     * Control if the Countess effect is on
+     *
+     * @param string
+     * @return boolean
+     */
+    public function isCountessActive($player)
+    {
+        $res = false;
+        $hand = $this->cardsInHand[$player];
+        if (in_array(14,$hand)){
+            if (in_array(13,$hand) or in_array(11,$hand) or in_array(12,$hand) ){
+                $res = true;
+            }
+        }
+        return $res;
+    }
+
+    /**
      * Set party
      *
      * @param \EJ\LoveBundle\Entity\Party $party

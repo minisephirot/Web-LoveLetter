@@ -57,14 +57,6 @@ LoveBundle_discard:
         playerid: "[a-zA-Z0-9-]+"
         cardid: \d+
 
-LoveBundle_draw:
-    path:      /game/{gameid}/draw/{playerid}
-    defaults:
-        _controller: EJLoveBundle:Game:draw
-    requirements:
-        gameid: \d+
-        playerid: "[a-zA-Z0-9-]+"
-
 LoveBundle_refresh:
     path:      /game/{gameid}/refresh
     defaults:

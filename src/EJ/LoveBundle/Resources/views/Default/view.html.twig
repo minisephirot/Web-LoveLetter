@@ -34,57 +34,93 @@
             <h1>Partie numéro {{ game.id }}</h1>
             <h3>Tour du joueur "{{ game.players[game.playerTurn] }}"</h3>
             <br>{% for message in app.flashes('information') %}
-                <div class="alert alert-danger alert-dismissible" id="flash" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <p>{{ message }}</p>
-                </div>
+            <div class="alert alert-danger alert-dismissible" id="flash" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <p>{{ message }}</p>
+            </div>
             {% endfor %}
 
-                {% for player,values in game.cardsInHand %}
-                    <div class="well">
+            {% for player,values in game.cardsInHand %}
+                <div class="well">
                     <h3>{{ player }}</h3>
                     <ul class="list-inline">
                         <h4>Hand :</h4>
                         {% for key, value in values %}
                             <li><img class="pulse-primary" title="Action" data-toggle="popover" data-placement="bottom" data-html="true" data-content="
                             <a href={{ path('LoveBundle_playcard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Play this card</a><br>
-                            <a href={{ path('LoveBundle_discard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Discard</a>
-                            <br><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#cardmodal{{ game.card(value).nomCarte }}'>Play this card</button>"
+                            <br><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#cardmodal'>Play this card</button>"
                                      src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                            <!-- Liste des Modaux -->
+                            <div class="modal fade" id="cardmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title" id="exampleModalLabel">Play a {{ game.card(value).nomCarte }}</h2>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <FORM id="formGuard" action="{{ path('LoveBundle_admin') }}" method="get">
+                                                Ciblez un joueur :
+                                                <SELECT name="playerName" size="1">
+                                                    {% for key, value in game.playerStatus %}
+                                                    {% if value %}
+                                                    <OPTION>{{ key }}
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                </SELECT>
+                                                <br><br>Devinez une carte :
+                                                <SELECT name="cardName" size="1">
+                                                    <OPTION>Priest
+                                                    <OPTION>Baron
+                                                    <OPTION>Handmaid
+                                                    <OPTION>Prince
+                                                    <OPTION>King
+                                                    <OPTION>Countess
+                                                    <OPTION>Princess
+                                                </SELECT>
+                                                <br><br><input type="button" value="submit" class="btn btn-primary" onclick="">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                            </FORM>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
                         <h4>Board :</h4>
                         {% for key, value in game.cardsPlayed[player] %}
                             <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
                         {% endfor %}
                     </ul>
-                    </div>
-                {% endfor %}
-
-                <div class="well" style="height: 400px">
-                    <a type="button" class="btn btn-info pulse-success" href={{ path('LoveBundle_draw', {'gameid': game.id,'playerid':  app.user }) }}>Piocher</a>
-                    <h4>Deck :</h4>
-                    <div style="position:relative">
-                        <ul class="list-inline">
-                            {% set pixel = 10 %}
-                            {% set zaxe = 0 %}
-                            {% for key, value in game.cardsInDeck %}
-                               <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
-                                {% set pixel = pixel + 50 %}
-                                {% set zaxe = zaxe + 1 %}
-                            {% endfor %}
-                        </ul>
-                    </div>
                 </div>
+            {% endfor %}
 
-                <div class="well" style="height: 400px">
-                    <h4>Discards :</h4>
-                    <div style="position:relative">
-                        <ul class="list-inline">
-                            {% set pixel = 10 %}
-                            {% set zaxe = 0 %}
+            <div class="well" style="height: 400px">
+                <h4>Deck :</h4>
+                <div style="position:relative">
+                    <ul class="list-inline">
+                        {% set pixel = 10 %}
+                        {% set zaxe = 0 %}
+                        {% for key, value in game.cardsInDeck %}
+                            <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                            {% set pixel = pixel + 50 %}
+                            {% set zaxe = zaxe + 1 %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="well" style="height: 400px">
+                <h4>Discards :</h4>
+                <div style="position:relative">
+                    <ul class="list-inline">
+                        {% set pixel = 10 %}
+                        {% set zaxe = 0 %}
                         {% for key, value in game.cardsDiscarded %}
                             {% if value == game.cardHidden %}
                                 <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
@@ -94,190 +130,29 @@
                             {% set pixel = pixel + 50 %}
                             {% set zaxe = zaxe + 1 %}
                         {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-
-            <!-- Liste des Modaux -->
-            <div class="modal fade" id="cardmodalGuard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Jouer un Guarde</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            BONJOUR ICI ON MET DES TRUCS
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">ROUTE + DATA</button>
-                        </div>
-                    </div>
+                    </ul>
                 </div>
             </div>
 
-            <div class="modal fade" id="cardmodalPriest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Jouer un Prêtre</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            BONJOUR ICI ON MET DES TRUCS
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">ROUTE + DATA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="cardmodalBaron" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Jouer un Baron</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            BONJOUR ICI ON MET DES TRUCS
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">ROUTE + DATA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="cardmodalHandmaid" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Jouer une Servante</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            BONJOUR ICI ON MET DES TRUCS
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">ROUTE + DATA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="cardmodalPrince" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Jouer un Prince</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            BONJOUR ICI ON MET DES TRUCS
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">ROUTE + DATA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="cardmodalKing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Jouer un Roi</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            BONJOUR ICI ON MET DES TRUCS
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">ROUTE + DATA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="cardmodalCountess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Jouer une Comptesse</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            BONJOUR ICI ON MET DES TRUCS
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">ROUTE + DATA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="cardmodalPrincess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Jouer une Princesse</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            BONJOUR ICI ON MET DES TRUCS
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">ROUTE + DATA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-                <script type="text/javascript">
-                    var playerint = {{ game.playerTurn }}
+            <script type="text/javascript">
+                var playerint = {{ game.playerTurn }}
                     $(function() {
                         $('#flash').delay(500).fadeIn('normal', function() {
                             $(this).delay(2500).fadeOut();
                         });
                     });
-                    $(function(){
-                        $('[data-toggle="popover"]').popover();
-                    });
-                    var auto_refresh = setInterval(function () {
-                            $.getJSON('{{ path('LoveBundle_refresh',{'gameid': game.id}) }}',function (data) {
-                                if (playerint != data){
-                                    //$('#game').load("{{ game.id }} #game").fadeIn("slow");
-                                    window.location.reload();
-                                }
-                            })
-                        }, 5000); // refresh every 2000 milliseconds
-                </script>
+                $(function(){
+                    $('[data-toggle="popover"]').popover();
+                });
+                var auto_refresh = setInterval(function () {
+                    $.getJSON('{{ path('LoveBundle_refresh',{'gameid': game.id}) }}',function (data) {
+                        if (playerint != data){
+                            //$('#game').load("{{ game.id }} #game").fadeIn("slow");
+                            window.location.reload();
+                        }
+                    })
+                }, 5000); // refresh every 2000 milliseconds
+            </script>
 
         </div>
         <hr>
