@@ -43,62 +43,69 @@
             </div>
             {% endfor %}
 
-            {% for player,values in game.cardsInHand %}
-                <div class="well">
-                    <h3>{{ player }}</h3>
-                    <ul class="list-inline">
-                        <h4>Hand :</h4>
-                        {% for key, value in values %}
-                            <li><img class="pulse-primary" title="Action" data-toggle="popover" data-placement="bottom" data-html="true" data-content="
-                            <a href={{ path('LoveBundle_playcard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Play this card</a><br>
-                            <br><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#cardmodal'>Play this card</button>"
-                                     src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
-                            <!-- Liste des Modaux -->
-                            <div class="modal fade" id="cardmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h2 class="modal-title" id="exampleModalLabel">Play a {{ game.card(value).nomCarte }}</h2>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <FORM id="formGuard" action="{{ path('LoveBundle_admin') }}" method="get">
-                                                Ciblez un joueur :
-                                                <SELECT name="playerName" size="1">
-                                                    {% for key, value in game.playerStatus %}
-                                                    {% if value %}
-                                                    <OPTION>{{ key }}
-                                                        {% endif %}
-                                                        {% endfor %}
-                                                </SELECT>
-                                                <br><br>Devinez une carte :
-                                                <SELECT name="cardName" size="1">
-                                                    <OPTION>Priest
-                                                    <OPTION>Baron
-                                                    <OPTION>Handmaid
-                                                    <OPTION>Prince
-                                                    <OPTION>King
-                                                    <OPTION>Countess
-                                                    <OPTION>Princess
-                                                </SELECT>
-                                                <br><br><input type="button" value="submit" class="btn btn-primary" onclick="">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            </FORM>
-                                        </div>
+            <div class="well">
+                {% for player,values in game.cardsInHand %}
 
+                        <h3>{{ player }}</h3>
+                        <ul class="list-inline">
+                            <h4>Hand :</h4>
+                            {% for key, value in values %}
+                                <li><img class="pulse-primary" title="Action" data-toggle="popover" data-placement="bottom" data-html="true" data-content="
+                                <a href={{ path('LoveBundle_playcard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Play this card</a><br>
+                                <br><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#cardmodal{{ game.card(value).nomCarte }}'>Play this card</button>"
+                                         src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                                <!-- Liste des Modaux -->
+                                <div class="modal fade" id="cardmodal{{ game.card(value).nomCarte }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Play a {{ game.card(value).nomCarte }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <FORM id="formcard" action="{{ path('LoveBundle_admin') }}" method="get">
+                                                    {% if (game.card(value).nomCarte == "Guard" or game.card(value).nomCarte == "Baron" or game.card(value).nomCarte == "King" or game.card(value).nomCarte == "Priest" or game.card(value).nomCarte == "Prince" ) %}
+                                                        Ciblez un joueur :
+                                                        <SELECT name="playerName" size="1">
+                                                            {% for key, value in game.playerStatus %}
+                                                            {% if value %}
+                                                            <OPTION>{{ key }}
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                        </SELECT>
+                                                    {% endif %}
+                                                    {% if (game.card(value).nomCarte == "Guard") %}
+                                                    <br><br>Devinez une carte :
+                                                        <SELECT name="cardName" size="1">
+                                                            <OPTION>Priest
+                                                            <OPTION>Baron
+                                                            <OPTION>Handmaid
+                                                            <OPTION>Prince
+                                                            <OPTION>King
+                                                            <OPTION>Countess
+                                                            <OPTION>Princess
+                                                        </SELECT>
+                                                    {% endif %}
+
+                                                    <br><br><input type="button" value="submit" class="btn btn-primary" onclick="">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                </FORM>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                        <h4>Board :</h4>
-                        {% for key, value in game.cardsPlayed[player] %}
-                            <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endfor %}
+                            {% endfor %}
+                            <h4>Board :</h4>
+                            {% for key, value in game.cardsPlayed[player] %}
+                                <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                            {% endfor %}
+                        </ul>
+                {% endfor %}
+            </div>
 
             <div class="well" style="height: 400px">
                 <h4>Deck :</h4>

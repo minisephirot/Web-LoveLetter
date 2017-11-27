@@ -152,7 +152,8 @@ class GameController extends Controller
         $game->addDiscardedCard($game->drawCard());
         $game->addDiscardedCard($game->drawCard());
         $game->addDiscardedCard($game->drawCard());
-        //on fais piocher tout les joueurs
+        //on fais piocher tout les joueurs +1 pour l'host qui commence
+        $game->addCardInHand($game->getParty()->getHost(),$game->drawCard());
         foreach ($game->getPlayers() as $player){
             $game->addCardInHand($player,$game->drawCard());
         }
