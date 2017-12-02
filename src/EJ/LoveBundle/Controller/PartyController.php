@@ -4,8 +4,6 @@ namespace EJ\LoveBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use EJ\LoveBundle\Entity\Card;
-use EJ\LoveBundle\Entity\Game;
 use EJ\LoveBundle\Entity\Party;
 
 class PartyController extends Controller

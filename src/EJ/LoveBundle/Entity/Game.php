@@ -88,7 +88,7 @@ class Game
 
     /**
      * set id
-     *
+     * @param int
      */
     public function setId($id)
     {
@@ -167,7 +167,7 @@ class Game
     /**
      * Add Player to every array which needs a player
      *
-     * @param string $nomjoueurs
+     * @param string $nomjoueur
      *
      */
     public function addPlayer($nomjoueur)
@@ -288,6 +288,18 @@ class Game
     {
         $card = array_pop($this->cardsInDeck);
         return $card;
+    }
+
+    /**
+     * give to the designed player the secret card (usefull for some Prince exeption)
+     *
+     * @param string
+     *
+     */
+    public function giveSecretCard($player)
+    {
+        $this->addCardInHand($player,$this->getCardHidden());
+        array_shift($this->getCardsDiscarded());
     }
 
     /**
@@ -426,17 +438,19 @@ class Game
      */
     public function advanceTurn()
     {
-        $this->playerTurn++;
         $nb = count($this->getPlayers());
-        if ($this->getPlayerTurn() >= $nb){
-            $this->setPlayerTurn(0);
-        }
+        do {
+            $this->playerTurn++;
+            if ($this->getPlayerTurn() >= $nb){
+                $this->setPlayerTurn(0);
+            }
+        } while($this->getPlayerStatusByName($this->getPlayerNameTurn()) == 0 );
     }
 
     /**
      * get the player's name wich have the hand
      *
-     *
+     * @return string
      */
     public function getPlayerNameTurn()
     {
@@ -479,13 +493,23 @@ class Game
     }
 
     /**
-     * Get playerStatus
+     * set a player out of round
      *
-     * @return array
+     * @param string
      */
     public function setPlayerOut($player)
     {
         $this->playerStatus[$player] = 0;
+    }
+
+    /**
+     * get a player status by it's name
+     * @param string
+     * @return integer
+     */
+    public function getPlayerStatusByName($player)
+    {
+        return $this->playerStatus[$player];
     }
 
     /**
@@ -513,7 +537,7 @@ class Game
      *
      * @return Game
      */
-    public function setParty(\EJ\LoveBundle\Entity\Party $party = null)
+    public function setParty($party = null)
     {
         $this->party = $party;
     
@@ -528,5 +552,28 @@ class Game
     public function getParty()
     {
         return $this->party;
+    }
+
+    /**
+     * Increment player score
+     *
+     * @param string
+     */
+    public function addPlayerScore($playername)
+    {
+        $this->party->addPlayerScore($playername);
+    }
+
+    /**
+     * Check if the round is over
+     *
+     * @return boolean
+     */
+    public function isGameOver()
+    {
+        $res = false;
+        $counts = array_count_values($this->getPlayerStatus());
+        if($counts[1] == 1){ $res = true;}
+        return $res;
     }
 }

@@ -244,6 +244,34 @@ class Party
     public function addPlayerScore($player)
     {
         $this->playerScore[$player] = $this->playerScore[$player]+1;
+        $this->checkifOver($player);
+    }
+
+    /**
+     * check if a player won the game
+     *
+     * @param string $player
+     *
+     */
+    public function checkifOver($player){
+        $maxround = 7;
+        $nb = $this->getNbPlayers();
+        switch ($nb) {
+            case 2:
+                $maxround = 7;
+                break;
+            case 3:
+                $maxround = 5;
+                break;
+            case 4:
+                $maxround = 4;
+                break;
+            default:
+                break;
+        }
+        if($this->playerScore[$player] >= $maxround){
+            $this->isOver = 1;
+        }
     }
 
     /**

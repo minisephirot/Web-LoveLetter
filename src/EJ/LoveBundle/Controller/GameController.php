@@ -4,7 +4,7 @@ namespace EJ\LoveBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use EJ\LoveBundle\Entity\Card;
 use EJ\LoveBundle\Entity\Game;
 use EJ\LoveBundle\Entity\Party;
@@ -76,6 +76,10 @@ class GameController extends Controller
             ->getRepository('EJLoveBundle:Game');
         $game = $repository->find($gameid);
 
+        $request = Request::createFromGlobals();
+        $a = $request->request->all();
+        var_dump($a);
+
         //vérifie que le joueur lancant l'action correspond bien au joueur ayant la main
         if ($this->getUser()->getUsername() != $game->getPlayerNameTurn() ){
             $this->addFlash('information','Vous ne pouvez pas jouer, ce n\'est pas votre tour.');
@@ -95,8 +99,9 @@ class GameController extends Controller
         //control vérifie si l'operation est autorisée (évite d'ajouter au board des cartes qui ne sont pas en main)
         $control = $game->removeCardInHand($playerid,intval($cardid));
         if ($control){
-            $game->advanceTurn();
             $game->addPlayedCard($playerid,intval($cardid));
+            //avance dans la boucle de jeu et fais piocher le joueur suivant
+            $game->advanceTurn();
             $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
         }else{
             $this->addFlash('information','Vous ne pouvez pas jouer une carte que vous ne possedez pas.');
@@ -153,7 +158,7 @@ class GameController extends Controller
         $game->addDiscardedCard($game->drawCard());
         $game->addDiscardedCard($game->drawCard());
         //on fais piocher tout les joueurs +1 pour l'host qui commence
-        $game->addCardInHand($game->getParty()->getHost(),$game->drawCard());
+        $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
         foreach ($game->getPlayers() as $player){
             $game->addCardInHand($player,$game->drawCard());
         }
@@ -187,7 +192,8 @@ class GameController extends Controller
         $game->addDiscardedCard($game->drawCard());
         $game->addDiscardedCard($game->drawCard());
 
-        //on fais piocher tout les joueurs
+        //on fais piocher tout les joueurs +1 pour l'host qui commence
+        $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
         foreach ($game->getPlayers() as $player){
             $game->addCardInHand($player,$game->drawCard());
         }

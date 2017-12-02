@@ -8,28 +8,30 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/WebLoveLetter/web/pulse.css"/>
     <div id="game" class="container">
         <div id="header"  class="jumbotron">
-            <a type="button" class="btn btn-info pulse-danger" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset this game !</a>
-            <button type="button" class="btn btn-info pulse-danger" data-toggle="collapse" data-target="#debug">Info debuggage</button>
-            <div id="debug" class="collapse well">
-                Nom associé à ce client:
-                {{ dump(app.user.username) }}
-                Tableau des joueurs :
-                {{ dump(game.players)}}
-                Etat des joueurs (1:dans la manche / 0:Out) :
-                {{ dump(game.playerStatus)}}
-                Tour du joueur n° :
-                {{ dump(game.playerTurn , game.players[game.playerTurn] )}}
-                Tableau des cartes en main des joueurs
-                {{ dump(game.cardsInHand)}}
-                Tableau des cartes jouées par les joueurs
-                {{ dump(game.cardsPlayed)}}
-                Tableau de la pioche
-                {{ dump(game.cardsInDeck)}}
-                Tableau de la défausse
-                {{ dump(game.cardsDiscarded)}}
-                Carte Secrete:
-                {{ dump(game.cardHidden)}}
-            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a type="button" class="btn btn-info pulse-danger" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset this game !</a>
+                <button type="button" class="btn btn-info pulse-danger" data-toggle="collapse" data-target="#debug">Info debuggage</button>
+                <div id="debug" class="collapse well">
+                    Nom associé à ce client:
+                    {{ dump(app.user.username) }}
+                    Tableau des joueurs :
+                    {{ dump(game.players)}}
+                    Etat des joueurs (1:dans la manche / 0:Out) :
+                    {{ dump(game.playerStatus)}}
+                    Tour du joueur n° :
+                    {{ dump(game.playerTurn , game.players[game.playerTurn] )}}
+                    Tableau des cartes en main des joueurs
+                    {{ dump(game.cardsInHand)}}
+                    Tableau des cartes jouées par les joueurs
+                    {{ dump(game.cardsPlayed)}}
+                    Tableau de la pioche
+                    {{ dump(game.cardsInDeck)}}
+                    Tableau de la défausse
+                    {{ dump(game.cardsDiscarded)}}
+                    Carte Secrete:
+                    {{ dump(game.cardHidden)}}
+                </div>
+            {% endif %}
 
             <h1>Partie numéro {{ game.id }}</h1>
             <h3>Tour du joueur "{{ game.players[game.playerTurn] }}"</h3>
@@ -47,57 +49,64 @@
                 {% for player,values in game.cardsInHand %}
 
                         <h3>{{ player }}</h3>
+                        <h4>En jeu : {{game.playerStatus[player]}} | Score : {{ game.party.playerScore[player] }}  </h4>
+
                         <ul class="list-inline">
                             <h4>Hand :</h4>
                             {% for key, value in values %}
-                                <li><img class="pulse-primary" title="Action" data-toggle="popover" data-placement="bottom" data-html="true" data-content="
-                                <a href={{ path('LoveBundle_playcard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Play this card</a><br>
-                                <br><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#cardmodal{{ game.card(value).nomCarte }}'>Play this card</button>"
-                                         src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
-                                <!-- Liste des Modaux -->
-                                <div class="modal fade" id="cardmodal{{ game.card(value).nomCarte }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Play a {{ game.card(value).nomCarte }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
+                                {% if player == app.user.username %}
+                                    <li><img class="resize pulse-primary" title="Action" data-toggle="popover" data-placement="bottom" data-html="true" data-content="
+                                    <a href={{ path('LoveBundle_playcard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Play this card</a><br>
+                                    <br><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#cardmodal{{ game.card(value).nomCarte }}'>Play this card</button>"
+                                             src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                                    <!-- Liste des Modaux -->
+                                    <div class="modal fade" id="cardmodal{{ game.card(value).nomCarte }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Play a {{ game.card(value).nomCarte }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
 
-                                                <FORM id="formcard" action="{{ path('LoveBundle_admin') }}" method="get">
-                                                    {% if (game.card(value).nomCarte == "Guard" or game.card(value).nomCarte == "Baron" or game.card(value).nomCarte == "King" or game.card(value).nomCarte == "Priest" or game.card(value).nomCarte == "Prince" ) %}
-                                                        Ciblez un joueur :
-                                                        <SELECT name="playerName" size="1">
-                                                            {% for key, value in game.playerStatus %}
-                                                            {% if value %}
-                                                            <OPTION>{{ key }}
-                                                                {% endif %}
+                                                    <form id="formcard" action="{{ path('LoveBundle_playcard', {'gameid': game.id,'playerid': player,'cardid': value}) }}" method="post">
+                                                        <input type="hidden" value="{{ game.card(value).nomCarte }}" name="cardtype" />
+                                                        {% if (game.card(value).nomCarte == "Guard" or game.card(value).nomCarte == "Baron" or game.card(value).nomCarte == "King" or game.card(value).nomCarte == "Priest" or game.card(value).nomCarte == "Prince" ) %}
+                                                            Ciblez un joueur :
+                                                            <select name="playerName" size="1">
+                                                                {% for key, value in game.playerStatus %}
+                                                                    {% if value %}
+                                                                        <option selected>{{ key }}
+                                                                    {% endif %}
                                                                 {% endfor %}
-                                                        </SELECT>
-                                                    {% endif %}
-                                                    {% if (game.card(value).nomCarte == "Guard") %}
-                                                    <br><br>Devinez une carte :
-                                                        <SELECT name="cardName" size="1">
-                                                            <OPTION>Priest
-                                                            <OPTION>Baron
-                                                            <OPTION>Handmaid
-                                                            <OPTION>Prince
-                                                            <OPTION>King
-                                                            <OPTION>Countess
-                                                            <OPTION>Princess
-                                                        </SELECT>
-                                                    {% endif %}
+                                                            </select>
+                                                        {% endif %}
+                                                        {% if (game.card(value).nomCarte == "Guard") %}
+                                                        <br><br>Devinez une carte :
+                                                            <SELECT name="cardName" size="1">
+                                                                <OPTION>Priest
+                                                                <OPTION>Baron
+                                                                <OPTION>Handmaid
+                                                                <OPTION>Prince
+                                                                <OPTION>King
+                                                                <OPTION>Countess
+                                                                <OPTION>Princess
+                                                            </SELECT>
+                                                        {% endif %}
 
-                                                    <br><br><input type="button" value="submit" class="btn btn-primary" onclick="">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                </FORM>
+                                                        <br><br><input type="submit" value="Submit" class="btn btn-primary">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                    </form>
+                                                </div>
+
                                             </div>
-
                                         </div>
                                     </div>
-                                </div>
+                                {% else %}
+                                    <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}"></li>
+                                {% endif %}
                             {% endfor %}
                             <h4>Board :</h4>
                             {% for key, value in game.cardsPlayed[player] %}
@@ -114,7 +123,7 @@
                         {% set pixel = 10 %}
                         {% set zaxe = 0 %}
                         {% for key, value in game.cardsInDeck %}
-                            <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                            <li><img class="resize" src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
                             {% set pixel = pixel + 50 %}
                             {% set zaxe = zaxe + 1 %}
                         {% endfor %}
@@ -130,9 +139,9 @@
                         {% set zaxe = 0 %}
                         {% for key, value in game.cardsDiscarded %}
                             {% if value == game.cardHidden %}
-                                <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                                <li><img class="resize" src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
                             {% else %}
-                                <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                                <li><im class="resize"g src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
                             {% endif %}
                             {% set pixel = pixel + 50 %}
                             {% set zaxe = zaxe + 1 %}
