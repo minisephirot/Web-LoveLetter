@@ -99,7 +99,32 @@ class GameController extends Controller
         //control vérifie si l'operation est autorisée (évite d'ajouter au board des cartes qui ne sont pas en main)
         $control = $game->removeCardInHand($playerid,intval($cardid));
         if ($control){
+
             $game->addPlayedCard($playerid,intval($cardid));
+            $name = $game->getPlayerNameTurn();
+            //application de l'effet de la carte selon son id 
+            if ($cardid >=0 and $cardid<=4){ // guard
+                $game->guardEffect($_POST['playerName'],$_POST['cardName']);
+            }
+            if ($cardid == 7 or $cardid == 8){ // baron 
+                $game->baronEffect($name, $_POST['playerName']);
+            }
+            if ($cardid == 9 or $cardid == 10){ // handmaid
+                
+            }           
+            if ($cardid == 11 or $cardid == 12){ // prince
+                $game->princeEffect($_POST['playerName']);
+            }
+            if ($cardid == 13){ // king
+                $game->kingEffect($name,$_POST['playerName']);
+            }
+            if ($cardid == 14){ // countess 
+                
+            }
+            if ($cardid == 15){ //princess
+                
+            }
+            
             //avance dans la boucle de jeu et fais piocher le joueur suivant
             $game->advanceTurn();
             $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
