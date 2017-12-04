@@ -8,8 +8,22 @@
 	height:100%;
 }
 .resize {
-	width:50%;
+	width:75%;
 	height:auto;
+}
+.me{
+	float:left;
+	width:100px;
+	height: 20px;
+}
+.player2{
+	float:right;
+	width:100px;
+	height: 20px;
+}
+.player3{
+}
+.player4{
 }
 /* CSS DU PULSE*/
 .pulse-primary:hover {

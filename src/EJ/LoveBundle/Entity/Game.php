@@ -248,6 +248,8 @@ class Game
     {
         if (in_array($cardid,$this->cardsInHand[$player])){
             $this->cardsInHand[$player] = array_diff($this->cardsInHand[$player],array($cardid));
+            //reorganise la main du joueur
+            array_splice($this->cardsInHand[$player], 0, 0);
             return true;
         }else{
             return false;
@@ -574,27 +576,45 @@ class Game
         $res = false;
         $counts = array_count_values($this->getPlayerStatus());
         if($counts[1] == 1){ $res = true;}
+        if(!$this->getCardsInDeck()){ $res = true;}
+        return $res;
+    }
+
+    /**
+     * get the winner and increment score
+     *
+     * @return winner of the round's name
+     */
+    public function getWinner()
+    {
+        $res = "";
+        $counts = array_count_values($this->getPlayerStatus());
+        if($counts[1] == 1){
+            $winner = array_search(1,$this->getPlayerStatus());
+            $this->addPlayerScore($winner);
+            return $winner;
+        }elseif (!$this->getCardsInDeck()){
+            $test = -1;
+            
+        }
         return $res;
     }
     
     /**
     * apply the guard effect 
-    *
+    * @return bool
     */
     public function guardEffect($player, $cardname){
-        // on récupere l'id de la carte en main 
-        $arraycard = $this->cardsInHand[$player];
-        //$idcard = $arraycard[0]; probleme quand le joueur a 2 carte en main genre la card a ciblé serait $arraycard[1] donc ça fou la merde donc voial j'ai fait le foreach de ses morts 
-        $idcard = 0;
-        foreach ($arraycard as $id){
-            $idcard = $id;
-        }
+        $res = false;
+        $idcard = $this->cardsInHand[$player][0];
         $card = $this->getCard($idcard)->getNomCarte();
-        if (strcmp($card, $cardname) ==0){
+        if (strcmp($card, $cardname) == 0){
             $this->setPlayerOut($player);
-            $this->removeCardInHand($player,intval($idcard));
-            $this->addPlayedCard($player, intval($idcard));
+            $this->removeCardInHand($player,$idcard);
+            $this->addPlayedCard($player,$idcard);
+            $res = true;
         }
+        return $res;
     }
     
     /**
@@ -602,26 +622,20 @@ class Game
     *
     */
     public function princeEffect($player){
-        // on récupere l'id de la carte en main 
-        $arraycard = $this->cardsInHand[$player];
-        $idcard = 0;
-        foreach ($arraycard as $id){
-            $idcard = $id;
-        }
-        $this->removeCardInHand($player,intval($idcard));
-        $this->addPlayedCard($player, intval($idcard));
-        if (intval($idcard) == 15){
+        // on récupere l'id de la carte en main
+        $idcard = $this->cardsInHand[$player][0];
+        $this->removeCardInHand($player,$idcard);
+        $this->addPlayedCard($player,$idcard);
+        if ($idcard == 15){
             $this->setPlayerOut($player);
         }else{
-            $card = $this->drawCard();
-            if (isset($card)){
+            if ($this->getCardsInDeck()){
+                $card = $this->drawCard();
                 $this->addCardInHand($player, $card );
             }else{
-                
+                $this->giveSecretCard($player);
             }
         }
-
-        
     }
 
     /**
@@ -629,30 +643,21 @@ class Game
     *
     */
     public function baronEffect($player1, $player2){
-        
-        $cardPlayer1 = $this->cardsInHand[$player1];
-        $cardPlayer2 = $this->cardsInHand[$player2];
-        
-        foreach ($cardPlayer1 as $idp1){
-            $id1 =$idp1;
-        }
-        foreach ($cardPlayer2 as $idp2){
-            $id2=$idp2;   
-        }
 
-        $cardvalp1 = $this->getcardVal($id1);
-        $cardvalp2 = $this->getcardVal($id2);
-        
-              
+        $idp1 = $this->cardsInHand[$player1][0];
+        $idp2 = $this->cardsInHand[$player2][0];
+        $cardvalp1 = $this->getcardVal($idp1);
+        $cardvalp2 = $this->getcardVal($idp2);
+
         if($cardvalp1<$cardvalp2){ // si le joueur 2 a une carte plus forte 
             $this->setPlayerOut($player1);  
-            $this->removeCardInHand($player1,intval($id1));
-            $this->addPlayedCard($player1, intval($id1));
+            $this->removeCardInHand($player1,$idp1);
+            $this->addPlayedCard($player1,$idp1);
         }
         if ($cardvalp1>$cardvalp2){ // si le joueur 1 a une carte plus forte
             $this->setPlayerOut($player2);  
-            $this->removeCardInHand($player2,intval($id2));
-            $this->addPlayedCard($player2, intval($id2));
+            $this->removeCardInHand($player2,$idp2);
+            $this->addPlayedCard($player2,$idp2);
         }
     }
     
@@ -697,22 +702,16 @@ class Game
         $tmp = $this->getCardsInHand();
         $p1 = $tmp[$player1];
         $p2 = $tmp[$player2];
-        
         $this->cardsInHand[$player1] = $p2;
         $this->cardsInHand[$player2] = $p1;
-        
     }
     
-        /**
-    * apply the king effect
+    /**
+    * apply the princess effect
     *
     */
     public function princessEffect($player){
-        $arraycard = $this->cardsInHand[$player];
-        $idcard = 0;
-        foreach ($arraycard as $id){
-            $idcard = $id;
-        }
+        $idcard = $this->cardsInHand[$player][0];
         $this->setPlayerOut($player);  
         $this->removeCardInHand($player,intval($idcard));
         $this->addPlayedCard($player, intval($idcard));

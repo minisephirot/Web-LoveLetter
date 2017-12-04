@@ -35,7 +35,8 @@
 
             <h1>Partie numéro {{ game.id }}</h1>
             <h3>Tour du joueur "{{ game.players[game.playerTurn] }}"</h3>
-            <br>{% for message in app.flashes('information') %}
+            <br>
+            {% for message in app.flashes('information') %}
             <div class="alert alert-danger alert-dismissible" id="flash" role="alert">
                 <button type="button" class="close" data-dismiss="alert">
                     <span aria-hidden="true">&times;</span>
@@ -43,6 +44,15 @@
                 </button>
                 <p>{{ message }}</p>
             </div>
+            {% endfor %}
+            {% for message in app.flashes('hint') %}
+                <div class="alert alert-success alert-dismissible" id="flash" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <p>{{ message }}</p>
+                </div>
             {% endfor %}
 
             <div class="well">
@@ -105,12 +115,12 @@
                                         </div>
                                     </div>
                                 {% else %}
-                                    <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}"></li>
+                                    <li><img class="resize" src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}"></li>
                                 {% endif %}
                             {% endfor %}
                             <h4>Board :</h4>
                             {% for key, value in game.cardsPlayed[player] %}
-                                <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                                <li><img class="resize" src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
                             {% endfor %}
                         </ul>
                 {% endfor %}
@@ -123,7 +133,7 @@
                         {% set pixel = 10 %}
                         {% set zaxe = 0 %}
                         {% for key, value in game.cardsInDeck %}
-                            <li><img class="resize" src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                            <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
                             {% set pixel = pixel + 50 %}
                             {% set zaxe = zaxe + 1 %}
                         {% endfor %}
@@ -139,9 +149,9 @@
                         {% set zaxe = 0 %}
                         {% for key, value in game.cardsDiscarded %}
                             {% if value == game.cardHidden %}
-                                <li><img class="resize" src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                                <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
                             {% else %}
-                                <li><im class="resize"g src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                                <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
                             {% endif %}
                             {% set pixel = pixel + 50 %}
                             {% set zaxe = zaxe + 1 %}
@@ -154,7 +164,7 @@
                 var playerint = {{ game.playerTurn }}
                     $(function() {
                         $('#flash').delay(500).fadeIn('normal', function() {
-                            $(this).delay(2500).fadeOut();
+                            $(this).delay(5000).fadeOut();
                         });
                     });
                 $(function(){

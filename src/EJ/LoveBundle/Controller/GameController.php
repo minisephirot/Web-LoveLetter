@@ -101,29 +101,38 @@ class GameController extends Controller
         //control vérifie si l'operation est autorisée (évite d'ajouter au board des cartes qui ne sont pas en main)
         $control = $game->removeCardInHand($playerid,intval($cardid));
         if ($control){
-
             $game->addPlayedCard($playerid,intval($cardid));
-            $name = $game->getPlayerNameTurn();
             //application de l'effet de la carte selon son id 
             if ($cardid >=0 and $cardid<=4){ // guard
-                $game->guardEffect($_POST['playerName'],$_POST['cardName']);
+                $result = $game->guardEffect($_POST['playerName'],$_POST['cardName']);
+                if ($result){
+                    $this->addFlash('hint',$playerid . 'à réussi à éliminer ' . $_POST['playerName'] . 'en devinant sa carte ('. $_POST['cardName'] .').');
+                }else{
+                    $this->addFlash('hint',$playerid . 'à échoué à éliminer ' . $_POST['playerName'] . 'en devinant sa carte ('. $_POST['cardName'] .').');
+                }
             }
             if ($cardid == 7 or $cardid == 8){ // baron 
-                $game->baronEffect($name, $_POST['playerName']);
+                $game->baronEffect($playerid, $_POST['playerName']);
             }
             if ($cardid == 9 or $cardid == 10){ // handmaid
                 
             }           
             if ($cardid == 11 or $cardid == 12){ // prince
                 $game->princeEffect($_POST['playerName']);
+                $this->addFlash('hint',$playerid . 'à fais défausser puis piocher ' . $_POST['playerName'] .')');
             }
             if ($cardid == 13){ // king
-                $game->kingEffect($name,$_POST['playerName']);
+                $game->kingEffect($playerid,$_POST['playerName']);
+                $this->addFlash('hint',$playerid . 'à échanger sa main avec ' . $_POST['playerName'] .')');
             }
             if ($cardid == 15){ //princess
-                $game->princessEffect($name);
+                $game->princessEffect($playerid);
+                $this->addFlash('hint',$playerid . 'à échanger sa main avec ' . $_POST['playerName'] .')');
             }
-            
+            //si la partie est finie on avance dans la manche suivante
+            if ($game->isGameOver()){
+
+            }
             //avance dans la boucle de jeu et fais piocher le joueur suivant
             $game->advanceTurn();
             $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
