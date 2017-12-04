@@ -91,9 +91,11 @@ class GameController extends Controller
             return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
         }
         //vérifie que le joueur jouant la carte est sous l'effet de la comptesse
-        if ($game->isCountessActive($playerid)){
-            $this->addFlash('information','Vous devez jouer la Comptesse.');
-            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+        if ($cardid != 14){
+            if ($game->isCountessActive($playerid)){
+                $this->addFlash('information','Vous devez jouer la Comptesse.');
+                return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+            }
         }
         //Action
         //control vérifie si l'operation est autorisée (évite d'ajouter au board des cartes qui ne sont pas en main)
