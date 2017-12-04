@@ -702,4 +702,19 @@ class Game
         $this->cardsInHand[$player2] = $p1;
         
     }
+    
+        /**
+    * apply the king effect
+    *
+    */
+    public function princessEffect($player){
+        $arraycard = $this->cardsInHand[$player];
+        $idcard = 0;
+        foreach ($arraycard as $id){
+            $idcard = $id;
+        }
+        $this->setPlayerOut($player);  
+        $this->removeCardInHand($player,intval($idcard));
+        $this->addPlayedCard($player, intval($idcard));
+    }
 }

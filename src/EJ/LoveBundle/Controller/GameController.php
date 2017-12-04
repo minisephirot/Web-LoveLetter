@@ -118,11 +118,8 @@ class GameController extends Controller
             if ($cardid == 13){ // king
                 $game->kingEffect($name,$_POST['playerName']);
             }
-            if ($cardid == 14){ // countess 
-                
-            }
             if ($cardid == 15){ //princess
-                
+                $game->princessEffect($name);
             }
             
             //avance dans la boucle de jeu et fais piocher le joueur suivant
