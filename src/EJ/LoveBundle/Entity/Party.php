@@ -244,7 +244,7 @@ class Party
     public function addPlayerScore($player)
     {
         $this->playerScore[$player] = $this->playerScore[$player]+1;
-        $this->checkifOver($player);
+        $this->checkIfOver($player);
     }
 
     /**
@@ -253,7 +253,7 @@ class Party
      * @param string $player
      *
      */
-    public function checkifOver($player){
+    public function checkIfOver($player){
         $maxround = 7;
         $nb = $this->getNbPlayers();
         switch ($nb) {
@@ -282,5 +282,21 @@ class Party
     public function getPlayerScore()
     {
         return $this->playerScore;
+    }
+
+    /**
+     * Get round number
+     *
+     * @return integer
+     */
+    public function getRoundNumber()
+    {
+        $res = 1;
+        $array = $this->getPlayerScore();
+        $keys = array_keys($array);
+        foreach ($keys as $key){
+            $res += $array[$key][0];
+        }
+        return $res;
     }
 }

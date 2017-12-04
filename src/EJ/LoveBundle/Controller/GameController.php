@@ -106,9 +106,9 @@ class GameController extends Controller
             if ($cardid >=0 and $cardid<=4){ // guard
                 $result = $game->guardEffect($_POST['playerName'],$_POST['cardName']);
                 if ($result){
-                    $this->addFlash('hint',$playerid . 'à réussi à éliminer ' . $_POST['playerName'] . 'en devinant sa carte ('. $_POST['cardName'] .').');
+                    $this->addFlash('hint',$playerid . ' à réussi à éliminer ' . $_POST['playerName'] . ' en devinant sa carte ('. $_POST['cardName'] .').');
                 }else{
-                    $this->addFlash('hint',$playerid . 'à échoué à éliminer ' . $_POST['playerName'] . 'en devinant sa carte ('. $_POST['cardName'] .').');
+                    $this->addFlash('hint',$playerid . ' à échoué à éliminer ' . $_POST['playerName'] . ' en devinant sa carte ('. $_POST['cardName'] .').');
                 }
             }
             if ($cardid == 7 or $cardid == 8){ // baron 
@@ -119,23 +119,25 @@ class GameController extends Controller
             }           
             if ($cardid == 11 or $cardid == 12){ // prince
                 $game->princeEffect($_POST['playerName']);
-                $this->addFlash('hint',$playerid . 'à fais défausser puis piocher ' . $_POST['playerName'] .')');
+                $this->addFlash('hint',$playerid . 'à fais défausser puis piocher ' . $_POST['playerName'].'.');
             }
             if ($cardid == 13){ // king
                 $game->kingEffect($playerid,$_POST['playerName']);
-                $this->addFlash('hint',$playerid . 'à échanger sa main avec ' . $_POST['playerName'] .')');
+                $this->addFlash('hint',$playerid . ' à échangé sa main avec ' . $_POST['playerName'] .'.');
             }
             if ($cardid == 15){ //princess
                 $game->princessEffect($playerid);
-                $this->addFlash('hint',$playerid . 'à échanger sa main avec ' . $_POST['playerName'] .')');
+                $this->addFlash('hint',$playerid . ' s\'est éliminé en jouant la Princesse.');
             }
             //si la partie est finie on avance dans la manche suivante
             if ($game->isGameOver()){
-
+                $game->addPlayerScore($game->getWinner());
+                $this->resetGame($game);
+            }else{
+                //avance dans la boucle de jeu et fais piocher le joueur suivant
+                $game->advanceTurn();
+                $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
             }
-            //avance dans la boucle de jeu et fais piocher le joueur suivant
-            $game->advanceTurn();
-            $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
         }else{
             $this->addFlash('information','Vous ne pouvez pas jouer une carte que vous ne possedez pas.');
         }

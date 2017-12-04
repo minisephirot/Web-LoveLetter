@@ -33,7 +33,7 @@
                 </div>
             {% endif %}
 
-            <h1>Partie numéro {{ game.id }}</h1>
+            <h1>Partie numéro {{ game.id }} : <small class="text-muted">manche numéro {{ game.party.roundNumber }}</small></h1>
             <h3>Tour du joueur "{{ game.players[game.playerTurn] }}"</h3>
             <br>
             {% for message in app.flashes('information') %}
@@ -65,9 +65,7 @@
                             <h4>Hand :</h4>
                             {% for key, value in values %}
                                 {% if player == app.user.username %}
-                                    <li><img class="resize pulse-primary" title="Action" data-toggle="popover" data-placement="bottom" data-html="true" data-content="
-                                    <a href={{ path('LoveBundle_playcard', {'gameid': game.id,'playerid': player,'cardid': value}) }}>Play this card</a><br>
-                                    <br><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#cardmodal{{ game.card(value).nomCarte }}'>Play this card</button>"
+                                    <li><img class="pulse-primary" title="Action" data-toggle='modal' data-target='#cardmodal{{ game.card(value).nomCarte }}'
                                              src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
                                     <!-- Liste des Modaux -->
                                     <div class="modal fade" id="cardmodal{{ game.card(value).nomCarte }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -115,12 +113,12 @@
                                         </div>
                                     </div>
                                 {% else %}
-                                    <li><img class="resize" src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}"></li>
+                                    <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}"></li>
                                 {% endif %}
                             {% endfor %}
                             <h4>Board :</h4>
                             {% for key, value in game.cardsPlayed[player] %}
-                                <li><img class="resize" src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                                <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
                             {% endfor %}
                         </ul>
                 {% endfor %}

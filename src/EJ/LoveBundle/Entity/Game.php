@@ -590,12 +590,17 @@ class Game
         $res = "";
         $counts = array_count_values($this->getPlayerStatus());
         if($counts[1] == 1){
-            $winner = array_search(1,$this->getPlayerStatus());
-            $this->addPlayerScore($winner);
-            return $winner;
+            return array_search(1,$this->getPlayerStatus());
         }elseif (!$this->getCardsInDeck()){
             $test = -1;
-            
+            $array = $this->getCardsInHand();
+            $keys = array_keys($array);
+            foreach ($keys as $key){
+                if($array[$key][0] > $test){
+                    $test = $array[$key][0];
+                    $res = $key;
+                }
+            }
         }
         return $res;
     }
