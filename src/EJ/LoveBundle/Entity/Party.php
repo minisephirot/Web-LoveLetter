@@ -292,11 +292,33 @@ class Party
     public function getRoundNumber()
     {
         $res = 1;
-        $array = $this->getPlayerScore();
-        $keys = array_keys($array);
-        foreach ($keys as $key){
-            $res += $array[$key][0];
+        foreach ($this->getPlayerScore() as $key => $value){
+            $res = $res + $value;
         }
         return $res;
+    }
+
+    /**
+     * get the winner and increment score
+     *
+     * @return winner of the round's name
+     */
+    public function getGlobalWinner()
+    {
+        $nb = $this->getNbPlayers();
+        switch ($nb) {
+            case 2:
+                $maxround = 7;
+                break;
+            case 3:
+                $maxround = 5;
+                break;
+            case 4:
+                $maxround = 4;
+                break;
+            default:
+                break;
+        }
+        return array_search($maxround,$this->getPlayerScore());
     }
 }

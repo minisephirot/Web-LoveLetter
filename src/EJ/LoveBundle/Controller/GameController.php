@@ -156,7 +156,7 @@ class GameController extends Controller
         //on recup qui joue et on le renvoie en tant que json
         $tour = $game->getPlayerTurn();
 
-        return $this->json($tour);
+        return $this->json(array($tour,$game->getParty()->getRoundNumber(),$game->getParty()->getIsOver()));
     }
 
     public function createGame($id){

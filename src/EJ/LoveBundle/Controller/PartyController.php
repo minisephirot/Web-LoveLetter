@@ -94,7 +94,7 @@ class PartyController extends Controller
         //on recup qui joue et on le renvoie en tant que json
         $nb = $party->getNbPlayers();
 
-        return $this->json(array($nb,$party->getIsStarted()));
+        return $this->json(array($nb,$party->getIsStarted(),$party->getIsOver()));
     }
              
 }

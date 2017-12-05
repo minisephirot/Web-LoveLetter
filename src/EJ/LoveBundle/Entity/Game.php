@@ -593,11 +593,9 @@ class Game
             return array_search(1,$this->getPlayerStatus());
         }elseif (!$this->getCardsInDeck()){
             $test = -1;
-            $array = $this->getCardsInHand();
-            $keys = array_keys($array);
-            foreach ($keys as $key){
-                if($array[$key][0] > $test){
-                    $test = $array[$key][0];
+            foreach ($this->getCardsInHand() as $key => $value){
+                if($value[0] > $test){
+                    $test = $value[0];
                     $res = $key;
                 }
             }
