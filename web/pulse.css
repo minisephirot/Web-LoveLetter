@@ -11,6 +11,10 @@
 	width:75%;
 	height:auto;
 }
+.container{
+	display: flex;
+	flex-direction: column;
+}
 .me{
 	float:left;
 	width:100px;
