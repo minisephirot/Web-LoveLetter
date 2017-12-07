@@ -97,12 +97,29 @@ class Party
     /**
      * Add player
      *
-     * @param EJ\LoveBundle\Entity\User
+     * @param user
      */
     public function addPlayer($player)
     {
         $this->partyPlayers[] = $player;
         $this->playerScore[$player->getUsername()] = 0;
+    }
+
+    /**
+     * Remove player
+     *
+     * @param user
+     */
+    public function removePlayer($player)
+    {
+        foreach ($this->partyPlayers as $key => $value){
+            if ( $player ==  $value->getUsername()){
+				unset($this->partyPlayers[$key]);
+			}
+        }
+	    $user = array_search($player,$this->partyPlayers);
+        
+        unset($this->playerScore[$player]);
     }
 
     /**

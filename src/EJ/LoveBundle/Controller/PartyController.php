@@ -71,7 +71,7 @@ class PartyController extends Controller
         $party = $repository->find($partyid);
 
         //redirige directement l'user si la partie a déjà commencé :
-        if ($party->getIsStarted()) {
+        if ($party->getIsStarted() && !$party->getIsOver()) {
             $this->addFlash('information','La partie à déjà commencé.');
             return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $party->getId() ));
         }
@@ -79,6 +79,29 @@ class PartyController extends Controller
         $user = $this->getUser();
         if (in_array($user->getUsername(),$party->getPartyPlayersName()) == false){
             $party->addPlayer($user);
+        }
+
+        $em->flush();
+        return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid'=> $party->getId() ));
+    }
+
+    public function leavePartyAction($partyid){
+        $em = $this->getDoctrine()->getManager();
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Party');
+        $party = $repository->find($partyid);
+
+        //redirige directement l'user si la partie a déjà commencé :
+        if ($party->getIsStarted()) {
+            $this->addFlash('information','La partie à déjà commencé.');
+            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $party->getId() ));
+        }
+
+        $user = $this->getUser();
+        if (in_array($user->getUsername(),$party->getPartyPlayersName()) == true){
+            $party->removePlayer($user->getUsername());
         }
 
         $em->flush();

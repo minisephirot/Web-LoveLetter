@@ -83,3 +83,8 @@ LoveBundle_joinParty:
     defaults:
         _controller: EJLoveBundle:Party:joinParty
 
+LoveBundle_leaveParty:
+    path:      /party/leaveParty/{partyid}
+    defaults:
+        _controller: EJLoveBundle:Party:leaveParty
+

@@ -34,8 +34,8 @@
                 {% endfor %}
             </table>
 
-
             {% if party.isOver == 0 %}
+                <br><a class="btn btn-primary" href="{{ path('LoveBundle_leaveParty',{'partyid': party.id})}}">Quitter la partie</a>
                 {% if app.user == party.host and party.getNbPlayers > 1 %}
                     <br><a class="btn btn-primary pulse-success" href="{{ path('LoveBundle_create',{'gameid': party.id})}}">Commencer la partie</a>
                 {% endif %}
