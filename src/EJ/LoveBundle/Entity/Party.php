@@ -115,6 +115,7 @@ class Party
         foreach ($this->partyPlayers as $key => $value){
             if ( $player ==  $value->getUsername()){
 				unset($this->partyPlayers[$key]);
+                array_splice($this->partyPlayers,0,0);
 			}
         }
 	    $user = array_search($player,$this->partyPlayers);

@@ -49,9 +49,9 @@ class PartyController extends Controller
             ->getRepository('EJLoveBundle:Party');
          $party = $repository->find($partyid);
 
-        // $gameid est donc une instance de notre jeu
-        // ou null si l'id $gameid  n'existe pas, d'où ce if :
-        if (null === $partyid || $partyid < 1) {
+        // $partyid est donc une instance de notre party
+        // ou null si l'id $partyid  n'existe pas, d'où ce if :
+        if (null === $party || $partyid < 1) {
             throw new NotFoundHttpException('La partie assignée a l\'ID "' . $partyid . '" est inexistant.');
         }
 
@@ -69,7 +69,11 @@ class PartyController extends Controller
             ->getManager()
             ->getRepository('EJLoveBundle:Party');
         $party = $repository->find($partyid);
-
+        var_dump($party);
+        if (null === $party || $partyid < 1) {
+            throw new NotFoundHttpException('La partie assignée a l\'ID "' . $partyid . '" est inexistant.');
+        }
+        
         //redirige directement l'user si la partie a déjà commencé :
         if ($party->getIsStarted() && !$party->getIsOver()) {
             $this->addFlash('information','La partie à déjà commencé.');
@@ -93,19 +97,19 @@ class PartyController extends Controller
             ->getRepository('EJLoveBundle:Party');
         $party = $repository->find($partyid);
 
-        //redirige directement l'user si la partie a déjà commencé :
-        if ($party->getIsStarted()) {
-            $this->addFlash('information','La partie à déjà commencé.');
-            return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $party->getId() ));
-        }
-
         $user = $this->getUser();
         if (in_array($user->getUsername(),$party->getPartyPlayersName()) == true){
             $party->removePlayer($user->getUsername());
         }
+        if ($party->getNbPlayers() >= 1){ // si il reste au moins un joueur dans la partie 
+            $nextplayer = $party->getPartyPlayers();
+            $party->setHost($nextplayer[0]);
+        }else{
+            $em->remove($party);
+        }
 
         $em->flush();
-        return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid'=> $party->getId() ));
+        return $this->redirectToRoute('LoveBundle_ListParty');
     }
 
     public function getNbJoueursAction($partyid){
