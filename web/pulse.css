@@ -11,7 +11,7 @@
 	width:75%;
 	height:auto;
 }
-.container{
+.containercard{
 	display: flex;
 	flex-direction: column;
 }

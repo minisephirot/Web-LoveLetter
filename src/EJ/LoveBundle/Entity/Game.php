@@ -61,6 +61,13 @@ class Game
     /**
      * @var array
      *
+     * @ORM\Column(name="playerProtection", type="array", nullable=true)
+     */
+    private $playerProtection;
+
+    /**
+     * @var array
+     *
      * @ORM\Column(name="cardsPlayed", type="array", nullable=true)
      */
     private $cardsPlayed;
@@ -161,6 +168,7 @@ class Game
             $this->cardsPlayed[$nomjoueur] = null;
             $this->cardsInHand[$nomjoueur] = null ;
             $this->playerStatus[$nomjoueur] = 1;
+            $this->playerProtection[$nomjoueur] = 0;
         }
     }
 
@@ -175,6 +183,7 @@ class Game
         $this->cardsPlayed[$nomjoueur] = null;
         $this->cardsInHand[$nomjoueur] = null;
         $this->playerStatus[$nomjoueur] = 1;
+        $this->playerProtection[$nomjoueur] = 0;
     }
 
     /**
@@ -447,6 +456,8 @@ class Game
                 $this->setPlayerTurn(0);
             }
         } while($this->getPlayerStatusByName($this->getPlayerNameTurn()) == 0 );
+        //Si le joueur était protégé au dernier tour il ne doit plus l'être.
+        if ($this->playerProtection[$this->getPlayerNameTurn()] == 1){$this->playerProtection[$this->getPlayerNameTurn()] = 0;}
     }
 
     /**
@@ -718,5 +729,37 @@ class Game
         $this->setPlayerOut($player);  
         $this->removeCardInHand($player,intval($idcard));
         $this->addPlayedCard($player, intval($idcard));
+    }
+
+    /**
+     * apply the handmaid effect
+     *
+     */
+    public function handmaidEffect($player){
+        $this->playerProtection[$player] = 1;
+    }
+
+    /**
+     * Set playerProtection
+     *
+     * @param array $playerProtection
+     *
+     * @return Game
+     */
+    public function setPlayerProtection($playerProtection)
+    {
+        $this->playerProtection = $playerProtection;
+    
+        return $this;
+    }
+
+    /**
+     * Get playerProtection
+     *
+     * @return array
+     */
+    public function getPlayerProtection()
+    {
+        return $this->playerProtection;
     }
 }

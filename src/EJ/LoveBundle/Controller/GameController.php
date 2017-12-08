@@ -7,7 +7,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use EJ\LoveBundle\Entity\Card;
 use EJ\LoveBundle\Entity\Game;
-use EJ\LoveBundle\Entity\Party;
 
 class GameController extends Controller
 {
@@ -78,7 +77,7 @@ class GameController extends Controller
 
         $request = Request::createFromGlobals();
         $a = $request->request->all();
-        var_dump($a);
+
 
         //vérifie que le joueur lancant l'action correspond bien au joueur ayant la main
         if ($this->getUser()->getUsername() != $game->getPlayerNameTurn() ){
@@ -111,15 +110,26 @@ class GameController extends Controller
                     $this->addFlash('hint',$playerid . ' à échoué à éliminer ' . $_POST['playerName'] . ' en devinant sa carte ('. $_POST['cardName'] .').');
                 }
             }
+            if ($cardid == 5 or $cardid == 6){ // priest
+                $playershand = $game->getCardsInHand();
+                $targethand = $playershand[$_POST['playerName']];
+                $cardvalue = $targethand[0];
+                $cards = $game->getCards();
+                $card = $cards[$cardvalue];
+                $cardname = $card->getNomCarte();
+                var_dump($cardname);
+                $this->addFlash('hint','Vous regardez la main de'.$_POST['playerName'].' : Il possède un '.$cardname.'.');
+            }
             if ($cardid == 7 or $cardid == 8){ // baron 
                 $game->baronEffect($playerid, $_POST['playerName']);
             }
             if ($cardid == 9 or $cardid == 10){ // handmaid
-                
+                $game->handmaidEffect($playerid);
+                $this->addFlash('hint','Vous êtes maintenant protégé jusqu\'au prochain tour.');
             }           
             if ($cardid == 11 or $cardid == 12){ // prince
                 $game->princeEffect($_POST['playerName']);
-                $this->addFlash('hint',$playerid . 'à fais défausser puis piocher ' . $_POST['playerName'].'.');
+                $this->addFlash('hint',$playerid . ' à fais défausser puis piocher ' . $_POST['playerName'].'.');
             }
             if ($cardid == 13){ // king
                 $game->kingEffect($playerid,$_POST['playerName']);

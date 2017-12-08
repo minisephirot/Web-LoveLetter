@@ -59,7 +59,7 @@
                 {% for player,values in game.cardsInHand %}
 
                         <h3>{{ player }}</h3>
-                        <h4>En jeu : {{game.playerStatus[player]}} | Score : {{ game.party.playerScore[player] }}  </h4>
+                        <h4>En jeu : {{game.playerStatus[player]}} | Protégé : {{ game.playerProtection[player] }} | Score : {{ game.party.playerScore[player] }}</h4>
 
                         <ul class="list-inline">
                             <h4>Hand :</h4>
@@ -85,7 +85,7 @@
                                                             Ciblez un joueur :
                                                             <select name="playerName" size="1">
                                                                 {% for key, value in game.playerStatus %}
-                                                                    {% if value %}
+                                                                    {% if value and not game.playerProtection[key] %}
                                                                         <option selected>{{ key }}
                                                                     {% endif %}
                                                                 {% endfor %}
@@ -163,7 +163,7 @@
                 var currentround = {{ game.party.roundNumber }}
                     $(function() {
                         $('#flash').delay(500).fadeIn('normal', function() {
-                            $(this).delay(5000).fadeOut();
+                            $(this).delay(10000).fadeOut();
                         });
                     });
                 $(function(){

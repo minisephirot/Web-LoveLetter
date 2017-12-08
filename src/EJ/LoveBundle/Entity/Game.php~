@@ -61,6 +61,13 @@ class Game
     /**
      * @var array
      *
+     * @ORM\Column(name="playerProtection", type="array", nullable=true)
+     */
+    private $playerProtection;
+
+    /**
+     * @var array
+     *
      * @ORM\Column(name="cardsPlayed", type="array", nullable=true)
      */
     private $cardsPlayed;
@@ -88,7 +95,7 @@ class Game
 
     /**
      * set id
-     *
+     * @param int
      */
     public function setId($id)
     {
@@ -167,7 +174,7 @@ class Game
     /**
      * Add Player to every array which needs a player
      *
-     * @param string $nomjoueurs
+     * @param string $nomjoueur
      *
      */
     public function addPlayer($nomjoueur)
@@ -248,6 +255,8 @@ class Game
     {
         if (in_array($cardid,$this->cardsInHand[$player])){
             $this->cardsInHand[$player] = array_diff($this->cardsInHand[$player],array($cardid));
+            //reorganise la main du joueur
+            array_splice($this->cardsInHand[$player], 0, 0);
             return true;
         }else{
             return false;
@@ -288,6 +297,18 @@ class Game
     {
         $card = array_pop($this->cardsInDeck);
         return $card;
+    }
+
+    /**
+     * give to the designed player the secret card (usefull for some Prince exeption)
+     *
+     * @param string
+     *
+     */
+    public function giveSecretCard($player)
+    {
+        $this->addCardInHand($player,$this->getCardHidden());
+        array_shift($this->getCardsDiscarded());
     }
 
     /**
@@ -426,17 +447,19 @@ class Game
      */
     public function advanceTurn()
     {
-        $this->playerTurn++;
         $nb = count($this->getPlayers());
-        if ($this->getPlayerTurn() >= $nb){
-            $this->setPlayerTurn(0);
-        }
+        do {
+            $this->playerTurn++;
+            if ($this->getPlayerTurn() >= $nb){
+                $this->setPlayerTurn(0);
+            }
+        } while($this->getPlayerStatusByName($this->getPlayerNameTurn()) == 0 );
     }
 
     /**
      * get the player's name wich have the hand
      *
-     *
+     * @return string
      */
     public function getPlayerNameTurn()
     {
@@ -479,13 +502,41 @@ class Game
     }
 
     /**
-     * Get playerStatus
+     * set a player out of round
      *
-     * @return array
+     * @param string
      */
     public function setPlayerOut($player)
     {
         $this->playerStatus[$player] = 0;
+    }
+
+    /**
+     * get a player status by it's name
+     * @param string
+     * @return integer
+     */
+    public function getPlayerStatusByName($player)
+    {
+        return $this->playerStatus[$player];
+    }
+
+    /**
+     * Control if the Countess effect is on
+     *
+     * @param string
+     * @return boolean
+     */
+    public function isCountessActive($player)
+    {
+        $res = false;
+        $hand = $this->cardsInHand[$player];
+        if (in_array(14,$hand)){
+            if (in_array(13,$hand) or in_array(11,$hand) or in_array(12,$hand) ){
+                $res = true;
+            }
+        }
+        return $res;
     }
 
     /**
@@ -495,7 +546,7 @@ class Game
      *
      * @return Game
      */
-    public function setParty(\EJ\LoveBundle\Entity\Party $party = null)
+    public function setParty($party = null)
     {
         $this->party = $party;
     
@@ -510,5 +561,169 @@ class Game
     public function getParty()
     {
         return $this->party;
+    }
+
+    /**
+     * Increment player score
+     *
+     * @param string
+     */
+    public function addPlayerScore($playername)
+    {
+        $this->party->addPlayerScore($playername);
+    }
+
+    /**
+     * Check if the round is over
+     *
+     * @return boolean
+     */
+    public function isGameOver()
+    {
+        $res = false;
+        $counts = array_count_values($this->getPlayerStatus());
+        if($counts[1] == 1){ $res = true;}
+        if(!$this->getCardsInDeck()){ $res = true;}
+        return $res;
+    }
+
+    /**
+     * get the winner and increment score
+     *
+     * @return winner of the round's name
+     */
+    public function getWinner()
+    {
+        $res = "";
+        $counts = array_count_values($this->getPlayerStatus());
+        if($counts[1] == 1){
+            return array_search(1,$this->getPlayerStatus());
+        }elseif (!$this->getCardsInDeck()){
+            $test = -1;
+            foreach ($this->getCardsInHand() as $key => $value){
+                if($value[0] > $test){
+                    $test = $value[0];
+                    $res = $key;
+                }
+            }
+        }
+        return $res;
+    }
+    
+    /**
+    * apply the guard effect 
+    * @return bool
+    */
+    public function guardEffect($player, $cardname){
+        $res = false;
+        $idcard = $this->cardsInHand[$player][0];
+        $card = $this->getCard($idcard)->getNomCarte();
+        if (strcmp($card, $cardname) == 0){
+            $this->setPlayerOut($player);
+            $this->removeCardInHand($player,$idcard);
+            $this->addPlayedCard($player,$idcard);
+            $res = true;
+        }
+        return $res;
+    }
+    
+    /**
+    * apply the prince effect
+    *
+    */
+    public function princeEffect($player){
+        // on récupere l'id de la carte en main
+        $idcard = $this->cardsInHand[$player][0];
+        $this->removeCardInHand($player,$idcard);
+        $this->addPlayedCard($player,$idcard);
+        if ($idcard == 15){
+            $this->setPlayerOut($player);
+        }else{
+            if ($this->getCardsInDeck()){
+                $card = $this->drawCard();
+                $this->addCardInHand($player, $card );
+            }else{
+                $this->giveSecretCard($player);
+            }
+        }
+    }
+
+    /**
+    * apply the baron effect
+    *
+    */
+    public function baronEffect($player1, $player2){
+
+        $idp1 = $this->cardsInHand[$player1][0];
+        $idp2 = $this->cardsInHand[$player2][0];
+        $cardvalp1 = $this->getcardVal($idp1);
+        $cardvalp2 = $this->getcardVal($idp2);
+
+        if($cardvalp1<$cardvalp2){ // si le joueur 2 a une carte plus forte 
+            $this->setPlayerOut($player1);  
+            $this->removeCardInHand($player1,$idp1);
+            $this->addPlayedCard($player1,$idp1);
+        }
+        if ($cardvalp1>$cardvalp2){ // si le joueur 1 a une carte plus forte
+            $this->setPlayerOut($player2);  
+            $this->removeCardInHand($player2,$idp2);
+            $this->addPlayedCard($player2,$idp2);
+        }
+    }
+    
+    /*
+    * fonction qui permet de retourner la valeur de la carte de 0 a 8 pour ensuite faciliter la comparaison pour le baron
+    *
+    */
+    public function getcardVal($id){
+        $val = 0;
+        if ($id>=0 and $id <=4){
+            $val=0;
+        }
+        if ($id==5 or $id ==6){
+            $val=1;
+        }
+        if ($id==7 or $id ==8){
+            $val=2;
+        }
+        if ($id==9 or $id ==10){
+            $val=3;
+        }
+        if ($id==11 or $id ==12){
+            $val=4;
+        }
+        if ($id==13){
+            $val=5;
+        }
+        if ($id==14){
+            $val=6;
+        }
+        if ($id==15){
+            $val=7;
+        }
+        return $val;
+    }
+    
+    /**
+    * apply the king effect
+    *
+    */
+    public function kingEffect($player1, $player2){
+        $tmp = $this->getCardsInHand();
+        $p1 = $tmp[$player1];
+        $p2 = $tmp[$player2];
+        $this->cardsInHand[$player1] = $p2;
+        $this->cardsInHand[$player2] = $p1;
+    }
+    
+    /**
+    * apply the princess effect
+    *
+    */
+    public function princessEffect($player){
+        $idcard = $this->cardsInHand[$player][0];
+        $this->setPlayerOut($player);  
+        $this->removeCardInHand($player,intval($idcard));
+        $this->addPlayedCard($player, intval($idcard));
     }
 }
