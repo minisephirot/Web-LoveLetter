@@ -28,6 +28,7 @@
 
             <h1>Partie de {{ party.host }} : <small>({{ party.getNbPlayers}} joueurs inscrits)</small></h1><br>
 
+            <br><h4>Liste des joueurs :</h4>
             <table style="width:25%" class="table" frame="box" rules="none">
                 {% for key, value in party.partyPlayers %}
                    <tr><td>{{ value }}</td></tr>
@@ -37,9 +38,15 @@
             {% if party.isOver == 0 %}
                 <br><a class="btn btn-primary" href="{{ path('LoveBundle_leaveParty',{'partyid': party.id})}}">Quitter la partie</a>
                 {% if app.user == party.host and party.getNbPlayers > 1 %}
-                    <br><a class="btn btn-primary pulse-success" href="{{ path('LoveBundle_create',{'gameid': party.id})}}">Commencer la partie</a>
+                    <br><br><a class="btn btn-primary pulse-success" href="{{ path('LoveBundle_create',{'gameid': party.id})}}">Commencer la partie</a>
                 {% endif %}
             {% else %}
+                <h4>Tableau des score :</h4>
+                    <table style="width:25%" class="table" frame="box" rules="none">
+                        {% for key, value in party.playerScore %}
+                            <tr><td>{{ key }} : {{ value }}</td></tr>
+                        {% endfor %}
+                    </table>
                 <h3> La partie a été remportée par {{ party.globalWinner }} !</h3>
             {% endif %}
 

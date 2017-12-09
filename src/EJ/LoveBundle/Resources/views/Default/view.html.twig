@@ -118,7 +118,7 @@
                             {% endfor %}
                             <h4>Board :</h4>
                             {% for key, value in game.cardsPlayed[player] %}
-                                <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
+                                <li><img class="resize" src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
                             {% endfor %}
                         </ul>
                 {% endfor %}
@@ -174,13 +174,14 @@
                         if(data[2]) {
                             alert('Cette partie est finie, vous allez être redirigé au lobby...');
                             window.location.replace("{{ path('LoveBundle_viewParty',{'partyid': game.id}) }}");
-                        }
-                        if (playerint != data[0]){
-                            //$('#game').load("{{ game.id }} #game").fadeIn("slow");
-                            window.location.reload();
-                        }if(currentround != data[1]){
-                            alert('la manche est terminée, passer à la manche suivante ? ');
-                            window.location.reload();
+                        }else{
+                            if (playerint != data[0]){
+                                //$('#game').load("{{ game.id }} #game").fadeIn("slow");
+                                window.location.reload();
+                            }if(currentround != data[1]){
+                                alert('la manche est terminée, passer à la manche suivante ? ');
+                                window.location.reload();
+                            }
                         }
                     })
                 }, 5000); // refresh every 2000 milliseconds

@@ -118,7 +118,7 @@ class GameController extends Controller
                 $card = $cards[$cardvalue];
                 $cardname = $card->getNomCarte();
                 var_dump($cardname);
-                $this->addFlash('hint','Vous regardez la main de'.$_POST['playerName'].' : Il possède un '.$cardname.'.');
+                $this->addFlash('hint','Vous regardez la main de '.$_POST['playerName'].' : Il possède un '.$cardname.'.');
             }
             if ($cardid == 7 or $cardid == 8){ // baron 
                 $game->baronEffect($playerid, $_POST['playerName']);
