@@ -60,6 +60,10 @@ class GameController extends Controller
             throw new NotFoundHttpException('La partie assignée a l\'ID "' . $gameid . '" est inexistant.');
         }
 
+        if ($game->getParty()->getIsOver()) {
+            return $this->redirectToRoute('LoveBundle_viewParty',array( 'partyid' => $game->getId() ));
+        }
+
         // Le render ne change pas, on passait avant un tableau, maintenant un objet
         return $this->render('EJLoveBundle:Default:view.html.twig', array(
             'game' => $game
@@ -121,7 +125,14 @@ class GameController extends Controller
                 $this->addFlash('hint','Vous regardez la main de '.$_POST['playerName'].' : Il possède un '.$cardname.'.');
             }
             if ($cardid == 7 or $cardid == 8){ // baron 
-                $game->baronEffect($playerid, $_POST['playerName']);
+                $result = $game->baronEffect($playerid, $_POST['playerName']);
+                if ($result == $playerid){
+                    $this->addFlash('hint',$playerid . ' à réussi à éliminer ' . $_POST['playerName'] . ' avec un Baron.');
+                }else if ($result == $_POST['playerName']){
+                    $this->addFlash('hint',$playerid . ' s\'est éliminé contre  ' . $_POST['playerName'] . ' avec un Baron.');
+                }else{
+                    $this->addFlash('hint',$playerid . 'à fait une égalité contre  ' . $_POST['playerName'] . ' avec un Baron.');
+                }
             }
             if ($cardid == 9 or $cardid == 10){ // handmaid
                 $game->handmaidEffect($playerid);
@@ -150,6 +161,28 @@ class GameController extends Controller
             }
         }else{
             $this->addFlash('information','Vous ne pouvez pas jouer une carte que vous ne possedez pas.');
+        }
+
+        $em->persist($game);
+        $em->flush();
+        return $this->redirectToRoute('LoveBundle_view',array( 'gameid' => $game->getId() ));
+    }
+
+    public function leaveAction($gameid,$playerid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // On récupère l'entité correspondante à l'id $gameid
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EJLoveBundle:Game');
+        $game = $repository->find($gameid);
+        $game->getParty()->setHardPlayerScore($playerid,0);
+        $game->removePlayer($playerid);
+        if (count($game->getPlayers()) == 1){
+            $lastplayer = $game->getPlayers();
+            $game->removePlayer($lastplayer[0]);
+            $game->getParty()->setPartyOver();
+            //$game->getParty()->setHardPlayerScore($lastplayer,7);
         }
 
         $em->persist($game);
@@ -199,9 +232,11 @@ class GameController extends Controller
         $game->setCardHidden($secretCard);
         $game->addDiscardedCard($secretCard);
         //On retire les 3 premières cartes du jeu car on joue a 2
-        $game->addDiscardedCard($game->drawCard());
-        $game->addDiscardedCard($game->drawCard());
-        $game->addDiscardedCard($game->drawCard());
+        if (count($game->getPlayers()) == 2){
+            $game->addDiscardedCard($game->drawCard());
+            $game->addDiscardedCard($game->drawCard());
+            $game->addDiscardedCard($game->drawCard());
+        }
         //on fais piocher tout les joueurs +1 pour l'host qui commence
         $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
         foreach ($game->getPlayers() as $player){
@@ -233,10 +268,11 @@ class GameController extends Controller
         $game->setCardHidden($secretCard);
         $game->addDiscardedCard($secretCard);
         //On retire les 3 premières cartes du jeu car on joue a 2
-        $game->addDiscardedCard($game->drawCard());
-        $game->addDiscardedCard($game->drawCard());
-        $game->addDiscardedCard($game->drawCard());
-
+        if (count($game->getPlayers()) == 2){
+            $game->addDiscardedCard($game->drawCard());
+            $game->addDiscardedCard($game->drawCard());
+            $game->addDiscardedCard($game->drawCard());
+        }
         //on fais piocher tout les joueurs +1 pour l'host qui commence
         $game->addCardInHand($game->getPlayerNameTurn(),$game->drawCard());
         foreach ($game->getPlayers() as $player){

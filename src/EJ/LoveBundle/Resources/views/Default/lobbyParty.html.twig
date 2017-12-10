@@ -47,7 +47,11 @@
                             <tr><td>{{ key }} : {{ value }}</td></tr>
                         {% endfor %}
                     </table>
-                <h3> La partie a été remportée par {{ party.globalWinner }} !</h3>
+                {% if party.globalWinner %}
+                    <h3> La partie a été remportée par {{ party.globalWinner }} !</h3>
+                {% else %}
+                    <h3> La partie a été annulée !</h3>
+                {% endif %}
             {% endif %}
 
         </div>

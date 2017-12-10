@@ -48,6 +48,14 @@ LoveBundle_playcard:
         playerid: "[a-zA-Z0-9-]+"
         cardid: \d+
 
+LoveBundle_leavegame:
+    path:      /game/{gameid}/leave/{playerid}
+    defaults:
+        _controller: EJLoveBundle:Game:leave
+    requirements:
+        gameid: \d+
+        playerid: "[a-zA-Z0-9-]+"
+
 LoveBundle_refresh:
     path:      /game/{gameid}/refresh
     defaults:

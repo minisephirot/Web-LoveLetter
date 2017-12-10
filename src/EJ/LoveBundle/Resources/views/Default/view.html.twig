@@ -121,6 +121,9 @@
                                 <li><img class="resize" src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}"></li>
                             {% endfor %}
                         </ul>
+                    {% if player == app.user.username or is_granted('ROLE_ADMIN') %}
+                            <br><a type="button" class="btn btn-info pulse-danger" href={{ path('LoveBundle_leavegame', {'gameid': game.id,'playerid':player }) }}>Leave the game.</a>
+                    {% endif %}
                 {% endfor %}
             </div>
 

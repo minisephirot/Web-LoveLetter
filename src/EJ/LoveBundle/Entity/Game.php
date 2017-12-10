@@ -187,6 +187,23 @@ class Game
     }
 
     /**
+     * Remove player
+     *
+     * @param user
+     */
+    public function removePlayer($player)
+    {
+        unset($this->cardsPlayed[$player]);
+        array_splice($this->cardsPlayed,0,0);
+        unset($this->cardsInHand[$player]);
+        array_splice($this->cardsInHand,0,0);
+        unset($this->playerStatus[$player]);
+        array_splice($this->playerStatus,0,0);
+        unset($this->playerProtection[$player]);
+        array_splice($this->playerProtection,0,0);
+    }
+
+    /**
      * return the keys from the first dimension (the players)
      *
      *
@@ -667,12 +684,15 @@ class Game
             $this->setPlayerOut($player1);  
             $this->removeCardInHand($player1,$idp1);
             $this->addPlayedCard($player1,$idp1);
+            return $player2;
         }
         if ($cardvalp1>$cardvalp2){ // si le joueur 1 a une carte plus forte
             $this->setPlayerOut($player2);  
             $this->removeCardInHand($player2,$idp2);
             $this->addPlayedCard($player2,$idp2);
+            return $player1;
         }
+        return 0;
     }
     
     /*
@@ -749,7 +769,6 @@ class Game
     public function setPlayerProtection($playerProtection)
     {
         $this->playerProtection = $playerProtection;
-    
         return $this;
     }
 

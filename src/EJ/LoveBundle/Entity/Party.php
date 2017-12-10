@@ -226,7 +226,7 @@ class Party
      */
     public function setPartyOver()
     {
-        $this->isStarted = 1;
+        $this->isOver = 1;
     }
 
     /**
@@ -254,7 +254,7 @@ class Party
     }
 
     /**
-     * Set a player score
+     * increment a player score
      *
      * @param string $player
      *
@@ -262,6 +262,18 @@ class Party
     public function addPlayerScore($player)
     {
         $this->playerScore[$player] = $this->playerScore[$player]+1;
+        $this->checkIfOver($player);
+    }
+
+    /**
+     * Set a player score
+     *
+     * @param string $player
+     *
+     */
+    public function setHardPlayerScore($player,$score)
+    {
+        $this->playerScore[$player] = $score;
         $this->checkIfOver($player);
     }
 
@@ -319,7 +331,7 @@ class Party
     /**
      * get the winner and increment score
      *
-     * @return winner of the round's name
+     * @return winner of the game's name
      */
     public function getGlobalWinner()
     {

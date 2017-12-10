@@ -29,30 +29,34 @@
                     {% set index = loop.index %}
                     {% for game in gamelist %}
                         {% if (index == game.id)  %}
-                            <a style="margin-left:5%" href="{{ path('LoveBundle_view', {'gameid': game.id}) }}">Manche en cours de la partie numéro {{ game.id }}</a>
-                            <br><a style="margin-left:5%" type="button" class="btn btn-info btn-sm" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset la manche</a>
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#debug{{ game.id }}">Data manche</button>
-                            <div id="debug{{ game.id }}" class="collapse well">
-                                Nom associé à ce client:
-                                {{ dump(app.user.username) }}
-                                Tableau des joueurs :
-                                {{ dump(game.players)}}
-                                Etat des joueurs (1:dans la manche / 0:Out) :
-                                {{ dump(game.playerStatus)}}
-                                Tour du joueur n° :
-                                {{ dump(game.playerTurn , game.players[game.playerTurn] )}}
-                                Tableau des cartes en main des joueurs
-                                {{ dump(game.cardsInHand)}}
-                                Tableau des cartes jouées par les joueurs
-                                {{ dump(game.cardsPlayed)}}
-                                Tableau de la pioche
-                                {{ dump(game.cardsInDeck)}}
-                                Tableau de la défausse
-                                {{ dump(game.cardsDiscarded)}}
-                                Carte Secrete:
-                                {{ dump(game.cardHidden)}}
-                            </div>
-                            <br><br>
+                            {% if game.party.globalWinner %}
+                                <a style="margin-left:5%" href="{{ path('LoveBundle_view', {'gameid': game.id}) }}">Manche en cours de la partie numéro {{ game.id }}</a>
+                                <br><a style="margin-left:5%" type="button" class="btn btn-info btn-sm" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset la manche</a>
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#debug{{ game.id }}">Data manche</button>
+                                <div id="debug{{ game.id }}" class="collapse well">
+                                    Nom associé à ce client:
+                                    {{ dump(app.user.username) }}
+                                    Tableau des joueurs :
+                                    {{ dump(game.players)}}
+                                    Etat des joueurs (1:dans la manche / 0:Out) :
+                                    {{ dump(game.playerStatus)}}
+                                    Tour du joueur n° :
+                                    {{ dump(game.playerTurn , game.players[game.playerTurn] )}}
+                                    Tableau des cartes en main des joueurs
+                                    {{ dump(game.cardsInHand)}}
+                                    Tableau des cartes jouées par les joueurs
+                                    {{ dump(game.cardsPlayed)}}
+                                    Tableau de la pioche
+                                    {{ dump(game.cardsInDeck)}}
+                                    Tableau de la défausse
+                                    {{ dump(game.cardsDiscarded)}}
+                                    Carte Secrete:
+                                    {{ dump(game.cardHidden)}}
+                                </div>
+                                <br><br>
+                            {% else %}
+                                Cette partie a été annulée.
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 {% endfor %}
