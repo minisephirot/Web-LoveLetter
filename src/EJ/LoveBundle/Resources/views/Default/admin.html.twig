@@ -29,7 +29,7 @@
                     {% set index = loop.index %}
                     {% for game in gamelist %}
                         {% if (index == game.id)  %}
-                            {% if game.party.globalWinner %}
+                            {% if game.party.globalWinner or not game.party.isOver %}
                                 <a style="margin-left:5%" href="{{ path('LoveBundle_view', {'gameid': game.id}) }}">Manche en cours de la partie numéro {{ game.id }}</a>
                                 <br><a style="margin-left:5%" type="button" class="btn btn-info btn-sm" href={{ path('LoveBundle_reset', {'gameid': game.id}) }}>Reset la manche</a>
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#debug{{ game.id }}">Data manche</button>

@@ -134,7 +134,11 @@
                         {% set pixel = 10 %}
                         {% set zaxe = 0 %}
                         {% for key, value in game.cardsInDeck %}
-                            <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><img src="{{ game.card(value).imageCarte }}" alt="{{ game.card(value).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                            {% else %}
+                                <li><img src="{{ game.card(16).imageCarte }}" alt="{{ game.card(16).nomCarte }}" style="position:absolute; top:0px; left:{{ pixel }}px; z-index:{{ zaxe }}"></li>
+                            {% endif %}
                             {% set pixel = pixel + 50 %}
                             {% set zaxe = zaxe + 1 %}
                         {% endfor %}
